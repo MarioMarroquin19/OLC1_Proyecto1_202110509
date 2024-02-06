@@ -4,11 +4,34 @@
  */
 package main;
 
+import java.io.StringReader;
+
 /**
  *
  * @author mario
  */
 public class Main {
+    
+    
+    public static void main(String[] args) {
+        
+    String entrada = """
+                  14
+                  15
+                  54
+                  """;
+    
+    // Generar Analizadores
+    
+    //analizadores("src/analizador/", "Lexer.jflex", "Parser.cup");
+    
+    analizar(entrada);
+ 
+   }   
+    
+    
+    
+    
     public static void analizadores(String ruta, String jflexFile, String cupFile){
         try {
             String opcionesJflex[] =  {ruta+jflexFile,"-d",ruta};
@@ -23,22 +46,19 @@ public class Main {
         }
     }
     
- public static void main(String[] args) {
-    String entrada = "25"; // Puedes modificar esta entrada
     
-    // Generar Analizadores
-    analizadores("src/analizador/", "Lexer.jflex", "Parser.cup");
-    
-    // Realizar Analisis
-    /*try {
-        analizador.Parser parser = new Parser(new analizador.Lexer(new StringReader(entrada)));
-        parser.parse();
-
-    } catch (Exception ex) {
-        System.out.println("Error fatal en compilación de entrada.");
-    } */ 
-    
-}
+ 
+     // Realizar Analisis
+    public static void analizar (String entrada){
+        try {
+            analizador.Lexer lexer = new analizador.Lexer(new StringReader(entrada)); 
+            analizador.Parser parser = new analizador.Parser(lexer);
+            parser.parse();
+        } catch (Exception e) {
+            System.out.println("Error fatal en compilación de entrada.");
+            System.out.println(e);
+        } 
+    } 
         
 }
 
