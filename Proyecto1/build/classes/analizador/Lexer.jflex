@@ -51,18 +51,42 @@ entero = [0-9]+
 "Max"       {return new Symbol (sym.MAX, yycolumn, yyline, yytext());}
 "Min"       {return new Symbol (sym.MIN, yycolumn, yyline, yytext());}
 
-"graphPie"
-"graphBar"
+"console"   {return new Symbol (sym.CONSOLE, yycolumn, yyline, yytext());}
 
+"graphPie"  {return new Symbol (sym.GraphPie, yycolumn, yyline, yytext());}
+"graphBar"  {return new Symbol (sym.GraphBar, yycolumn, yyline, yytext());}
+"graphLine" {return new Symbol (sym.GraphLine, yycolumn, yyline, yytext());}
+"Histogram" {return new Symbol (sym.HISTOGRAM, yycolumn, yyline, yytext());}
 
+"titulo"    {return new Symbol (sym.TITULO, yycolumn, yyline, yytext());}
+"ejeX"      {return new Symbol (sym.E_X, yycolumn, yyline, yytext());}
+"ejeY"      {return new Symbol (sym.E_Y, yycolumn, yyline, yytext());}
+"tituloX"   {return new Symbol (sym.T_X, yycolumn, yyline, yytext());}
+"tituloY"   {return new Symbol (sym.T_Y, yycolumn, yyline, yytext());}
+"EXEC"      {return new Symbol (sym.EXEC, yycolumn, yyline, yytext());}
+"label"     {return new Symbol (sym.LABEL, yycolumn, yyline, yytext());}
+"values"    {return new Symbol (sym.VALUES, yycolumn, yyline, yytext());}
 
+"print"     {return new Symbol (sym.PRINT, yycolumn, yyline, yytext());}
+"column"    {return new Symbol (sym.COLUMN, yycolumn, yyline, yytext());}
 
-"("        { return new Symbol(sym.PARENTESIS_A, yycolumn, yyline, yytext()); }
-")"        { return new Symbol(sym.PARENTESIS_C, yycolumn, yyline, yytext()); }
-"mostrar"    { return new Symbol(sym.PRINT, yycolumn, yyline, yytext()); } 
-
-{entero}  { return new Symbol(sym.ENTERO, yycolumn, yyline, yytext()); }
-
+":"         {return new Symbol (sym.DOS_PUNTOS, yycolumn, yyline, yytext());}
+";"         {return new Symbol (sym.PUNTO_COMA, yycolumn, yyline, yytext());}
+","         {return new Symbol (sym.COMA, yycolumn, yyline, yytext());}
+"."         {return new Symbol (sym.PUNTO, yycolumn, yyline, yytext());}
+"!"         {return new Symbol (sym.S_ADMIRACION, yycolumn, yyline, yytext());}
+"<"         {return new Symbol (sym.MAYOR_Q, yycolumn, yyline, yytext());}
+">"         {return new Symbol (sym.MENOR_Q, yycolumn, yyline, yytext());}
+"["         {return new Symbol (sym.A_CORCHETE, yycolumn, yyline, yytext());}
+"]"         {return new Symbol (sym.C_CORCHETE, yycolumn, yyline, yytext());}
+"{"         {return new Symbol (sym.A_LLAVE, yycolumn, yyline, yytext());}
+"}"         {return new Symbol (sym.C_LLAVE, yycolumn, yyline, yytext());}
+"-"         {return new Symbol (sym.GUION, yycolumn, yyline, yytext());}
+"@"         {return new Symbol (sym.ARROBA, yycolumn, yyline, yytext());}
+"""         {return new Symbol (sym.COMILLA, yycolumn, yyline, yytext());}
+"("         {return new Symbol (sym.A_PARENTESIS, yycolumn, yyline, yytext());}
+")"         {return new Symbol (sym.C_PARENTESIS, yycolumn, yyline, yytext());}
+"="         {return new Symbol (sym.S_IGUAL, yycolumn, yyline, yytext());}
 
 
 
