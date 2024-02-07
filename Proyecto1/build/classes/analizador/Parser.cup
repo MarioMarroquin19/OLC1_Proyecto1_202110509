@@ -33,9 +33,17 @@ action code
 
 
 //------> Declaración de terminales
-terminal String PARENTESIS_A, PARENTESIS_C;
-terminal String PRINT;
-terminal String ENTERO;
+
+terminal String PROGRAM, END, CHAR, DOUBLE, VAR, ARR;
+terminal String SUM, RES, MUL, DIV, MOD;
+terminal String MEDIA, MEDIANA, MODA, VARIANZA, MAX, MIN;
+terminal String CONSOLE;
+terminal String GraphPie, GraphBar, GraphLine, HISTOGRAM;
+terminal String TITULO, E_X, E_Y, T_X, T_Y, EXEC, LABEL, VALUES;
+terminal String PRINT, COLUMN;
+terminal String DOS_PUNTOS, PUNTO_COMA, COMA, PUNTO, S_ADMIRACION, MAYOR_Q;
+terminal String MENOR_Q, A_CORCHETE, C_CORCHETE, A_LLAVE, C_LLAVE, GUION;
+terminal String ARROBA, COMILLA, A_PARENTESIS, C_PARENTESIS, S_IGUAL;
 
 
 //------> Declaración de no terminales

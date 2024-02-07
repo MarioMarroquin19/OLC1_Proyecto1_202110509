@@ -25,7 +25,7 @@ public class Main {
     
     //analizadores("src/analizador/", "Lexer.jflex", "Parser.cup");
     
-    analizar(entrada);
+    //analizar(entrada);
  
    }   
     

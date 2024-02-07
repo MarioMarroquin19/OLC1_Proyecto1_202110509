@@ -24,12 +24,14 @@ import java_cup.runtime.*;
 // ------> Expresiones Regulares 
 
 entero = [0-9]+
+decimal = [0-9]+\.[0-9]+
+comentarios = !.*
+comentarioMulti = <!(.|"\n")*!>
 
 
 %%
 
 // ------------  Reglas Lexicas -------------------
-
 
 "Program"   {return new Symbol (sym.PROGRAM, yycolumn, yyline, yytext());}
 "End"       {return new Symbol (sym.END, yycolumn, yyline, yytext());}
@@ -88,6 +90,8 @@ entero = [0-9]+
 ")"         {return new Symbol (sym.C_PARENTESIS, yycolumn, yyline, yytext());}
 "="         {return new Symbol (sym.S_IGUAL, yycolumn, yyline, yytext());}
 
+
+{entero}  { return new Symbol(sym.ENTERO, yycolumn, yyline, yytext());}
 
 
 //------> Ingorados 
