@@ -44,7 +44,7 @@ terminal String PRINT, COLUMN;
 terminal String DOS_PUNTOS, PUNTO_COMA, COMA, PUNTO, S_ADMIRACION, MAYOR_Q;
 terminal String MENOR_Q, A_CORCHETE, C_CORCHETE, A_LLAVE, C_LLAVE, GUION;
 terminal String ARROBA, COMILLA, A_PARENTESIS, C_PARENTESIS, S_IGUAL;
-
+terminal String ENTERO, DOUBLE, CHAR, ID, ID_ARREGLO;
 
 //------> Declaración de no terminales
 non terminal inicio;

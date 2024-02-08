@@ -24,11 +24,12 @@ import java_cup.runtime.*;
 // ------> Expresiones Regulares 
 
 entero = [0-9]+
-decimal = [0-9]+\.[0-9]+
+double = [0-9]+\.[0-9]+
 comentarios = "!"([^\n]*)?
 comentarioMulti = (?s)"<!"(.*?)"!>"
-cadena =  \"[^\"]*\"
-ID = 
+char =  \"[^\"]*\"
+Id =  (\_)*[a-zA-Z][a-zA-Z0-9\_]*
+Id_arreglo = "@"{Id}
 
 
 
@@ -93,13 +94,13 @@ ID =
 ")"         {return new Symbol (sym.C_PARENTESIS, yycolumn, yyline, yytext());}
 "="         {return new Symbol (sym.S_IGUAL, yycolumn, yyline, yytext());}
 
-
 {entero}            { return new Symbol(sym.ENTERO, yycolumn, yyline, yytext());}
-{decimal}           { return new Symbol(sym.DECIMAL, yycolumn, yyline, yytext());}
+{double}           { return new Symbol(sym.DOUBLE, yycolumn, yyline, yytext());}
 {comentarios}       {}
 {comentarioMulti}   {}
-{entrada}           { return new Symbol(sym.ENTRADA, yycolumn, yyline, yytext());}
-
+{char}              {return new Symbol(sym.CHAR, yycolumn, yyline, yytext());}     
+{Id}                {return new Symbol(sym.ID, yycolumn, yyline, yytext());}
+{Id_arreglo}        {return new Symbol(sym.ID_ARREGLO, yycolumn, yyline, yytext());}
 
 
 //------> Ingorados 
