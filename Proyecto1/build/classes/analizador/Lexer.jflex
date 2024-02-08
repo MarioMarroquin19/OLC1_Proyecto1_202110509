@@ -25,9 +25,9 @@ import java_cup.runtime.*;
 
 entero = [0-9]+
 decimal = [0-9]+\.[0-9]+
-comentarios = !.*
-comentarioMulti = <!(.|"\n")*!>
-
+comentarios = "!".*("\n"|" ")
+comentarioMulti = "<!"(.|"\n")*"!>"
+entrada = 
 
 %%
 
