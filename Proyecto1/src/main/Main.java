@@ -16,16 +16,16 @@ public class Main {
     public static void main(String[] args) {
         
     String entrada = """
-                  14
-                  15
-                  54
+                    PROGRAM
+                    console::print = "Media" end;
+                    END PROGRAM
                   """;
     
     // Generar Analizadores
     
     //analizadores("src/analizador/", "Lexer.jflex", "Parser.cup");
     
-    //analizar(entrada);
+    analizar(entrada);
  
    }   
     

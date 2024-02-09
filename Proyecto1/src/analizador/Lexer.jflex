@@ -24,10 +24,10 @@ import java_cup.runtime.*;
 // ------> Expresiones Regulares 
 
 entero = [0-9]+
-double = [0-9]+\.[0-9]+
+decimal = [0-9]+\.[0-9]+
 comentarios = "!"([^\n]*)?
-comentarioMulti = (?s)"<!"(.*?)"!>"
-char =  \"[^\"]*\"
+comentarioMulti = "!"([^\n]*)?
+cadena =  \"[^\"]*\"
 Id =  (\_)*[a-zA-Z][a-zA-Z0-9\_]*
 Id_arreglo = "@"{Id}
 
@@ -39,8 +39,8 @@ Id_arreglo = "@"{Id}
 
 "Program"   {return new Symbol (sym.PROGRAM, yycolumn, yyline, yytext());}
 "End"       {return new Symbol (sym.END, yycolumn, yyline, yytext());}
-"char"      {return new Symbol (sym.CHAR, yycolumn, yyline, yytext());}
-"double"    {return new Symbol (sym.DOUBLE, yycolumn, yyline, yytext());}
+"char"      {return new Symbol (sym.CHAR1, yycolumn, yyline, yytext());}
+"double"    {return new Symbol (sym.DOUBLE1, yycolumn, yyline, yytext());}
 "var"       {return new Symbol (sym.VAR, yycolumn, yyline, yytext());}
 "arr"       {return new Symbol (sym.ARR, yycolumn, yyline, yytext());}
 
@@ -89,16 +89,16 @@ Id_arreglo = "@"{Id}
 "}"         {return new Symbol (sym.C_LLAVE, yycolumn, yyline, yytext());}
 "-"         {return new Symbol (sym.GUION, yycolumn, yyline, yytext());}
 "@"         {return new Symbol (sym.ARROBA, yycolumn, yyline, yytext());}
-"""         {return new Symbol (sym.COMILLA, yycolumn, yyline, yytext());}
+"\""         {return new Symbol (sym.COMILLA, yycolumn, yyline, yytext());}
 "("         {return new Symbol (sym.A_PARENTESIS, yycolumn, yyline, yytext());}
 ")"         {return new Symbol (sym.C_PARENTESIS, yycolumn, yyline, yytext());}
 "="         {return new Symbol (sym.S_IGUAL, yycolumn, yyline, yytext());}
 
 {entero}            { return new Symbol(sym.ENTERO, yycolumn, yyline, yytext());}
-{double}           { return new Symbol(sym.DOUBLE, yycolumn, yyline, yytext());}
+{decimal}           { return new Symbol(sym.DECIMAL, yycolumn, yyline, yytext());}
 {comentarios}       {}
 {comentarioMulti}   {}
-{char}              {return new Symbol(sym.CHAR, yycolumn, yyline, yytext());}     
+{cadena}            {return new Symbol(sym.CADENA, yycolumn, yyline, yytext());}     
 {Id}                {return new Symbol(sym.ID, yycolumn, yyline, yytext());}
 {Id_arreglo}        {return new Symbol(sym.ID_ARREGLO, yycolumn, yyline, yytext());}
 
