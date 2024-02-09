@@ -10,11 +10,6 @@ import funciones.ImpresionConsola;
 //------> Declaracion de variables, funciones y funciones de error
 
 
-
-
-
-
-
 parser code 
 {:
     public String resultado = ""; //Variable para mostrar en consola
@@ -48,7 +43,7 @@ terminal String CONSOLE;
 terminal String GraphPie, GraphBar, GraphLine, HISTOGRAM;
 terminal String TITULO, E_X, E_Y, T_X, T_Y, EXEC, LABEL, VALUES;
 terminal String PRINT, COLUMN;
-terminal String DOS_PUNTOS, PUNTO_COMA, COMA, PUNTO, S_ADMIRACION, MAYOR_Q;
+terminal String DOS_PUNTOS, PUNTO_COMA, COMA, PUNTO, S_EXCLAMACION, MAYOR_Q;
 terminal String MENOR_Q, A_CORCHETE, C_CORCHETE, A_LLAVE, C_LLAVE, GUION;
 terminal String ARROBA, COMILLA, A_PARENTESIS, C_PARENTESIS, S_IGUAL;
 terminal String ENTERO, DECIMAL, CADENA, ID, ID_ARREGLO;
@@ -60,6 +55,10 @@ non terminal expresiones;
 non terminal Impresion_consola;
 non terminal salida;
 non terminal elemento;
+non terminal DeclararVariables;
+non terminal DeclararArreglos;
+non terminal Impresion_consola;
+non terminal Impresion_graficas;
 
 
 // ------------  GRAMATICA  ------------
@@ -76,8 +75,14 @@ instruccion ::= expresiones
                | instruccion expresiones
 ;
 
-expresiones ::= Impresion_consola
+expresiones ::= DeclararVariables
+                | DeclararArreglos
+                | Impresion_consola
+                | Impresion_graficas
 ;
+
+DeclararVariables ::= 
+
 
 Impresion_consola ::= CONSOLE DOS_PUNTOS DOS_PUNTOS PRINT S_IGUAL salida END PUNTO_COMA  {: ImpresionConsola funciones = new ImpresionConsola(); for (int i = 0; i < funciones.lista_salida.size(); i++) { System.out.print(funciones.lista_salida.get(i)); if (i < funciones.lista_salida.size() - 1) { System.out.print(","); } } System.out.println(); funciones.lista_salida.clear(); :}
 ;

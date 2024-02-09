@@ -17,8 +17,11 @@ public class Main {
         
     String entrada = """
                     PROGRAM
-                    console::print="hfds","f321ola","adios",232,432.343 end;
-                    console::print = "Media", "Mediana", "Moda", "Varianza", "Max", "Min" end;
+                        !Esto es un comentario
+                        <! comentario
+                         multilínea!>
+                        console::print = "Media", "Mediana", "Moda", "Varianza", "Max", "Min" end;
+                    	console::print = "Hola Mundo", 43243, "4532432", "ggfdsg" end;
                     END PROGRAM
                   """;
     
