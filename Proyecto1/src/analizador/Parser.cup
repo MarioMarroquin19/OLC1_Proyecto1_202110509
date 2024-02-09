@@ -3,6 +3,7 @@ package analizador;
 
 import java_cup.runtime.*;
 import java.util.LinkedList;
+import funciones.ImpresionConsola;
 
 
 //------> Codigo para el parser
@@ -78,14 +79,14 @@ instruccion ::= expresiones
 expresiones ::= Impresion_consola
 ;
 
-Impresion_consola ::= CONSOLE DOS_PUNTOS DOS_PUNTOS PRINT S_IGUAL salida END PUNTO_COMA 
+Impresion_consola ::= CONSOLE DOS_PUNTOS DOS_PUNTOS PRINT S_IGUAL salida END PUNTO_COMA  {: ImpresionConsola funciones = new ImpresionConsola(); for (int i = 0; i < funciones.lista_salida.size(); i++) { System.out.print(funciones.lista_salida.get(i)); if (i < funciones.lista_salida.size() - 1) { System.out.print(","); } } System.out.println(); funciones.lista_salida.clear(); :}
 ;
 
 salida ::= elemento
          | salida COMA elemento 
 ;
 
-elemento ::= CADENA:val  {: System.out.println(val.substring(1, val.length() - 1)); :}
-           | ENTERO:val  {: System.out.println(val); :}
-           | DECIMAL:val  {: System.out.println(val); :}
+elemento ::= CADENA:val  {:funciones.ImpresionConsola.lista_salida.add(val.substring(1, val.length() - 1));:}
+           | ENTERO:val  {:funciones.ImpresionConsola.lista_salida.add(val);:}
+           | DECIMAL:val {:funciones.ImpresionConsola.lista_salida.add(val);:}
 ;

@@ -7,6 +7,7 @@ package analizador;
 
 import java_cup.runtime.*;
 import java.util.LinkedList;
+import funciones.ImpresionConsola;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -207,7 +208,7 @@ class CUP$Parser$actions {
           case 5: // Impresion_consola ::= CONSOLE DOS_PUNTOS DOS_PUNTOS PRINT S_IGUAL salida END PUNTO_COMA 
             {
               Object RESULT =null;
-
+		 ImpresionConsola funciones = new ImpresionConsola(); for (int i = 0; i < funciones.lista_salida.size(); i++) { System.out.print(funciones.lista_salida.get(i)); if (i < funciones.lista_salida.size() - 1) { System.out.print(","); } } System.out.println(); funciones.lista_salida.clear(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Impresion_consola",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -237,7 +238,7 @@ class CUP$Parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 System.out.println(val.substring(1, val.length() - 1)); 
+		funciones.ImpresionConsola.lista_salida.add(val.substring(1, val.length() - 1));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("elemento",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -249,7 +250,7 @@ class CUP$Parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 System.out.println(val); 
+		funciones.ImpresionConsola.lista_salida.add(val);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("elemento",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -261,7 +262,7 @@ class CUP$Parser$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 System.out.println(val); 
+		funciones.ImpresionConsola.lista_salida.add(val);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("elemento",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

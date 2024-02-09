@@ -17,7 +17,7 @@ public class Main {
         
     String entrada = """
                     PROGRAM
-                    console::print="hola","adios",232,432.343 end;
+                    console::print="hfds","f321ola","adios",232,432.343 end;
                     console::print = "Media", "Mediana", "Moda", "Varianza", "Max", "Min" end;
                     END PROGRAM
                   """;

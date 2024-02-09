@@ -10,7 +10,7 @@ import java.util.LinkedList;
  *
  * @author mario
  */
-public class Funciones {
+public class ImpresionConsola {
     public static LinkedList<String> lista_salida = new LinkedList<>();
     
     public static String Suma(String a, String b){
