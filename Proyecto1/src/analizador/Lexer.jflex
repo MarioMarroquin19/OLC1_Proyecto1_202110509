@@ -26,7 +26,7 @@ import java_cup.runtime.*;
 entero = [0-9]+
 decimal = [0-9]+\.[0-9]+
 comentarios = "!"([^\n]*)?
-comentarioMulti = "<!"([^\n]*)?
+comentarioMulti = "<!"(.[^\n])*"!>"
 cadena =  \"[^\"]*\"
 Id =  (\_)*[a-zA-Z][a-zA-Z0-9\_]*
 Id_arreglo = "@"{Id}
@@ -80,7 +80,7 @@ Id_arreglo = "@"{Id}
 ";"         {return new Symbol (sym.PUNTO_COMA, yycolumn, yyline, yytext());}
 ","         {return new Symbol (sym.COMA, yycolumn, yyline, yytext());}
 "."         {return new Symbol (sym.PUNTO, yycolumn, yyline, yytext());}
-"!"         {return new Symbol (sym.S__EXCLAMACION, yycolumn, yyline, yytext());}
+"!"         {return new Symbol (sym.S_EXCLAMACION, yycolumn, yyline, yytext());}
 "<"         {return new Symbol (sym.MAYOR_Q, yycolumn, yyline, yytext());}
 ">"         {return new Symbol (sym.MENOR_Q, yycolumn, yyline, yytext());}
 "["         {return new Symbol (sym.A_CORCHETE, yycolumn, yyline, yytext());}

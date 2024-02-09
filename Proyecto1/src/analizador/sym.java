@@ -48,13 +48,13 @@ public class sym {
   public static final int A_PARENTESIS = 48;
   public static final int PUNTO = 37;
   public static final int C_PARENTESIS = 49;
+  public static final int S_EXCLAMACION = 38;
   public static final int VARIANZA = 16;
   public static final int A_CORCHETE = 41;
   public static final int GraphLine = 22;
   public static final int END = 3;
   public static final int SUM = 8;
   public static final int ARR = 7;
-  public static final int S_ADMIRACION = 38;
   public static final int MEDIA = 13;
   public static final int EXEC = 29;
   public static final int LABEL = 30;
@@ -103,7 +103,7 @@ public class sym {
   "PUNTO_COMA",
   "COMA",
   "PUNTO",
-  "S_ADMIRACION",
+  "S_EXCLAMACION",
   "MAYOR_Q",
   "MENOR_Q",
   "A_CORCHETE",

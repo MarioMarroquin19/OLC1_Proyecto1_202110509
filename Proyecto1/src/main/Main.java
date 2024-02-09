@@ -18,9 +18,11 @@ public class Main {
     String entrada = """
                     PROGRAM
                         !Esto es un comentario
-                        <! comentario
+                        <!comentario
                          multilínea!>
                         console::print = "Media", "Mediana", "Moda", "Varianza", "Max", "Min" end;
+                        <! esto es otro comentario
+                     multilínea, a ver si peta, sino ya funciona de maravilla!>
                     	console::print = "Hola Mundo", 43243, "4532432", "ggfdsg" end;
                     END PROGRAM
                   """;
