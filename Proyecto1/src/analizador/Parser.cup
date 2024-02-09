@@ -58,7 +58,7 @@ non terminal instruccion;
 non terminal expresiones;
 non terminal Impresion_consola;
 non terminal salida;
-
+non terminal elemento;
 
 
 // ------------  GRAMATICA  ------------
@@ -75,12 +75,17 @@ instruccion ::= expresiones
                | instruccion expresiones
 ;
 
-expresiones ::= Impresion_consola:salida {:System.out.println(salida);:}
+expresiones ::= Impresion_consola
 ;
 
 Impresion_consola ::= CONSOLE DOS_PUNTOS DOS_PUNTOS PRINT S_IGUAL salida END PUNTO_COMA 
 ;
 
-salida ::= CADENA
-         | salida COMA 
-; 
+salida ::= elemento
+         | salida COMA elemento 
+;
+
+elemento ::= CADENA:val  {: System.out.println(val.substring(1, val.length() - 1)); :}
+           | ENTERO:val  {: System.out.println(val); :}
+           | DECIMAL:val  {: System.out.println(val); :}
+;
