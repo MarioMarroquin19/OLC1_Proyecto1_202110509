@@ -26,7 +26,7 @@ import java_cup.runtime.*;
 entero = [0-9]+
 decimal = [0-9]+\.[0-9]+
 comentarios = "!"([^\n]*)?
-comentarioMulti = "<!"(.[^\n])*"!>"
+comentarioMulti = "<!" [^<>]* ( <! [^<>]* )* "!>" 
 cadena =  \"[^\"]*\"
 Id =  (\_)*[a-zA-Z][a-zA-Z0-9\_]*
 Id_arreglo = "@"{Id}
