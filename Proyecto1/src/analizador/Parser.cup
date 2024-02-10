@@ -52,12 +52,25 @@ terminal String ENTERO, DECIMAL, CADENA, ID, ID_ARREGLO;
 non terminal inicio;
 non terminal instruccion;
 non terminal expresiones;
+
 non terminal DeclararVariables;
+non terminal tipo;
+non terminal expresionTipoVariables;
+non terminal operacionesAritmeticas;
+non terminal operacionAritmetica;
+non terminal numeros;
+
 non terminal DeclararArreglos;
+non terminal expresionTipoArreglos;
+non terminal elementoArreglo;
+
 non terminal Impresion_consola;
 non terminal salida;
-non terminal elemento;
+non terminal elementoImpresion;
+
 non terminal Impresion_graficas;
+
+
 
 
 // ------------  GRAMATICA  ------------
@@ -81,14 +94,79 @@ expresiones ::= DeclararVariables
 ;
 
 
+//DECLARACION DE VARIABLES
+
+DeclararVariables ::= VAR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID MENOR_Q GUION expresionTipoVariables END PUNTO_COMA 
+;
+
+tipo::=  CHAR1 A_CORCHETE C_CORCHETE
+       | DOUBLE1
+;
+
+
+// Reglas para tipos de expresiones
+expresionTipoVariables ::= CADENA 
+                         | ENTERO 
+                         | DECIMAL 
+                         | operacionesAritmeticas
+;
+
+operacionesAritmeticas :: =  SUM operacionAritmetica
+                         | RES operacionAritmetica
+                         | MUL operacionAritmetica
+                         | DIV operacionAritmetica
+                         | MOD operacionAritmetica
+                         | MEDIA 
+                         | MEDIANA 
+                         | MODA 
+                         | VARIANZA 
+                         | MAX 
+                         | MIN                        
+;
+
+operacionAritmetica ::= A_PARENTESIS numeros C_PARENTESIS
+                      | A_PARENTESIS operacionesAritmeticas C_PARENTESIS
+;
+
+numeros :: = ENTERO COMA ENTERO
+          | DECIMAL COMA DECIMAL
+          | operacionesAritmeticas COMA numeros
+          | ENTERO
+          | DECIMAL
+;
+
+
+
+
+
+//DECLARACION DE ARREGLOS
+
+DeclararArreglos ::= ARR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID_ARREGLO MENOR_Q GUION A_CORCHETE expresionTipoArreglos C_CORCHETE END PUNTO_COMA 
+;
+
+expresionTipoArreglos ::= elementoArreglo
+                        | expresionTipoArreglos COMA elementoArreglo
+;
+
+elementoArreglo ::=  CADENA
+                   | ENTERO
+                   | DECIMAL
+;
+
+
+
+
+
+
+//IMPRESION EN CONSOLA (PRINT)
 Impresion_consola ::= CONSOLE DOS_PUNTOS DOS_PUNTOS PRINT S_IGUAL salida END PUNTO_COMA  {: ImpresionConsola funciones = new ImpresionConsola(); for (int i = 0; i < funciones.lista_salida.size(); i++) { System.out.print(funciones.lista_salida.get(i)); if (i < funciones.lista_salida.size() - 1) { System.out.print(","); } } System.out.println(); funciones.lista_salida.clear(); :}
 ;
 
-salida ::= elemento
-         | salida COMA elemento 
+salida ::= elementoImpresion
+         | salida COMA elementoImpresion 
 ;
 
-elemento ::= CADENA:val  {:funciones.ImpresionConsola.lista_salida.add(val.substring(1, val.length() - 1));:}
-           | ENTERO:val  {:funciones.ImpresionConsola.lista_salida.add(val);:}
-           | DECIMAL:val {:funciones.ImpresionConsola.lista_salida.add(val);:}
+elementoImpresion ::= CADENA:val  {:funciones.ImpresionConsola.lista_salida.add(val.substring(1, val.length() - 1));:}
+                    | ENTERO:val  {:funciones.ImpresionConsola.lista_salida.add(val);:}
+                    | DECIMAL:val {:funciones.ImpresionConsola.lista_salida.add(val);:}
 ;

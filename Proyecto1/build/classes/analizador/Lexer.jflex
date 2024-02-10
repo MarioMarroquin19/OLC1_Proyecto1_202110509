@@ -81,8 +81,8 @@ Id_arreglo = "@"{Id}
 ","         {return new Symbol (sym.COMA, yycolumn, yyline, yytext());}
 "."         {return new Symbol (sym.PUNTO, yycolumn, yyline, yytext());}
 "!"         {return new Symbol (sym.S_EXCLAMACION, yycolumn, yyline, yytext());}
-"<"         {return new Symbol (sym.MAYOR_Q, yycolumn, yyline, yytext());}
-">"         {return new Symbol (sym.MENOR_Q, yycolumn, yyline, yytext());}
+"<"         {return new Symbol (sym.MENOR_Q, yycolumn, yyline, yytext());}
+">"         {return new Symbol (sym.MAYOR_Q, yycolumn, yyline, yytext());}
 "["         {return new Symbol (sym.A_CORCHETE, yycolumn, yyline, yytext());}
 "]"         {return new Symbol (sym.C_CORCHETE, yycolumn, yyline, yytext());}
 "{"         {return new Symbol (sym.A_LLAVE, yycolumn, yyline, yytext());}
