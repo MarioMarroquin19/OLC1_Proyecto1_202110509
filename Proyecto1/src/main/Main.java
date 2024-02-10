@@ -24,6 +24,7 @@ public class Main {
                         <! esto es otro comentario
                      multilínea, a ver si peta, sino ya funciona de maravilla!>
                     	console::print = "Hola Mundo", 43243, "4532432", "ggfdsg" end;
+                           console::print="Estoy cansado jefe" end;
                     END PROGRAM
                   """;
     
