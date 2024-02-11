@@ -22,7 +22,7 @@ public class Main {
                     var:double:: notaAprobar <- 671 end;
                     var:char[]:: labelAprobar <- "Nota Minima" end;
                     var:char[]:: nuevo <- "Este es un párrafo para comprobar la nueva lectura" end;
-                    var:double:: suma <- SUM(5, 2) end;
+                    var:double:: suma <- SUM(2,3) end;
                      
                     console::print = "Media", "Mediana", "Moda", "Varianza", "Max", "Min" end;
                     console::print = "Hola Mundo", notaAprobar, labelAprobar end;
