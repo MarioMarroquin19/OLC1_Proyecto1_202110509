@@ -12,7 +12,7 @@ import java.util.LinkedList;
  */
 public class OperacionesAritmeticas {
 
-    public static LinkedList<String> operaciones = new LinkedList<String>();
+    public static LinkedList<String> operacionesSuma = new LinkedList<String>();
 
     public static String Suma(String a, String b) {
         double izq = Double.parseDouble(a);

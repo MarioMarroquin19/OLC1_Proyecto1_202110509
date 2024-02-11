@@ -22,12 +22,14 @@ public class Main {
                     var:double:: notaAprobar <- 671 end;
                     var:char[]:: labelAprobar <- "Nota Minima" end;
                     var:char[]:: nuevo <- "Este es un párrafo para comprobar la nueva lectura" end;
-                    var:double:: suma <- SUM(2,3) end;
+                    var:double:: suma <- SUM(SUM(3,6),3) end;
+                    var:double:: suma1 <- SUM(SUM(1,1),SUM(1,SUM(3,3))) end;
                      
                     console::print = "Media", "Mediana", "Moda", "Varianza", "Max", "Min" end;
                     console::print = "Hola Mundo", notaAprobar, labelAprobar end;
                     console::print = nuevo end; 
                     console::print = suma end;
+                    console::print = suma1 end;
                      
                      
                    END PROGRAM

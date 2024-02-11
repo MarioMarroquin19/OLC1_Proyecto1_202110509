@@ -115,13 +115,14 @@ tipo::=  CHAR1 A_CORCHETE C_CORCHETE
 expresionTipoVariables ::= CADENA:val {: RESULT = val.substring(1, val.length() - 1); :}
                          | ENTERO:val {: RESULT = val; :}
                          | DECIMAL:val {: RESULT = val; :}
-                         | operacionesAritmeticas:val {: RESULT=val; :}
+                         | operacionesAritmeticas:val {: operacionesArit.operacionesSuma.add(val.toString());
+                                                        String sumas = " ";
+                                                        for(int i=0; i<operacionesArit.operacionesSuma.size(); i++){
+                                                                sumas += operacionesArit.operacionesSuma.get(i); 
+                                                        }; RESULT = sumas; :}
 ;
 
-operacionesAritmeticas ::= SUM operacionAritmetica {: String sumas = "";
-                                                        for(int i=0; i<operacionesArit.operaciones.size(); i++){
-                                                                sumas += operacionesArit.operaciones.get(i); 
-                                                        }; RESULT = sumas; :}
+operacionesAritmeticas ::= SUM operacionAritmetica:val {:RESULT = val;:}
                          | RES operacionAritmetica
                          | MUL operacionAritmetica
                          | DIV operacionAritmetica
@@ -134,15 +135,16 @@ operacionesAritmeticas ::= SUM operacionAritmetica {: String sumas = "";
                          | MIN  operacionEstadistica                      
 ;
 
-operacionAritmetica ::= A_PARENTESIS numeros:val C_PARENTESIS {: RESULT = operacionesArit.operaciones.add(val.toString());:}
+operacionAritmetica ::= A_PARENTESIS numeros:val C_PARENTESIS {: RESULT = val;:}
                       
 ;
 
-numeros ::= ENTERO:a COMA ENTERO:b {: RESULT = operacionesArit.Suma(a.toString(),b.toString());:}
-          | DECIMAL:a COMA DECIMAL:b {: RESULT = operacionesArit.Suma(a.toString(),b.toString());:}
+numeros ::= ENTERO:a COMA numeros:b {: RESULT = operacionesArit.Suma(a.toString(),b.toString());:}
+          | DECIMAL:a COMA numeros:b {: RESULT = operacionesArit.Suma(a.toString(),b.toString());:}
           | operacionesAritmeticas:a COMA numeros:b {: RESULT = operacionesArit.Suma(a.toString(),b.toString());:}
           | ENTERO: val {: RESULT = val;:}
           | DECIMAL: val {: RESULT = val;:}
+          | operacionesAritmeticas:val {: RESULT = val;:}
 ;
 
 operacionEstadistica ::= A_PARENTESIS A_CORCHETE numeros C_CORCHETE C_PARENTESIS
