@@ -426,11 +426,7 @@ variables.addVariable(id,exp.toString());
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 operacionesArit.operacionesSuma.add(val.toString());
-                                                        String sumas = " ";
-                                                        for(int i=0; i<operacionesArit.operacionesSuma.size(); i++){
-                                                                sumas += operacionesArit.operacionesSuma.get(i); 
-                                                        }; RESULT = sumas; 
+		 RESULT = val; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("expresionTipoVariables",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
