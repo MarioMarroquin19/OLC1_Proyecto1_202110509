@@ -59,6 +59,7 @@ non terminal expresionTipoVariables;
 non terminal operacionesAritmeticas;
 non terminal operacionAritmetica;
 non terminal numeros;
+non terminal operacionEstadistica;
 
 non terminal DeclararArreglos;
 non terminal expresionTipoArreglos;
@@ -116,12 +117,12 @@ operacionesAritmeticas :: =  SUM operacionAritmetica
                          | MUL operacionAritmetica
                          | DIV operacionAritmetica
                          | MOD operacionAritmetica
-                         | MEDIA 
-                         | MEDIANA 
-                         | MODA 
-                         | VARIANZA 
-                         | MAX 
-                         | MIN                        
+                         | MEDIA operacionEstadistica
+                         | MEDIANA operacionEstadistica
+                         | MODA operacionEstadistica
+                         | VARIANZA operacionEstadistica
+                         | MAX operacionEstadistica
+                         | MIN  operacionEstadistica                      
 ;
 
 operacionAritmetica ::= A_PARENTESIS numeros C_PARENTESIS
@@ -133,10 +134,12 @@ numeros :: = ENTERO COMA ENTERO
           | operacionesAritmeticas COMA numeros
           | ENTERO
           | DECIMAL
+          | operacionesAritmeticas
 ;
 
-
-
+operacionEstadistica ::= A_PARENTESIS A_CORCHETE numeros C_CORCHETE C_PARENTESIS
+                       | ID_ARREGLO
+;
 
 
 //DECLARACION DE ARREGLOS
@@ -151,10 +154,8 @@ expresionTipoArreglos ::= elementoArreglo
 elementoArreglo ::=  CADENA
                    | ENTERO
                    | DECIMAL
+                   | operacionesAritmeticas
 ;
-
-
-
 
 
 
@@ -170,3 +171,4 @@ elementoImpresion ::= CADENA:val  {:funciones.ImpresionConsola.lista_salida.add(
                     | ENTERO:val  {:funciones.ImpresionConsola.lista_salida.add(val);:}
                     | DECIMAL:val {:funciones.ImpresionConsola.lista_salida.add(val);:}
 ;
+
