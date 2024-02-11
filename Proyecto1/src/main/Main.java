@@ -31,15 +31,17 @@ public class Main {
                      
                            console::print = "Hola Mundo", 43243, "4532432", "ggfdsg" end;
                            console::print="Estoy cansado jefe" end;
+                           var:char[]:: notaAprobar <- 61 end;
+                           console::print=notaAprobar end;
                      
                     END PROGRAM
                   """;
     
     // Generar Analizadores
     
-    analizadores("src/analizador/", "Lexer.jflex", "Parser.cup");
+    //analizadores("src/analizador/", "Lexer.jflex", "Parser.cup");
     
-    //analizar(entrada);
+    analizar(entrada);
  
    }   
     

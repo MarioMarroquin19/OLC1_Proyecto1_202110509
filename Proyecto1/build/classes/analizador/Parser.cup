@@ -4,7 +4,7 @@ package analizador;
 import java_cup.runtime.*;
 import java.util.LinkedList;
 import funciones.ImpresionConsola;
-
+//import funciones.Variables;
 
 //------> Codigo para el parser
 //------> Declaracion de variables, funciones y funciones de error
@@ -12,8 +12,10 @@ import funciones.ImpresionConsola;
 
 parser code 
 {:
-    public String resultado = ""; //Variable para mostrar en consola
-    //public static LinkedList<Object> instrucciones; //Lista con instrucciones a ejecutar
+
+        public String resultado = ""; //Variable para mostrar en consola
+        //public static LinkedList<Object> instrucciones; //Lista con instrucciones a ejecutar
+        //funciones.Variables variables = new Variables();
 
 
     public void syntax_error(Symbol s)
@@ -97,7 +99,9 @@ expresiones ::= DeclararVariables
 
 //DECLARACION DE VARIABLES
 
-DeclararVariables ::= VAR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID MENOR_Q GUION expresionTipoVariables END PUNTO_COMA 
+DeclararVariables ::= VAR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID:id MENOR_Q GUION expresionTipoVariables:valor END PUNTO_COMA {:
+System.out.println(valor);
+funciones.Variables.addVariable(id,valor.toString());:} 
 ;
 
 tipo::=  CHAR1 A_CORCHETE C_CORCHETE
@@ -106,13 +110,13 @@ tipo::=  CHAR1 A_CORCHETE C_CORCHETE
 
 
 // Reglas para tipos de expresiones
-expresionTipoVariables ::= CADENA 
-                         | ENTERO 
-                         | DECIMAL 
-                         | operacionesAritmeticas
+expresionTipoVariables ::= CADENA:valor
+                         | ENTERO:valor
+                         | DECIMAL:valor
+                         | operacionesAritmeticas:valor
 ;
 
-operacionesAritmeticas :: =  SUM operacionAritmetica
+operacionesAritmeticas ::= SUM operacionAritmetica
                          | RES operacionAritmetica
                          | MUL operacionAritmetica
                          | DIV operacionAritmetica
@@ -129,12 +133,11 @@ operacionAritmetica ::= A_PARENTESIS numeros C_PARENTESIS
                       | A_PARENTESIS operacionesAritmeticas C_PARENTESIS
 ;
 
-numeros :: = ENTERO COMA ENTERO
+numeros ::= ENTERO COMA ENTERO
           | DECIMAL COMA DECIMAL
           | operacionesAritmeticas COMA numeros
           | ENTERO
           | DECIMAL
-          | operacionesAritmeticas
 ;
 
 operacionEstadistica ::= A_PARENTESIS A_CORCHETE numeros C_CORCHETE C_PARENTESIS
@@ -154,10 +157,8 @@ expresionTipoArreglos ::= elementoArreglo
 elementoArreglo ::=  CADENA
                    | ENTERO
                    | DECIMAL
+                   | operacionesAritmeticas
 ;
-
-
-
 
 
 
@@ -172,4 +173,5 @@ salida ::= elementoImpresion
 elementoImpresion ::= CADENA:val  {:funciones.ImpresionConsola.lista_salida.add(val.substring(1, val.length() - 1));:}
                     | ENTERO:val  {:funciones.ImpresionConsola.lista_salida.add(val);:}
                     | DECIMAL:val {:funciones.ImpresionConsola.lista_salida.add(val);:}
+                    | ID:val      {:funciones.ImpresionConsola.lista_salida.add(funciones.Variables.getVariable(val));:}
 ;
