@@ -118,7 +118,7 @@ expresionTipoVariables ::= CADENA:val {: RESULT = val.substring(1, val.length() 
                          | operacionesAritmeticas:val {: RESULT=val; :}
 ;
 
-operacionesAritmeticas ::= SUM operacionAritmetica:exp {: RESULT = operacionesArit.operaciones.add(exp.toString()); :}
+operacionesAritmeticas ::= SUM operacionAritmetica:val {: RESULT = val; :}
                          | RES operacionAritmetica
                          | MUL operacionAritmetica
                          | DIV operacionAritmetica
@@ -131,7 +131,7 @@ operacionesAritmeticas ::= SUM operacionAritmetica:exp {: RESULT = operacionesAr
                          | MIN  operacionEstadistica                      
 ;
 
-operacionAritmetica ::= A_PARENTESIS numeros:val C_PARENTESIS {: RESULT = val; System.out.println(val);:}
+operacionAritmetica ::= A_PARENTESIS numeros:val C_PARENTESIS {: RESULT = val; operacionesArit.operaciones.add(val.toString());:}
                       | A_PARENTESIS operacionesAritmeticas C_PARENTESIS
 ;
 

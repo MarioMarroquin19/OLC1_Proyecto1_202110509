@@ -433,10 +433,10 @@ variables.addVariable(id,exp.toString());
           case 15: // operacionesAritmeticas ::= SUM operacionAritmetica 
             {
               Object RESULT =null;
-		int expleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
-		int expright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
-		Object exp = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = operacionesArit.operaciones.add(exp.toString()); 
+		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = val; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("operacionesAritmeticas",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -538,7 +538,7 @@ variables.addVariable(id,exp.toString());
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = val; System.out.println(val);
+		 RESULT = val; operacionesArit.operaciones.add(val.toString());
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("operacionAritmetica",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
