@@ -18,21 +18,14 @@ public class Main {
     String entrada = """
                     PROGRAM
                      
-                            !Esto es un comentario
+                        ! Variables
+                        var:double:: notaAprobar <- 671 end;
+                        var:char[]:: labelAprobar <- "Nota Minima" end;
                      
-                            <!comentario
-                             multilínea!>
+                        console::print = "Media", "Mediana", "Moda", "Varianza", "Max", "Min" end;
+                        console::print = "Hola Mundo", notaAprobar, labelAprobar end;
                      
-                            console::print = "Media", "Mediana", "Moda", "Varianza", "Max", "Min" end;
                      
-                            <! esto es otro comentario
-                     
-                            multilínea, a ver si peta, sino ya funciona de maravilla!>
-                     
-                           console::print = "Hola Mundo", 43243, "4532432", "ggfdsg" end;
-                           console::print="Estoy cansado jefe" end;
-                           var:char[]:: notaAprobar <- 61 end;
-                           console::print=notaAprobar end;
                      
                     END PROGRAM
                   """;
