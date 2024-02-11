@@ -5,6 +5,7 @@ import java_cup.runtime.*;
 import java.util.LinkedList;
 import funciones.ImpresionConsola;
 import funciones.Variables;
+import funciones.OperacionesAritmeticas;
 
 //------> Codigo para el parser
 //------> Declaracion de variables, funciones y funciones de error
@@ -15,7 +16,9 @@ parser code
 
         public String resultado = ""; //Variable para mostrar en consola
         //public static LinkedList<Object> instrucciones; //Lista con instrucciones a ejecutar
+        ImpresionConsola impresionC = new ImpresionConsola();
         Variables variables = new Variables();
+        OperacionesAritmeticas operacionesArit = new OperacionesAritmeticas();
 
 
     public void syntax_error(Symbol s)
@@ -109,12 +112,13 @@ tipo::=  CHAR1 A_CORCHETE C_CORCHETE
 
 
 // Reglas para tipos de expresiones
-expresionTipoVariables ::= CADENA:val {: RESULT = val; :}
+expresionTipoVariables ::= CADENA:val {: RESULT = val.substring(1, val.length() - 1); :}
                          | ENTERO:val {: RESULT = val; :}
                          | DECIMAL:val {: RESULT = val; :}
+                         | operacionesAritmeticas:val {: RESULT=val; :}
 ;
 
-operacionesAritmeticas ::= SUM operacionAritmetica
+operacionesAritmeticas ::= SUM operacionAritmetica:exp {: RESULT = operacionesArit.operaciones.add(exp.toString()); :}
                          | RES operacionAritmetica
                          | MUL operacionAritmetica
                          | DIV operacionAritmetica
@@ -127,11 +131,11 @@ operacionesAritmeticas ::= SUM operacionAritmetica
                          | MIN  operacionEstadistica                      
 ;
 
-operacionAritmetica ::= A_PARENTESIS numeros C_PARENTESIS
+operacionAritmetica ::= A_PARENTESIS numeros:val C_PARENTESIS {: RESULT = val; System.out.println(val);:}
                       | A_PARENTESIS operacionesAritmeticas C_PARENTESIS
 ;
 
-numeros ::= ENTERO COMA ENTERO
+numeros ::= ENTERO:a COMA ENTERO:b {: RESULT = operacionesArit.Suma(a.toString(),b.toString());:}
           | DECIMAL COMA DECIMAL
           | operacionesAritmeticas COMA numeros
           | ENTERO
@@ -161,15 +165,23 @@ elementoArreglo ::=  CADENA
 
 
 //IMPRESION EN CONSOLA (PRINT)
-Impresion_consola ::= CONSOLE DOS_PUNTOS DOS_PUNTOS PRINT S_IGUAL salida END PUNTO_COMA  {: ImpresionConsola funciones = new ImpresionConsola(); for (int i = 0; i < funciones.lista_salida.size(); i++) { System.out.print(funciones.lista_salida.get(i)); if (i < funciones.lista_salida.size() - 1) { System.out.print(","); } } System.out.println(); funciones.lista_salida.clear(); :}
+Impresion_consola ::= CONSOLE DOS_PUNTOS DOS_PUNTOS PRINT S_IGUAL salida END PUNTO_COMA  {: 
+    for (int i = 0; i < impresionC.lista_salida.size(); i++) { 
+            System.out.print(impresionC.lista_salida.get(i)); 
+            if (i < impresionC.lista_salida.size() - 1) { 
+                    System.out.print(","); 
+                    } 
+            }        
+            System.out.println(); 
+            impresionC.lista_salida.clear(); :}
 ;
 
 salida ::= elementoImpresion
          | salida COMA elementoImpresion 
 ;
 
-elementoImpresion ::= CADENA:val  {:funciones.ImpresionConsola.lista_salida.add(val.substring(1, val.length() - 1));:}
-                    | ENTERO:val  {:funciones.ImpresionConsola.lista_salida.add(val);:}
-                    | DECIMAL:val {:funciones.ImpresionConsola.lista_salida.add(val);:}
-                    | ID:val      {:funciones.ImpresionConsola.lista_salida.add(variables.getVariable(val));:}
+elementoImpresion ::= CADENA:val  {:impresionC.lista_salida.add(val.substring(1, val.length() - 1));:}
+                    | ENTERO:val  {:impresionC.lista_salida.add(val);:}
+                    | DECIMAL:val {:impresionC.lista_salida.add(val);:}
+                    | ID:val      {:impresionC.lista_salida.add(variables.getVariable(val));:}
 ;

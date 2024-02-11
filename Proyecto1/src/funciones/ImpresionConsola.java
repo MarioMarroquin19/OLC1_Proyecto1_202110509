@@ -12,14 +12,7 @@ import java.util.LinkedList;
  */
 public class ImpresionConsola {
     public static LinkedList<String> lista_salida = new LinkedList<>();
-    
-    public static String Suma(String a, String b){
-        int izq = Integer.parseInt(a);
-        int der = Integer.parseInt(b);
-        return String.valueOf(izq+der);
-    }
-    
-    
+         
     public static String impresion(String salida){
         
         return salida;

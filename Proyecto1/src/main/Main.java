@@ -16,18 +16,21 @@ public class Main {
     public static void main(String[] args) {
         
     String entrada = """
-                    PROGRAM
+                   PROGRAM
                      
-                        ! Variables
-                        var:double:: notaAprobar <- 671 end;
-                        var:char[]:: labelAprobar <- "Nota Minima" end;
+                    ! Variables
+                    var:double:: notaAprobar <- 671 end;
+                    var:char[]:: labelAprobar <- "Nota Minima" end;
+                    var:char[]:: nuevo <- "Este es un párrafo para comprobar la nueva lectura" end;
+                    var:double:: suma <- SUM(5, 2) end;
                      
-                        console::print = "Media", "Mediana", "Moda", "Varianza", "Max", "Min" end;
-                        console::print = "Hola Mundo", notaAprobar, labelAprobar end;
+                    console::print = "Media", "Mediana", "Moda", "Varianza", "Max", "Min" end;
+                    console::print = "Hola Mundo", notaAprobar, labelAprobar end;
+                    console::print = nuevo end; 
+                    console::print = suma end;
                      
                      
-                     
-                    END PROGRAM
+                   END PROGRAM
                   """;
     
     // Generar Analizadores
