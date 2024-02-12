@@ -31,7 +31,12 @@ public class Main {
                     VAr:double:: prueba <-SUM(SUM(1,1),SUM(1,SUM(2,4))) END; 
                     var:double::prueba2 <- MUL(SUM(7,3),RES(7,DIV(25,5)))end;
                     var:double:: arreglo <- Media([DIV(15,3),SUM(14,5),43,53]) end;
-                    var:double:: arreglo2 <- Media([MUL(SUM(7,3),RES(7,DIV(25,5))),14]) end;
+                    var:double:: arreglo1 <- Mediana([DIV(15,3),SUM(14,5),43,53]) end;
+                    var:double:: arreglo2 <- Moda([DIV(15,3),SUM(14,5),43,53]) end;
+                    var:double:: arreglo3 <- Varianza([DIV(15,3),SUM(14,5),43,53]) end;
+                    var:double:: arreglo4 <- Max([4,3,54,23,5,43,34,65,423,524,23,4,324,2]) end;
+                    var:double:: arreglo5 <- Min([4,3,54,23,5,43,34,65,423,524,23,4,324,2]) end;
+                    !var:double:: arreglo6 <- Media([MUL(SUM(7,3),RES(7,DIV(25,5))),14]) end;
                     
                     
                     console::print = "Media", "Mediana", "Moda", "Varianza", "Max", "Min" end;
@@ -43,8 +48,14 @@ public class Main {
                     console::print = suma5 end;
                     CONSOLE::PRINT = prueba END;
                     CONSOLE::PRINT = prueba2 END;
+                    console::print = "ARREGLOS" END;
                     console::print = arreglo end;
+                    console::print = arreglo1 end;
                     console::print = arreglo2 end;
+                    console::print = arreglo3 end;
+                    console::print = arreglo4 end;
+                    console::print = arreglo5 end;
+                    !console::print = arreglo6 end;
                     
 
                      

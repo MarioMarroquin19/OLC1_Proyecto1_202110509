@@ -128,13 +128,23 @@ operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAri
                       
 
                        | MEDIA A_PARENTESIS A_CORCHETE operacionesEstad C_CORCHETE C_PARENTESIS {:
-                        RESULT = operacionesArit.Media(operacionesArit.listaMedia);operacionesArit.listaMedia.clear();:}
+                        RESULT = operacionesArit.Media(operacionesArit.listaEstadistica);operacionesArit.listaEstadistica.clear();:}
 
-                        |MEDIANA A_PARENTESIS A_CORCHETE operacionAritmetica:val C_CORCHETE C_PARENTESIS 
-                        |MODA A_PARENTESIS A_CORCHETE operacionAritmetica:val C_CORCHETE C_PARENTESIS 
-                        |VARIANZA A_PARENTESIS A_CORCHETE operacionAritmetica:val C_CORCHETE C_PARENTESIS 
-                        |MAX A_PARENTESIS A_CORCHETE operacionAritmetica:val C_CORCHETE C_PARENTESIS 
-                        |MIN A_PARENTESIS A_CORCHETE operacionAritmetica:val C_CORCHETE C_PARENTESIS 
+                        |MEDIANA A_PARENTESIS A_CORCHETE operacionesEstad C_CORCHETE C_PARENTESIS {:
+                        RESULT = operacionesArit.Mediana(operacionesArit.listaEstadistica);operacionesArit.listaEstadistica.clear();:}
+
+                        |MODA A_PARENTESIS A_CORCHETE operacionesEstad C_CORCHETE C_PARENTESIS {:
+                        RESULT = operacionesArit.Moda(operacionesArit.listaEstadistica);operacionesArit.listaEstadistica.clear();:}
+
+                        |VARIANZA A_PARENTESIS A_CORCHETE operacionesEstad C_CORCHETE C_PARENTESIS{:
+                        RESULT = operacionesArit.Varianza(operacionesArit.listaEstadistica);operacionesArit.listaEstadistica.clear();:}
+
+                        |MAX A_PARENTESIS A_CORCHETE operacionesEstad C_CORCHETE C_PARENTESIS {:
+                        RESULT = operacionesArit.Maximo(operacionesArit.listaEstadistica);operacionesArit.listaEstadistica.clear();:}
+
+                        |MIN A_PARENTESIS A_CORCHETE operacionesEstad C_CORCHETE C_PARENTESIS {:
+                        RESULT = operacionesArit.Minimo(operacionesArit.listaEstadistica);operacionesArit.listaEstadistica.clear();:}
+
                         |MEDIA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
                         |MEDIANA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
                         |MODA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
@@ -143,8 +153,8 @@ operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAri
                         |MIN A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
 ;
 
-operacionesEstad ::= operacionAritmetica:a COMA operacionesEstad {:operacionesArit.listaMedia.add(a.toString());:}
-                    | operacionAritmetica:a {:operacionesArit.listaMedia.add(a.toString());:}
+operacionesEstad ::= operacionAritmetica:a COMA operacionesEstad {:operacionesArit.listaEstadistica.add(a.toString());:}
+                    | operacionAritmetica:a {:operacionesArit.listaEstadistica.add(a.toString());:}
 ;
 
 //DECLARACION DE ARREGLOS
