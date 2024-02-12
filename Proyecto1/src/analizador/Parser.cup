@@ -112,8 +112,7 @@ tipo::=  CHAR1 A_CORCHETE C_CORCHETE
 
 
 // Reglas para tipos de expresiones
-expresionTipoVariables ::= CADENA:val {: RESULT = val.substring(1, val.length() - 1); :}
-                         | operacionAritmetica:val {: RESULT = val; :}
+expresionTipoVariables ::= operacionAritmetica:val {: RESULT = val; :}
 ;
 
 operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAritmetica:b C_PARENTESIS {: RESULT = operacionesArit.SUM(a.toString(),b.toString());:}
@@ -124,6 +123,7 @@ operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAri
                       | ENTERO:val {: RESULT = val;:}
                       | DECIMAL:val {: RESULT = val;:}
                       | ID: val {:RESULT = variables.getVariable(val);:}
+                      | CADENA:val {: RESULT = val.substring(1, val.length() - 1); :}
                       
 
                        | MEDIA A_PARENTESIS A_CORCHETE operacionesEstad C_CORCHETE C_PARENTESIS {:
@@ -158,13 +158,8 @@ operacionesEstad ::= operacionAritmetica:a COMA operacionesEstad {:operacionesAr
 
 //DECLARACION DE ARREGLOS
 
-DeclararArreglos ::= ARR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID_ARREGLO:id MENOR_Q GUION A_CORCHETE expresionesTipoArreglos:exp C_CORCHETE END PUNTO_COMA {:
+DeclararArreglos ::= ARR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID_ARREGLO:id MENOR_Q GUION A_CORCHETE OperacionesArreglos:exp C_CORCHETE END PUNTO_COMA {:
                     String resultado = String.join("",operacionesArit.ListaArreglos);variables.addVariable(id,resultado);operacionesArit.ListaArreglos.clear();:} 
-;
-
-expresionesTipoArreglos ::= CADENA:val {:operacionesArit.ListaArreglos.add(val.substring(1, val.length() - 1));:}
-                         | OperacionesArreglos
-                         | CADENA:val COMA expresionesTipoArreglos {:operacionesArit.ListaArreglos.add(val.substring(1, val.length() - 1));:}
 ;
 
 OperacionesArreglos ::= operacionAritmetica:a COMA OperacionesArreglos {:operacionesArit.ListaArreglos.add(a.toString());:}
@@ -174,7 +169,7 @@ OperacionesArreglos ::= operacionAritmetica:a COMA OperacionesArreglos {:operaci
 
 
 //IMPRESION EN CONSOLA (PRINT)
-Impresion_consola ::= CONSOLE DOS_PUNTOS DOS_PUNTOS PRINT S_IGUAL salida END PUNTO_COMA  {: 
+Impresion_consola ::= CONSOLE DOS_PUNTOS DOS_PUNTOS PRINT S_IGUAL elementoImpresion END PUNTO_COMA  {: 
     for (int i = 0; i < impresionC.lista_salida.size(); i++) { 
             System.out.print(impresionC.lista_salida.get(i)); 
             if (i < impresionC.lista_salida.size() - 1) { 
@@ -189,10 +184,7 @@ salida ::= elementoImpresion
          | salida COMA elementoImpresion 
 ;
 
-elementoImpresion ::= CADENA:val  {:impresionC.lista_salida.add(val.substring(1, val.length() - 1));:}
-                    | ENTERO:val  {:impresionC.lista_salida.add(val);:}
-                    | DECIMAL:val {:impresionC.lista_salida.add(val);:}
-                    | ID:val      {:impresionC.lista_salida.add(variables.getVariable(val));:}
-                    | ID_ARREGLO:val      {:impresionC.lista_salida.add(variables.getVariable(val));:}
-                     
+elementoImpresion ::= ID_ARREGLO:val      {:impresionC.lista_salida.add(variables.getVariable(val));:}
+                    |operacionAritmetica:a {:impresionC.lista_salida.add(a.toString());:}
+                    |operacionAritmetica:a COMA elementoImpresion {:impresionC.lista_salida.add(a.toString());:}
 ;
