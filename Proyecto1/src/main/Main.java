@@ -21,15 +21,25 @@ public class Main {
                     ! Variables
                     var:double:: notaAprobar <- 671 end;
                     var:char[]:: labelAprobar <- "Nota Minima" end;
-                    var:char[]:: nuevo <- "Este es un párrafo para comprobar la nueva lectura" end;
-                    var:double:: suma <- SUM(SUM(3,6),3) end;
-                    var:double:: suma1 <- SUM(SUM(1,1),SUM(1,SUM(3,3))) end;
-                     
+                    var:char[]:: nuevo <- "Este es un pArrafo para comprobar la nueva lectura" end;
+                    var:double:: suma2 <- RES(5,3) end;
+                    var:double:: suma3 <- MUL(2,3) end;
+                    var:double:: suma4 <- DIV(10,5) end;
+                    var:double:: suma5 <- MOD(25,3) end;
+                    VAr:double:: prueba <-SUM(SUM(1,1),SUM(1,SUM(2,4))) END; 
+                    var:double::prueba2 <- MUL(SUM(7,3),RES(7,DIV(25,5)))end;
+                    
                     console::print = "Media", "Mediana", "Moda", "Varianza", "Max", "Min" end;
                     console::print = "Hola Mundo", notaAprobar, labelAprobar end;
                     console::print = nuevo end; 
-                    console::print = suma end;
-                    console::print = suma1 end;
+                    console::print = suma2 end;
+                    console::print = suma3 end;
+                    console::print = suma4 end;
+                    console::print = suma5 end;
+                    CONSOLE::PRINT = prueba END;
+                    CONSOLE::PRINT = prueba2 END;
+                    
+
                      
                      
                    END PROGRAM

@@ -113,34 +113,16 @@ tipo::=  CHAR1 A_CORCHETE C_CORCHETE
 
 // Reglas para tipos de expresiones
 expresionTipoVariables ::= CADENA:val {: RESULT = val.substring(1, val.length() - 1); :}
-                         | ENTERO:val {: RESULT = val; :}
-                         | DECIMAL:val {: RESULT = val; :}
-                         | operacionesAritmeticas:val {: RESULT = val; :}
+                         | operacionAritmetica:val {: RESULT = val; :}
 ;
 
-operacionesAritmeticas ::= SUM operacionAritmetica:val {:RESULT = val;:}
-                         | RES operacionAritmetica
-                         | MUL operacionAritmetica
-                         | DIV operacionAritmetica
-                         | MOD operacionAritmetica
-                         | MEDIA operacionEstadistica
-                         | MEDIANA operacionEstadistica
-                         | MODA operacionEstadistica
-                         | VARIANZA operacionEstadistica
-                         | MAX operacionEstadistica
-                         | MIN  operacionEstadistica                      
-;
-
-operacionAritmetica ::= A_PARENTESIS numeros:val C_PARENTESIS {: RESULT = val;:}
-                      
-;
-
-numeros ::= ENTERO:a COMA numeros:b {: RESULT = operacionesArit.Suma(a.toString(),b.toString());:}
-          | DECIMAL:a COMA numeros:b {: RESULT = operacionesArit.Suma(a.toString(),b.toString());:}
-          | operacionesAritmeticas:a COMA numeros:b {: RESULT = operacionesArit.Suma(a.toString(),b.toString());:}
-          | ENTERO: val {: RESULT = val;:}
-          | DECIMAL: val {: RESULT = val;:}
-          | operacionesAritmeticas:val {: RESULT = val;:}
+operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAritmetica:b C_PARENTESIS {: RESULT = operacionesArit.SUM(a.toString(),b.toString());:}
+                      | RES A_PARENTESIS operacionAritmetica:a COMA operacionAritmetica:b C_PARENTESIS {: RESULT = operacionesArit.RES(a.toString(),b.toString());:}
+                      | MUL A_PARENTESIS operacionAritmetica:a COMA operacionAritmetica:b C_PARENTESIS {: RESULT = operacionesArit.MUL(a.toString(),b.toString());:}
+                      | DIV A_PARENTESIS operacionAritmetica:a COMA operacionAritmetica:b C_PARENTESIS {: RESULT = operacionesArit.DIV(a.toString(),b.toString());:}
+                      | MOD A_PARENTESIS operacionAritmetica:a COMA operacionAritmetica:b C_PARENTESIS {: RESULT = operacionesArit.MOD(a.toString(),b.toString());:}
+                      | ENTERO:val {: RESULT = val;:}
+                      | DECIMAL:val {: RESULT = val;:}
 ;
 
 operacionEstadistica ::= A_PARENTESIS A_CORCHETE numeros C_CORCHETE C_PARENTESIS
@@ -160,7 +142,6 @@ expresionTipoArreglos ::= elementoArreglo
 elementoArreglo ::=  CADENA
                    | ENTERO
                    | DECIMAL
-                   | operacionesAritmeticas
 ;
 
 
