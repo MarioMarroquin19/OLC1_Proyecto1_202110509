@@ -3,9 +3,11 @@ package analizador;
 
 import java_cup.runtime.*;
 import java.util.LinkedList;
+import java.util.Collections;
 import funciones.ImpresionConsola;
 import funciones.Variables;
 import funciones.OperacionesAritmeticas;
+
 
 //------> Codigo para el parser
 //------> Declaracion de variables, funciones y funciones de error
@@ -170,6 +172,7 @@ OperacionesArreglos ::= operacionAritmetica:a COMA OperacionesArreglos {:operaci
 
 //IMPRESION EN CONSOLA (PRINT)
 Impresion_consola ::= CONSOLE DOS_PUNTOS DOS_PUNTOS PRINT S_IGUAL elementoImpresion END PUNTO_COMA  {: 
+    Collections.reverse(impresionC.lista_salida);
     for (int i = 0; i < impresionC.lista_salida.size(); i++) { 
             System.out.print(impresionC.lista_salida.get(i)); 
             if (i < impresionC.lista_salida.size() - 1) { 

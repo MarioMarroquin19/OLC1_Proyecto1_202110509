@@ -7,6 +7,7 @@ package analizador;
 
 import java_cup.runtime.*;
 import java.util.LinkedList;
+import java.util.Collections;
 import funciones.ImpresionConsola;
 import funciones.Variables;
 import funciones.OperacionesAritmeticas;
@@ -776,6 +777,7 @@ variables.addVariable(id,exp.toString());
             {
               Object RESULT =null;
 		 
+    Collections.reverse(impresionC.lista_salida);
     for (int i = 0; i < impresionC.lista_salida.size(); i++) { 
             System.out.print(impresionC.lista_salida.get(i)); 
             if (i < impresionC.lista_salida.size() - 1) { 
