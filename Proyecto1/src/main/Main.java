@@ -40,8 +40,9 @@ public class Main {
 
                     !arreglos
                     arr:double::@arreglo6 <- [1,2,3,4,5,6,7,8,9,10] end; !arreglo tipo double
-                    arr:char[]::@arreglo7 <- ["a","b","c","d","e","f","g","h","i","j"] end; !arreglo tipo char
+                    arr:char[]::@arreglo7 <- ["a","b","c","d","e","f","g"] end; !arreglo tipo char
                     arr:double::@arreglo8 <-[notaAprobar, a, valor1, suma2] end; !usando variables
+                    arr:double::@darray <- [ SUM(7,3), DIV(25,5)] end;
 
                     
                     
@@ -66,6 +67,7 @@ public class Main {
                     console::print = @arreglo6 end;
                     console::print = @arreglo7 end;
                     console::print = @arreglo8 end;
+                    console::print = @darray end;
                     
 
                      

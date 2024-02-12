@@ -67,8 +67,8 @@ non terminal operacionesEstad;
 non terminal operacionEstadistica;
 
 non terminal DeclararArreglos;
-non terminal expresionTipoArreglos;
 non terminal expresionesTipoArreglos;
+non terminal OperacionesArreglos;
 
 non terminal Impresion_consola;
 non terminal salida;
@@ -162,12 +162,12 @@ DeclararArreglos ::= ARR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID_ARREGLO:id MEN
                     String resultado = String.join("",operacionesArit.ListaArreglos);variables.addVariable(id,resultado);operacionesArit.ListaArreglos.clear();:} 
 ;
 
-expresionesTipoArreglos ::= CADENA:val {: RESULT = val.substring(1, val.length() - 1); :}
-                         | operacionesEstad
-                         | CADENA:val COMA expresionesTipoArreglos {:operacionesArit.ListaArreglos.add(val.toString());:}
+expresionesTipoArreglos ::= CADENA:val {:operacionesArit.ListaArreglos.add(val.substring(1, val.length() - 1));:}
+                         | OperacionesArreglos
+                         | CADENA:val COMA expresionesTipoArreglos {:operacionesArit.ListaArreglos.add(val.substring(1, val.length() - 1));:}
 ;
 
-OperacionesArreglos ::= operacionAritmetica:a COMA operacionesEstad {:operacionesArit.ListaArreglos.add(a.toString());:}
+OperacionesArreglos ::= operacionAritmetica:a COMA OperacionesArreglos {:operacionesArit.ListaArreglos.add(a.toString());:}
                     | operacionAritmetica:a {:operacionesArit.ListaArreglos.add(a.toString());:}
 ;
 
