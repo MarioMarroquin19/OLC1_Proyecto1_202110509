@@ -68,7 +68,7 @@ non terminal operacionEstadistica;
 
 non terminal DeclararArreglos;
 non terminal expresionTipoArreglos;
-non terminal elementoArreglo;
+non terminal expresionesTipoArreglos;
 
 non terminal Impresion_consola;
 non terminal salida;
@@ -114,7 +114,6 @@ tipo::=  CHAR1 A_CORCHETE C_CORCHETE
 // Reglas para tipos de expresiones
 expresionTipoVariables ::= CADENA:val {: RESULT = val.substring(1, val.length() - 1); :}
                          | operacionAritmetica:val {: RESULT = val; :}
-                         | operacionEstadistica: val{: RESULT = val; :}
 ;
 
 operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAritmetica:b C_PARENTESIS {: RESULT = operacionesArit.SUM(a.toString(),b.toString());:}
@@ -159,16 +158,17 @@ operacionesEstad ::= operacionAritmetica:a COMA operacionesEstad {:operacionesAr
 
 //DECLARACION DE ARREGLOS
 
-DeclararArreglos ::= ARR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID_ARREGLO MENOR_Q GUION A_CORCHETE expresionTipoArreglos C_CORCHETE END PUNTO_COMA 
+DeclararArreglos ::= ARR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID_ARREGLO:id MENOR_Q GUION A_CORCHETE expresionesTipoArreglos:exp C_CORCHETE END PUNTO_COMA {:
+                    String resultado = String.join("",operacionesArit.ListaArreglos);variables.addVariable(id,resultado);operacionesArit.ListaArreglos.clear();:} 
 ;
 
-expresionTipoArreglos ::= CADENA:val COMA expresionTipoArreglos{: RESULT = val.substring(1, val.length() - 1); :}
-                         | operacionAritmetica:val COMA expresionTipoArreglos{: RESULT = val; :}
+expresionesTipoArreglos ::= CADENA:val {: RESULT = val.substring(1, val.length() - 1); :}
+                         | operacionesEstad
+                         | CADENA:val COMA expresionesTipoArreglos {:operacionesArit.ListaArreglos.add(val.toString());:}
 ;
 
-elementoArreglo ::=  CADENA
-                   | ENTERO
-                   | DECIMAL
+OperacionesArreglos ::= operacionAritmetica:a COMA operacionesEstad {:operacionesArit.ListaArreglos.add(a.toString());:}
+                    | operacionAritmetica:a {:operacionesArit.ListaArreglos.add(a.toString());:}
 ;
 
 
@@ -193,4 +193,6 @@ elementoImpresion ::= CADENA:val  {:impresionC.lista_salida.add(val.substring(1,
                     | ENTERO:val  {:impresionC.lista_salida.add(val);:}
                     | DECIMAL:val {:impresionC.lista_salida.add(val);:}
                     | ID:val      {:impresionC.lista_salida.add(variables.getVariable(val));:}
+                    | ID_ARREGLO:val      {:impresionC.lista_salida.add(variables.getVariable(val));:}
+                     
 ;

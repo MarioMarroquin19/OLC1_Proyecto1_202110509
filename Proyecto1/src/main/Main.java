@@ -32,14 +32,20 @@ public class Main {
                     var:double::prueba2 <- MUL(SUM(7,3),RES(7,DIV(25,5)))end;
                     var:double:: arreglo <- Media([DIV(15,3),SUM(14,5),43,53]) end;
                     var:double:: arreglo1 <- Mediana([DIV(15,3),SUM(14,5),43,53]) end;
-                    var:double:: arreglo2 <- Moda([DIV(15,3),SUM(14,5),43,53]) end;
+                    var:double:: arreglo2 <- Moda([DIV(15,3),SUM(14,5),43,53,19,5,5,19,54,19]) end;
                     var:double:: arreglo3 <- Varianza([DIV(15,3),SUM(14,5),43,53]) end;
                     var:double:: arreglo4 <- Max([4,3,54,23,5,43,34,65,423,524,23,4,324,2]) end;
                     var:double:: arreglo5 <- Min([4,3,54,23,5,43,34,65,423,524,23,4,324,2]) end;
                     !var:double:: arreglo6 <- Media([MUL(SUM(7,3),RES(7,DIV(25,5))),14]) end;
+
+                    !arreglos
+                    arr:double::@arreglo6 <- [1,2,3,4,5,6,7,8,9,10] end; !arreglo tipo double
+                    arr:char[]::@arreglo7 <- ["a","b","c","d","e","f","g","h","i","j"] end; !arreglo tipo char
+                    arr:double::@arreglo8 <-[notaAprobar, a, valor1, suma2] end; !usando variables
+
                     
                     
-                    console::print = "Media", "Mediana", "Moda", "Varianza", "Max", "Min" end;
+                    <!console::print = "Media", "Mediana", "Moda", "Varianza", "Max", "Min" end;
                     console::print = "Hola Mundo", notaAprobar, labelAprobar end;
                     console::print = nuevo end; 
                     console::print = suma2 end;
@@ -47,8 +53,8 @@ public class Main {
                     console::print = suma4 end;
                     console::print = suma5 end;
                     CONSOLE::PRINT = prueba END;
-                    CONSOLE::PRINT = prueba2 END;
-                    console::print = "ARREGLOS" END;
+                    CONSOLE::PRINT = prueba2 END;!>
+                    console::print = "VARIABLES CON FUNCIONES ESTADISTICAS" END;
                     console::print = arreglo end;
                     console::print = arreglo1 end;
                     console::print = arreglo2 end;
@@ -56,6 +62,10 @@ public class Main {
                     console::print = arreglo4 end;
                     console::print = arreglo5 end;
                     !console::print = arreglo6 end;
+                    console::print = "ARREGLOS" END;
+                    console::print = @arreglo6 end;
+                    console::print = @arreglo7 end;
+                    console::print = @arreglo8 end;
                     
 
                      
