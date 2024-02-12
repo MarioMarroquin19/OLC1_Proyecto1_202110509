@@ -20,14 +20,19 @@ public class Main {
                      
                     ! Variables
                     var:double:: notaAprobar <- 671 end;
+                    var:double:: a <- 5 end;
+                    var:double:: valor1 <- 3 end;
                     var:char[]:: labelAprobar <- "Nota Minima" end;
                     var:char[]:: nuevo <- "Este es un pArrafo para comprobar la nueva lectura" end;
-                    var:double:: suma2 <- RES(5,3) end;
+                    var:double:: suma2 <- RES(5,valor1) end;
                     var:double:: suma3 <- MUL(2,3) end;
                     var:double:: suma4 <- DIV(10,5) end;
                     var:double:: suma5 <- MOD(25,3) end;
                     VAr:double:: prueba <-SUM(SUM(1,1),SUM(1,SUM(2,4))) END; 
                     var:double::prueba2 <- MUL(SUM(7,3),RES(7,DIV(25,5)))end;
+                    var:double:: arreglo <- Media([DIV(15,3),SUM(14,5),43,53]) end;
+                    var:double:: arreglo2 <- Media([MUL(SUM(7,3),RES(7,DIV(25,5))),14]) end;
+                    
                     
                     console::print = "Media", "Mediana", "Moda", "Varianza", "Max", "Min" end;
                     console::print = "Hola Mundo", notaAprobar, labelAprobar end;
@@ -38,6 +43,8 @@ public class Main {
                     console::print = suma5 end;
                     CONSOLE::PRINT = prueba END;
                     CONSOLE::PRINT = prueba2 END;
+                    console::print = arreglo end;
+                    console::print = arreglo2 end;
                     
 
                      

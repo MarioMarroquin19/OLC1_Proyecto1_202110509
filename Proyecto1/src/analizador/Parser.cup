@@ -63,7 +63,7 @@ non terminal tipo;
 non terminal expresionTipoVariables;
 non terminal operacionesAritmeticas;
 non terminal operacionAritmetica;
-non terminal numeros;
+non terminal operacionesEstad;
 non terminal operacionEstadistica;
 
 non terminal DeclararArreglos;
@@ -114,6 +114,7 @@ tipo::=  CHAR1 A_CORCHETE C_CORCHETE
 // Reglas para tipos de expresiones
 expresionTipoVariables ::= CADENA:val {: RESULT = val.substring(1, val.length() - 1); :}
                          | operacionAritmetica:val {: RESULT = val; :}
+                         | operacionEstadistica: val{: RESULT = val; :}
 ;
 
 operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAritmetica:b C_PARENTESIS {: RESULT = operacionesArit.SUM(a.toString(),b.toString());:}
@@ -123,20 +124,36 @@ operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAri
                       | MOD A_PARENTESIS operacionAritmetica:a COMA operacionAritmetica:b C_PARENTESIS {: RESULT = operacionesArit.MOD(a.toString(),b.toString());:}
                       | ENTERO:val {: RESULT = val;:}
                       | DECIMAL:val {: RESULT = val;:}
+                      | ID: val {:RESULT = variables.getVariable(val);:}
+                      
+
+                       | MEDIA A_PARENTESIS A_CORCHETE operacionesEstad C_CORCHETE C_PARENTESIS {:
+                        RESULT = operacionesArit.Media(operacionesArit.listaMedia);operacionesArit.listaMedia.clear();:}
+
+                        |MEDIANA A_PARENTESIS A_CORCHETE operacionAritmetica:val C_CORCHETE C_PARENTESIS 
+                        |MODA A_PARENTESIS A_CORCHETE operacionAritmetica:val C_CORCHETE C_PARENTESIS 
+                        |VARIANZA A_PARENTESIS A_CORCHETE operacionAritmetica:val C_CORCHETE C_PARENTESIS 
+                        |MAX A_PARENTESIS A_CORCHETE operacionAritmetica:val C_CORCHETE C_PARENTESIS 
+                        |MIN A_PARENTESIS A_CORCHETE operacionAritmetica:val C_CORCHETE C_PARENTESIS 
+                        |MEDIA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
+                        |MEDIANA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
+                        |MODA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
+                        |VARIANZA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
+                        |MAX A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
+                        |MIN A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
 ;
 
-operacionEstadistica ::= A_PARENTESIS A_CORCHETE numeros C_CORCHETE C_PARENTESIS
-                       | ID_ARREGLO
+operacionesEstad ::= operacionAritmetica:a COMA operacionesEstad {:operacionesArit.listaMedia.add(a.toString());:}
+                    | operacionAritmetica:a {:operacionesArit.listaMedia.add(a.toString());:}
 ;
-
 
 //DECLARACION DE ARREGLOS
 
 DeclararArreglos ::= ARR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID_ARREGLO MENOR_Q GUION A_CORCHETE expresionTipoArreglos C_CORCHETE END PUNTO_COMA 
 ;
 
-expresionTipoArreglos ::= elementoArreglo
-                        | expresionTipoArreglos COMA elementoArreglo
+expresionTipoArreglos ::= CADENA:val COMA expresionTipoArreglos{: RESULT = val.substring(1, val.length() - 1); :}
+                         | operacionAritmetica:val COMA expresionTipoArreglos{: RESULT = val; :}
 ;
 
 elementoArreglo ::=  CADENA
