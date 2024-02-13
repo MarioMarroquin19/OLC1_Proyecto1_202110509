@@ -7,6 +7,7 @@ import java.util.Collections;
 import funciones.ImpresionConsola;
 import funciones.Variables;
 import funciones.OperacionesAritmeticas;
+import java.util.ArrayList;
 
 
 //------> Codigo para el parser
@@ -146,7 +147,7 @@ operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAri
                         |MIN A_PARENTESIS A_CORCHETE operacionesEstad C_CORCHETE C_PARENTESIS {:
                         RESULT = operacionesArit.Minimo(operacionesArit.listaEstadistica);operacionesArit.listaEstadistica.clear();:}
 
-                        |MEDIA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
+                        |MEDIA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS {:System.out.println(variables.getVariable(val));:}
                         |MEDIANA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
                         |MODA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
                         |VARIANZA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
@@ -158,10 +159,11 @@ operacionesEstad ::= operacionAritmetica:a COMA operacionesEstad {:operacionesAr
                     | operacionAritmetica:a {:operacionesArit.listaEstadistica.add(a.toString());:}
 ;
 
+
 //DECLARACION DE ARREGLOS
 
 DeclararArreglos ::= ARR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID_ARREGLO:id MENOR_Q GUION A_CORCHETE OperacionesArreglos:exp C_CORCHETE END PUNTO_COMA {:
-                    String resultado = String.join("",operacionesArit.ListaArreglos);variables.addVariable(id,resultado);operacionesArit.ListaArreglos.clear();:} 
+                        variables.addVariable(id,new ArrayList<Object>(operacionesArit.ListaArreglos)); operacionesArit.ListaArreglos.clear(); :} 
 ;
 
 OperacionesArreglos ::= operacionAritmetica:a COMA OperacionesArreglos {:operacionesArit.ListaArreglos.add(a.toString());:}
@@ -172,7 +174,7 @@ OperacionesArreglos ::= operacionAritmetica:a COMA OperacionesArreglos {:operaci
 
 //IMPRESION EN CONSOLA (PRINT)
 Impresion_consola ::= CONSOLE DOS_PUNTOS DOS_PUNTOS PRINT S_IGUAL elementoImpresion END PUNTO_COMA  {: 
-    Collections.reverse(impresionC.lista_salida);
+    //Collections.reverse(impresionC.lista_salida);
     for (int i = 0; i < impresionC.lista_salida.size(); i++) { 
             System.out.print(impresionC.lista_salida.get(i)); 
             if (i < impresionC.lista_salida.size() - 1) { 
@@ -187,7 +189,7 @@ salida ::= elementoImpresion
          | salida COMA elementoImpresion 
 ;
 
-elementoImpresion ::= ID_ARREGLO:val      {:impresionC.lista_salida.add(variables.getVariable(val));:}
+elementoImpresion ::= ID_ARREGLO:val {:impresionC.lista_salida.add(variables.getVariable(val));:}
                     |operacionAritmetica:a {:impresionC.lista_salida.add(a.toString());:}
                     |operacionAritmetica:a COMA elementoImpresion {:impresionC.lista_salida.add(a.toString());:}
 ;

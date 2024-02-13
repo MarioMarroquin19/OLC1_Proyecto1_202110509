@@ -12,9 +12,9 @@ import java.util.LinkedList;
  */
 public class OperacionesAritmeticas {
 
-    public static LinkedList<String> operacionesSuma = new LinkedList<String>();
-    public static LinkedList<String> listaEstadistica = new LinkedList<>();
-    public static LinkedList<String> ListaArreglos = new LinkedList<>();
+    public static LinkedList<Object> operacionesSuma = new LinkedList<>();
+    public static LinkedList<Object> listaEstadistica = new LinkedList<>();
+    public static LinkedList<Object> ListaArreglos = new LinkedList<>();
 
     //operaciones aritméticas
     public static String SUM(String a, String b) {
@@ -49,68 +49,113 @@ public class OperacionesAritmeticas {
 
     //opraciones estádisticas
 
-    public static String Media(LinkedList<String> lista) {
+    public static Object Media(LinkedList<Object> lista) {
         double suma = 0;
-        for (String num : lista) {
-            suma += Double.parseDouble(num);
+        int count = 0;
+        for (Object obj : lista) {
+            if (obj instanceof String) {
+                try {
+                    suma += Double.parseDouble((String) obj);
+                    count++;
+                } catch (NumberFormatException e) {
+                    // Ignorar el elemento si no se puede convertir a Double
+                }
+            }
         }
-        return String.valueOf(suma / lista.size());
+        return count > 0 ? String.valueOf(suma / count) : null;
     }
 
-    public static String Mediana(LinkedList<String> lista) {
-        int n = lista.size();
+    public static Object Mediana(LinkedList<Object> lista) {
+        LinkedList<String> listaNumeros = new LinkedList<>();
+        for (Object obj : lista) {
+            if (obj instanceof String) {
+                listaNumeros.add((String) obj);
+            }
+        }
+        listaNumeros.sort((String a, String b) -> {
+            return Double.compare(Double.parseDouble(a), Double.parseDouble(b));
+        });
+        int n = listaNumeros.size();
         if (n % 2 == 0) {
-            double a = Double.parseDouble(lista.get(n / 2));
-            double b = Double.parseDouble(lista.get((n / 2) - 1));
+            double a = Double.parseDouble(listaNumeros.get(n / 2));
+            double b = Double.parseDouble(listaNumeros.get(n / 2 - 1));
             return String.valueOf((a + b) / 2);
         } else {
-            return lista.get(n / 2);
+            return listaNumeros.get(n / 2);
         }
     }
     
-    public static String Moda(LinkedList<String> lista) {
-        int n = lista.size();
-        int max = 0;
-        String moda = "";
+    public static Object Moda(LinkedList<Object> lista) {
+        LinkedList<String> listaNumeros = new LinkedList<>();
+        for (Object obj : lista) {
+            if (obj instanceof String) {
+                listaNumeros.add((String) obj);
+            }
+        }
+        listaNumeros.sort((String a, String b) -> {
+            return Double.compare(Double.parseDouble(a), Double.parseDouble(b));
+        });
+        int n = listaNumeros.size();
+        int maxCount = 0;
+        String moda = null;
         for (int i = 0; i < n; i++) {
             int count = 0;
             for (int j = 0; j < n; j++) {
-                if (lista.get(i).equals(lista.get(j))) {
+                if (listaNumeros.get(j).equals(listaNumeros.get(i))) {
                     count++;
                 }
             }
-            if (count > max) {
-                max = count;
-                moda = lista.get(i);
+            if (count > maxCount) {
+                maxCount = count;
+                moda = listaNumeros.get(i);
             }
         }
         return moda;
     }
 
-    public static String Varianza(LinkedList<String> lista) {
-        double media = Double.parseDouble(Media(lista));
+    public static Object Varianza(LinkedList<Object> lista) {
         double suma = 0;
-        for (String num : lista) {
-            suma += Math.pow(Double.parseDouble(num) - media, 2);
+        int count = 0;
+        for (Object obj : lista) {
+            if (obj instanceof String) {
+                try {
+                    suma += Double.parseDouble((String) obj);
+                    count++;
+                } catch (NumberFormatException e) {
+                    // Ignorar el elemento si no se puede convertir a Double
+                }
+            }
         }
-        return String.valueOf(suma / lista.size());
+        double media = count > 0 ? suma / count : 0;
+        double sumaCuadrados = 0;
+        for (Object obj : lista) {
+            if (obj instanceof String) {
+                try {
+                    sumaCuadrados += Math.pow(Double.parseDouble((String) obj) - media, 2);
+                } catch (NumberFormatException e) {
+                    // Ignorar el elemento si no se puede convertir a Double
+                }
+            }
+        }
+        return count > 0 ? String.valueOf(sumaCuadrados / count) : null;
     }
 
-    public static String Maximo(LinkedList<String> lista) {
-        double max = Double.parseDouble(lista.get(0));
-        for (String num : lista) {
-            if (Double.parseDouble(num) > max) {
-                max = Double.parseDouble(num);
+    public static Object Maximo(LinkedList<Object> lista) {
+        double max = Double.parseDouble((String) lista.get(0));
+        for (Object num : lista) {
+            if (Double.parseDouble((String) num) > max) {
+                max = Double.parseDouble((String) num);
             }
         }
         return String.valueOf(max);
     }
 
-    public static String Minimo(LinkedList<String> lista) {
-        double min = Double.parseDouble(lista.get(0));
-        for (String num : lista) {
-            if (Double.parseDouble(num) < min) {
-                min = Double.parseDouble(num);
+    
+    public static Object Minimo(LinkedList<Object> lista) {
+        double min = Double.parseDouble((String) lista.get(0));
+        for (Object num : lista) {
+            if (Double.parseDouble((String) num) < min) {
+                min = Double.parseDouble((String) num);
             }
         }
         return String.valueOf(min);

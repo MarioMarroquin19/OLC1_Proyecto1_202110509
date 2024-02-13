@@ -11,6 +11,7 @@ import java.util.Collections;
 import funciones.ImpresionConsola;
 import funciones.Variables;
 import funciones.OperacionesAritmeticas;
+import java.util.ArrayList;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -643,7 +644,7 @@ variables.addVariable(id,exp.toString());
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-
+		System.out.println(variables.getVariable(val));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("operacionAritmetica",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -743,7 +744,7 @@ variables.addVariable(id,exp.toString());
 		int expright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		Object exp = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		
-                    String resultado = String.join("",operacionesArit.ListaArreglos);variables.addVariable(id,resultado);operacionesArit.ListaArreglos.clear();
+                        variables.addVariable(id,new ArrayList<Object>(operacionesArit.ListaArreglos)); operacionesArit.ListaArreglos.clear(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("DeclararArreglos",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-12)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -777,7 +778,7 @@ variables.addVariable(id,exp.toString());
             {
               Object RESULT =null;
 		 
-    Collections.reverse(impresionC.lista_salida);
+    //Collections.reverse(impresionC.lista_salida);
     for (int i = 0; i < impresionC.lista_salida.size(); i++) { 
             System.out.print(impresionC.lista_salida.get(i)); 
             if (i < impresionC.lista_salida.size() - 1) { 
