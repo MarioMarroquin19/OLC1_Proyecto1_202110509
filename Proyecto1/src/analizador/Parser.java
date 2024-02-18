@@ -415,11 +415,11 @@ class CUP$Parser$actions {
 		int idleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).right;
 		String id = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
-		int expleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
-		int expright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		Object exp = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int expeleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int experight = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object expe = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		
-variables.addVariable(id,exp.toString());
+variables.addVariable(id,expe);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("DeclararVariables",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-10)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -644,7 +644,16 @@ variables.addVariable(id,exp.toString());
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		System.out.println(variables.getVariable(val));
+		
+
+                                Object obj = variables.getVariable(val);
+                                if (obj instanceof LinkedList) {
+                                LinkedList<Object> lista = (LinkedList<Object>) obj;
+                                RESULT = operacionesArit.Media(lista);
+                                } else {
+                                // Manejar el caso en el que el objeto no es un LinkedList
+                                }
+                        
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("operacionAritmetica",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -656,7 +665,16 @@ variables.addVariable(id,exp.toString());
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		
 
+                                Object obj = variables.getVariable(val);
+                                if (obj instanceof LinkedList) {
+                                LinkedList<Object> lista = (LinkedList<Object>) obj;
+                                RESULT = operacionesArit.Mediana(lista);
+                                } else {
+                                // Manejar el caso en el que el objeto no es un LinkedList
+                                }
+                        
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("operacionAritmetica",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -668,7 +686,16 @@ variables.addVariable(id,exp.toString());
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		
 
+                                Object obj = variables.getVariable(val);
+                                if (obj instanceof LinkedList) {
+                                LinkedList<Object> lista = (LinkedList<Object>) obj;
+                                RESULT = operacionesArit.Moda(lista);
+                                } else {
+                                // Manejar el caso en el que el objeto no es un LinkedList
+                                }
+                        
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("operacionAritmetica",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -680,7 +707,16 @@ variables.addVariable(id,exp.toString());
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		
 
+                                Object obj = variables.getVariable(val);
+                                if (obj instanceof LinkedList) {
+                                LinkedList<Object> lista = (LinkedList<Object>) obj;
+                                RESULT = operacionesArit.Varianza(lista);
+                                } else {
+                                // Manejar el caso en el que el objeto no es un LinkedList
+                                }
+                        
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("operacionAritmetica",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -692,7 +728,16 @@ variables.addVariable(id,exp.toString());
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		
 
+                                Object obj = variables.getVariable(val);
+                                if (obj instanceof LinkedList) {
+                                LinkedList<Object> lista = (LinkedList<Object>) obj;
+                                RESULT = operacionesArit.Maximo(lista);
+                                } else {
+                                // Manejar el caso en el que el objeto no es un LinkedList
+                                }
+                        
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("operacionAritmetica",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -704,7 +749,16 @@ variables.addVariable(id,exp.toString());
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		
 
+                                Object obj = variables.getVariable(val);
+                                if (obj instanceof LinkedList) {
+                                LinkedList<Object> lista = (LinkedList<Object>) obj;
+                                RESULT = operacionesArit.Minimo(lista);
+                                } else {
+                                // Manejar el caso en el que el objeto no es un LinkedList
+                                }
+                        
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("operacionAritmetica",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -713,10 +767,10 @@ variables.addVariable(id,exp.toString());
           case 33: // operacionesEstad ::= operacionAritmetica COMA operacionesEstad 
             {
               Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		Object a = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-		operacionesArit.listaEstadistica.add(a.toString());
+		int bleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int bright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object b = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		operacionesArit.listaEstadistica.add(b.toString());
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("operacionesEstad",8, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -725,10 +779,10 @@ variables.addVariable(id,exp.toString());
           case 34: // operacionesEstad ::= operacionAritmetica 
             {
               Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
-		Object a = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		operacionesArit.listaEstadistica.add(a.toString());
+		int cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		operacionesArit.listaEstadistica.add(c.toString());
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("operacionesEstad",8, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -744,7 +798,7 @@ variables.addVariable(id,exp.toString());
 		int expright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		Object exp = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		
-                        variables.addVariable(id,new ArrayList<Object>(operacionesArit.ListaArreglos)); operacionesArit.ListaArreglos.clear(); 
+                        variables.addVariable(id,new LinkedList<Object>(operacionesArit.ListaArreglos)); operacionesArit.ListaArreglos.clear(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("DeclararArreglos",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-12)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -753,10 +807,10 @@ variables.addVariable(id,exp.toString());
           case 36: // OperacionesArreglos ::= operacionAritmetica COMA OperacionesArreglos 
             {
               Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		Object a = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-		operacionesArit.ListaArreglos.add(a.toString());
+		int cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		RESULT=operacionesArit.ListaArreglos.add(c.toString());
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OperacionesArreglos",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -765,10 +819,10 @@ variables.addVariable(id,exp.toString());
           case 37: // OperacionesArreglos ::= operacionAritmetica 
             {
               Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
-		Object a = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		operacionesArit.ListaArreglos.add(a.toString());
+		int bleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int bright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object b = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		RESULT= operacionesArit.ListaArreglos.add(b.toString());
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OperacionesArreglos",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -778,7 +832,7 @@ variables.addVariable(id,exp.toString());
             {
               Object RESULT =null;
 		 
-    //Collections.reverse(impresionC.lista_salida);
+    Collections.reverse(impresionC.lista_salida);
     for (int i = 0; i < impresionC.lista_salida.size(); i++) { 
             System.out.print(impresionC.lista_salida.get(i)); 
             if (i < impresionC.lista_salida.size() - 1) { 

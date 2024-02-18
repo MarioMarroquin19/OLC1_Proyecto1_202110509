@@ -77,6 +77,11 @@ non terminal Impresion_consola;
 non terminal salida;
 non terminal elementoImpresion;
 
+non terminal impresion_arreglos;
+non terminal titulo_arreglo;
+non terminal arreglo_contenido;
+
+
 non terminal Impresion_graficas;
 
 
@@ -105,8 +110,8 @@ expresiones ::= DeclararVariables
 
 //DECLARACION DE VARIABLES
 
-DeclararVariables ::= VAR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID:id MENOR_Q GUION expresionTipoVariables:exp END PUNTO_COMA {:
-variables.addVariable(id,exp.toString());:} 
+DeclararVariables ::= VAR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID:id MENOR_Q GUION expresionTipoVariables:expe END PUNTO_COMA {:
+variables.addVariable(id,expe);:} 
 ;
 
 tipo::=  CHAR1 A_CORCHETE C_CORCHETE
@@ -146,35 +151,94 @@ operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAri
 
                         |MIN A_PARENTESIS A_CORCHETE operacionesEstad C_CORCHETE C_PARENTESIS {:
                         RESULT = operacionesArit.Minimo(operacionesArit.listaEstadistica);operacionesArit.listaEstadistica.clear();:}
+1
+                        |MEDIA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS {:
 
-                        |MEDIA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS {:System.out.println(variables.getVariable(val));:}
-                        |MEDIANA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
-                        |MODA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
-                        |VARIANZA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
-                        |MAX A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
-                        |MIN A_PARENTESIS ID_ARREGLO:val C_PARENTESIS 
+                                Object obj = variables.getVariable(val);
+                                if (obj instanceof LinkedList) {
+                                LinkedList<Object> lista = (LinkedList<Object>) obj;
+                                RESULT = operacionesArit.Media(lista);
+                                } else {
+                                // Manejar el caso en el que el objeto no es un LinkedList
+                                }
+                        :}
+
+                        |MEDIANA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS {:
+
+                                Object obj = variables.getVariable(val);
+                                if (obj instanceof LinkedList) {
+                                LinkedList<Object> lista = (LinkedList<Object>) obj;
+                                RESULT = operacionesArit.Mediana(lista);
+                                } else {
+                                // Manejar el caso en el que el objeto no es un LinkedList
+                                }
+                        :}
+
+                        |MODA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS {:
+
+                                Object obj = variables.getVariable(val);
+                                if (obj instanceof LinkedList) {
+                                LinkedList<Object> lista = (LinkedList<Object>) obj;
+                                RESULT = operacionesArit.Moda(lista);
+                                } else {
+                                // Manejar el caso en el que el objeto no es un LinkedList
+                                }
+                        :}
+
+                        |VARIANZA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS {:
+
+                                Object obj = variables.getVariable(val);
+                                if (obj instanceof LinkedList) {
+                                LinkedList<Object> lista = (LinkedList<Object>) obj;
+                                RESULT = operacionesArit.Varianza(lista);
+                                } else {
+                                // Manejar el caso en el que el objeto no es un LinkedList
+                                }
+                        :}
+
+                        |MAX A_PARENTESIS ID_ARREGLO:val C_PARENTESIS {:
+
+                                Object obj = variables.getVariable(val);
+                                if (obj instanceof LinkedList) {
+                                LinkedList<Object> lista = (LinkedList<Object>) obj;
+                                RESULT = operacionesArit.Maximo(lista);
+                                } else {
+                                // Manejar el caso en el que el objeto no es un LinkedList
+                                }
+                        :}
+
+                        |MIN A_PARENTESIS ID_ARREGLO:val C_PARENTESIS {:
+
+                                Object obj = variables.getVariable(val);
+                                if (obj instanceof LinkedList) {
+                                LinkedList<Object> lista = (LinkedList<Object>) obj;
+                                RESULT = operacionesArit.Minimo(lista);
+                                } else {
+                                // Manejar el caso en el que el objeto no es un LinkedList
+                                }
+                        :}
 ;
 
-operacionesEstad ::= operacionAritmetica:a COMA operacionesEstad {:operacionesArit.listaEstadistica.add(a.toString());:}
-                    | operacionAritmetica:a {:operacionesArit.listaEstadistica.add(a.toString());:}
+operacionesEstad ::= operacionAritmetica:b COMA operacionesEstad {:operacionesArit.listaEstadistica.add(b.toString());:}
+                    | operacionAritmetica:c {:operacionesArit.listaEstadistica.add(c.toString());:}
 ;
 
 
 //DECLARACION DE ARREGLOS
 
 DeclararArreglos ::= ARR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID_ARREGLO:id MENOR_Q GUION A_CORCHETE OperacionesArreglos:exp C_CORCHETE END PUNTO_COMA {:
-                        variables.addVariable(id,new ArrayList<Object>(operacionesArit.ListaArreglos)); operacionesArit.ListaArreglos.clear(); :} 
+                        variables.addVariable(id,new LinkedList<Object>(operacionesArit.ListaArreglos)); operacionesArit.ListaArreglos.clear(); :} 
 ;
 
-OperacionesArreglos ::= operacionAritmetica:a COMA OperacionesArreglos {:operacionesArit.ListaArreglos.add(a.toString());:}
-                    | operacionAritmetica:a {:operacionesArit.ListaArreglos.add(a.toString());:}
+OperacionesArreglos ::= operacionAritmetica:c COMA OperacionesArreglos {:RESULT=operacionesArit.ListaArreglos.add(c.toString());:}
+                    | operacionAritmetica:b {:RESULT= operacionesArit.ListaArreglos.add(b.toString());:}
 ;
 
 
 
 //IMPRESION EN CONSOLA (PRINT)
 Impresion_consola ::= CONSOLE DOS_PUNTOS DOS_PUNTOS PRINT S_IGUAL elementoImpresion END PUNTO_COMA  {: 
-    //Collections.reverse(impresionC.lista_salida);
+    Collections.reverse(impresionC.lista_salida);
     for (int i = 0; i < impresionC.lista_salida.size(); i++) { 
             System.out.print(impresionC.lista_salida.get(i)); 
             if (i < impresionC.lista_salida.size() - 1) { 
@@ -192,4 +256,16 @@ salida ::= elementoImpresion
 elementoImpresion ::= ID_ARREGLO:val {:impresionC.lista_salida.add(variables.getVariable(val));:}
                     |operacionAritmetica:a {:impresionC.lista_salida.add(a.toString());:}
                     |operacionAritmetica:a COMA elementoImpresion {:impresionC.lista_salida.add(a.toString());:}
+;
+
+impresion_arreglos ::= CONSOLE DOS_PUNTOS DOS_PUNTOS COLUMN S_IGUAL titulo_arreglo GUION MAYOR_Q arreglo_contenido END PUNTO_COMA
+;
+
+titulo_arreglo::= CADENA:val {: RESULT = val.substring(1, val.length() - 1); :}
+                | 
+
+;
+
+arreglo_contenido::=
+
 ;
