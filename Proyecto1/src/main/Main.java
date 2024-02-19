@@ -17,7 +17,6 @@ public class Main {
         
     String entrada = """
         PROGRAM
-                                                    
             ! Variables
             var:double:: notaAprobar <- 61 end;
             var:char[]:: labelAprobar <- "Nota Minima" end;
@@ -37,10 +36,11 @@ public class Main {
             console::print = "Hola Mundo", MOD(10, 9), notaAprobar, labelAprobar end;
 
             <! FELICIDADES
-                Lo de arriba ya es medio proyecto
-                Tu puedes !>
-                                        
-        END PROGRAM
+                    Lo de arriba ya es medio proyecto
+                    Tu puedes !>
+            	
+ 
+       END PROGRAM
                   """;
     
     // Generar Analizadores

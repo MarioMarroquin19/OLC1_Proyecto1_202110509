@@ -50,7 +50,7 @@ terminal String MEDIA, MEDIANA, MODA, VARIANZA, MAX, MIN;
 terminal String CONSOLE;
 terminal String GraphPie, GraphBar, GraphLine, HISTOGRAM;
 terminal String TITULO, E_X, E_Y, T_X, T_Y, EXEC, LABEL, VALUES;
-terminal String PRINT, COLUMN;
+terminal String PRINT, COLUMNA;
 terminal String DOS_PUNTOS, PUNTO_COMA, COMA, PUNTO, S_EXCLAMACION, MAYOR_Q;
 terminal String MENOR_Q, A_CORCHETE, C_CORCHETE, A_LLAVE, C_LLAVE, GUION;
 terminal String ARROBA, COMILLA, A_PARENTESIS, C_PARENTESIS, S_IGUAL;
@@ -73,18 +73,14 @@ non terminal DeclararArreglos;
 non terminal expresionesTipoArreglos;
 non terminal OperacionesArreglos;
 
-non terminal Impresion_consola;
-non terminal salida;
+non terminal imprimirTipos;
+non terminal tiposImpresion;
 non terminal elementoImpresion;
-
-non terminal impresion_arreglos;
 non terminal titulo_arreglo;
 non terminal arreglo_contenido;
-
+non terminal OperacionImpresionArreglos;
 
 non terminal Impresion_graficas;
-
-
 
 
 // ------------  GRAMATICA  ------------
@@ -103,7 +99,7 @@ instruccion ::= expresiones
 
 expresiones ::= DeclararVariables
                 | DeclararArreglos
-                | Impresion_consola
+                | imprimirTipos
                 | Impresion_graficas
 ;
 
@@ -151,7 +147,7 @@ operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAri
 
                         |MIN A_PARENTESIS A_CORCHETE operacionesEstad C_CORCHETE C_PARENTESIS {:
                         RESULT = operacionesArit.Minimo(operacionesArit.listaEstadistica);operacionesArit.listaEstadistica.clear();:}
-1
+
                         |MEDIA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS {:
 
                                 Object obj = variables.getVariable(val);
@@ -224,6 +220,8 @@ operacionesEstad ::= operacionAritmetica:b COMA operacionesEstad {:operacionesAr
 ;
 
 
+
+
 //DECLARACION DE ARREGLOS
 
 DeclararArreglos ::= ARR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID_ARREGLO:id MENOR_Q GUION A_CORCHETE OperacionesArreglos:exp C_CORCHETE END PUNTO_COMA {:
@@ -236,36 +234,58 @@ OperacionesArreglos ::= operacionAritmetica:c COMA OperacionesArreglos {:RESULT=
 
 
 
-//IMPRESION EN CONSOLA (PRINT)
-Impresion_consola ::= CONSOLE DOS_PUNTOS DOS_PUNTOS PRINT S_IGUAL elementoImpresion END PUNTO_COMA  {: 
-    Collections.reverse(impresionC.lista_salida);
-    for (int i = 0; i < impresionC.lista_salida.size(); i++) { 
-            System.out.print(impresionC.lista_salida.get(i)); 
-            if (i < impresionC.lista_salida.size() - 1) { 
-                    System.out.print(","); 
-                    } 
-            }        
-            System.out.println(); 
-            impresionC.lista_salida.clear(); :}
+
+//IMPRESIONES EN CONSOLA
+
+imprimirTipos ::= CONSOLE DOS_PUNTOS DOS_PUNTOS tiposImpresion END PUNTO_COMA
 ;
 
-salida ::= elementoImpresion
-         | salida COMA elementoImpresion 
+tiposImpresion ::=  PRINT S_IGUAL elementoImpresion {: 
+                        Collections.reverse(impresionC.lista_salida);
+                        for (int i = 0; i < impresionC.lista_salida.size(); i++) { 
+                                System.out.print(impresionC.lista_salida.get(i)); 
+                                if (i < impresionC.lista_salida.size() - 1) { 
+                                        System.out.print(", "); 
+                                        } 
+                                }        
+                                System.out.println(); 
+                                impresionC.lista_salida.clear(); :}
+
+                |COLUMNA S_IGUAL titulo_arreglo:titulo GUION MAYOR_Q arreglo_contenido{:
+                        System.out.println("------------------------");
+                        System.out.println(titulo);
+                        System.out.println("------------------------");
+                        Collections.reverse(impresionC.lista_columnas);
+                        for (int i = 0; i < impresionC.lista_columnas.size(); i++){
+                                System.out.println(impresionC.lista_columnas.get(i));
+                                if(i<impresionC.lista_columnas.size()-1){
+                                    //System.out.println();    
+                                }
+                        }
+                        System.out.println(); 
+                        impresionC.lista_columnas.clear();:}
 ;
+
+
 
 elementoImpresion ::= ID_ARREGLO:val {:impresionC.lista_salida.add(variables.getVariable(val));:}
                     |operacionAritmetica:a {:impresionC.lista_salida.add(a.toString());:}
                     |operacionAritmetica:a COMA elementoImpresion {:impresionC.lista_salida.add(a.toString());:}
 ;
 
-impresion_arreglos ::= CONSOLE DOS_PUNTOS DOS_PUNTOS COLUMN S_IGUAL titulo_arreglo GUION MAYOR_Q arreglo_contenido END PUNTO_COMA
-;
 
 titulo_arreglo::= CADENA:val {: RESULT = val.substring(1, val.length() - 1); :}
-                | 
+                | ID: val {:RESULT = variables.getVariable(val);:}
 
 ;
 
-arreglo_contenido::=
+arreglo_contenido::= A_CORCHETE OperacionImpresionArreglos C_CORCHETE 
+                | ID_ARREGLO:val {:LinkedList<Object> temp = (LinkedList<Object>) variables.getVariable(val);
+                                for (Object obj : temp) {
+                                impresionC.lista_columnas.add(obj);
+                                }:}
+;
 
+OperacionImpresionArreglos ::=  operacionAritmetica:c COMA OperacionImpresionArreglos {:RESULT=impresionC.lista_columnas.add(c.toString());:}
+                                | operacionAritmetica:b {:RESULT=impresionC.lista_columnas.add(b.toString());:}
 ;

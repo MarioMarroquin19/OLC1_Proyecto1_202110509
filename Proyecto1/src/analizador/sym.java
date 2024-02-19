@@ -19,7 +19,6 @@ public class sym {
   public static final int A_LLAVE = 43;
   public static final int T_Y = 28;
   public static final int T_X = 27;
-  public static final int COLUMN = 33;
   public static final int GraphPie = 20;
   public static final int ARROBA = 46;
   public static final int TITULO = 24;
@@ -62,6 +61,7 @@ public class sym {
   public static final int MAX = 17;
   public static final int VAR = 6;
   public static final int HISTOGRAM = 23;
+  public static final int COLUMNA = 33;
   public static final int PRINT = 32;
   public static final int CONSOLE = 19;
   public static final String[] terminalNames = new String[] {
@@ -98,7 +98,7 @@ public class sym {
   "LABEL",
   "VALUES",
   "PRINT",
-  "COLUMN",
+  "COLUMNA",
   "DOS_PUNTOS",
   "PUNTO_COMA",
   "COMA",

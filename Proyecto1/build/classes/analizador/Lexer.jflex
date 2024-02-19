@@ -74,7 +74,7 @@ Id_arreglo = "@"{Id}
 "values"    {return new Symbol (sym.VALUES, yycolumn, yyline, yytext());}
 
 "print"     {return new Symbol (sym.PRINT, yycolumn, yyline, yytext());}
-"column"    {return new Symbol (sym.COLUMN, yycolumn, yyline, yytext());}
+"column"    {return new Symbol (sym.COLUMNA, yycolumn, yyline, yytext());}
 
 ":"         {return new Symbol (sym.DOS_PUNTOS, yycolumn, yyline, yytext());}
 ";"         {return new Symbol (sym.PUNTO_COMA, yycolumn, yyline, yytext());}

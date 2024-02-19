@@ -12,6 +12,7 @@ import java.util.LinkedList;
  */
 public class ImpresionConsola {
     public static LinkedList<Object> lista_salida = new LinkedList<>();
+    public static LinkedList<Object> lista_columnas = new LinkedList<>();
          
     public static String impresion(String salida){
         
