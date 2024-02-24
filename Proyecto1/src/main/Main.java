@@ -25,12 +25,16 @@ public class Main {
             arr:double:: @notas <- [notaAprobar, MUL(75, 0.45), DIV(SUM(80,20), RES(75,25))] end;
             arr:char[]:: @labels <- [labelAprobar, "P1", "P2"] end;
 
+            <! segundo 
+                     comentario multilínea !>
+
             !Prints
             var:char[]:: titulo1 <- "Titulo histograma" end;
             console::column = "test" -> [10, 15.5, 61.1] end;
             console::column = "Notas" -> @notas end;
             console::column = titulo1 -> @labels end;
-
+()
+                     $;
             console::print = "Media", "Mediana", "Moda", "Varianza", "Max", "Min" end;
             console::print = Media(@notas), Mediana(@notas), Moda(@notas), Varianza(@notas), Max(@notas), Min(@notas) end;
             console::print = "Hola Mundo", MOD(10, 9), notaAprobar, labelAprobar end;

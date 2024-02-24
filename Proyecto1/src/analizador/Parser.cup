@@ -18,6 +18,7 @@ parser code
 {:
 
         public String resultado = ""; //Variable para mostrar en consola
+
         //public static LinkedList<Object> instrucciones; //Lista con instrucciones a ejecutar
         ImpresionConsola impresionC = new ImpresionConsola();
         Variables variables = new Variables();
@@ -26,12 +27,12 @@ parser code
 
     public void syntax_error(Symbol s)
     {
-            System.err.println("Identificador "+ s.value + " no reconocido. Se ha recuperado del error." );
+            System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado" );
     }
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
     {
-            System.err.println("Identificador " +s.value + " no reconocido.");
+            System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Sin recuperacion." );
     }
 
 :}
@@ -81,6 +82,10 @@ non terminal arreglo_contenido;
 non terminal OperacionImpresionArreglos;
 
 non terminal Impresion_graficas;
+non terminal  graficaBarras;
+non terminal graficaPie;
+non terminal graficaLinea;
+non terminal graficaHistograma;
 
 
 // ------------  GRAMATICA  ------------
@@ -101,6 +106,7 @@ expresiones ::= DeclararVariables
                 | DeclararArreglos
                 | imprimirTipos
                 | Impresion_graficas
+                | error PUNTO_COMA
 ;
 
 
@@ -288,4 +294,26 @@ arreglo_contenido::= A_CORCHETE OperacionImpresionArreglos C_CORCHETE
 
 OperacionImpresionArreglos ::=  operacionAritmetica:c COMA OperacionImpresionArreglos {:RESULT=impresionC.lista_columnas.add(c.toString());:}
                                 | operacionAritmetica:b {:RESULT=impresionC.lista_columnas.add(b.toString());:}
+;
+
+
+//IMPRESIONES DE GRAFICAS
+
+Impresion_graficas ::=   GraphBar A_PARENTESIS graficaBarras C_PARENTESIS END PUNTO_COMA
+                        |GraphPie A_PARENTESIS graficaPie C_PARENTESIS END PUNTO_COMA
+                        |GraphLine A_PARENTESIS graficaLinea C_PARENTESIS END PUNTO_COMA
+                        |HISTOGRAM A_PARENTESIS graficaHistograma C_PARENTESIS END PUNTO_COMA
+;
+
+
+graficaBarras ::= 
+;
+
+graficaPie ::=
+;
+
+graficaLinea ::=
+;
+
+graficaHistograma ::=
 ;

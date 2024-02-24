@@ -107,4 +107,4 @@ Id_arreglo = "@"{Id}
 [ \t\r\n\f]     {/* Espacios en blanco se ignoran */}
 
 //------> Errores Léxicos 
-.           	{ System.out.println("Error Lexico: " + yytext()); }
+.           	{ System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn); }
