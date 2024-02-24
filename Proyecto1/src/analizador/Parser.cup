@@ -306,7 +306,7 @@ Impresion_graficas ::=   GraphBar A_PARENTESIS graficaBarras C_PARENTESIS END PU
 ;
 
 
-graficaBarras ::= 
+graficaBarras ::=  A_PARENTESIS tituloGrafica ejeXGrafica ejeYGrafica tituloXGrafica tituloYGrafica C_PARENTESIS END PUNTO_COMA
 ;
 
 graficaPie ::=
@@ -317,3 +317,19 @@ graficaLinea ::=
 
 graficaHistograma ::=
 ;
+
+tituloGrafica ::= TITULO DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL CADENA END PUNTO_COMA
+;
+
+ejeXGrafica ::= E_X DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL 'insertar arreglo cadenas'   END PUNTO_COMA
+;
+
+ejeYGrafica ::= E_Y DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL 'insertar arreglo double'  END PUNTO_COMA
+;
+
+tituloXGrafica ::= T_X DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL CADENA END PUNTO_COMA
+;
+
+tituloYGrafica ::= T_Y DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL CADENA END PUNTO_COMA
+;
+
