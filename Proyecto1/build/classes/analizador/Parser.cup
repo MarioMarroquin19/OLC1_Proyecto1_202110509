@@ -82,10 +82,22 @@ non terminal arreglo_contenido;
 non terminal OperacionImpresionArreglos;
 
 non terminal Impresion_graficas;
-non terminal  graficaBarras;
+non terminal graficaBarras;
 non terminal graficaPie;
 non terminal graficaLinea;
 non terminal graficaHistograma;
+
+//parámetros de las graficas
+non terminal tituloGrafica;
+non terminal ejeXGrafica;
+non terminal ejeYGrafica;
+non terminal tituloXGrafica;
+non terminal tituloYGrafica;
+non terminal labelGrafica;
+non terminal valuesGrafica;
+non terminal execGraficas;
+non terminal operacionesGraficas;
+
 
 
 // ------------  GRAMATICA  ------------
@@ -306,30 +318,44 @@ Impresion_graficas ::=   GraphBar A_PARENTESIS graficaBarras C_PARENTESIS END PU
 ;
 
 
-graficaBarras ::=  A_PARENTESIS tituloGrafica ejeXGrafica ejeYGrafica tituloXGrafica tituloYGrafica C_PARENTESIS END PUNTO_COMA
+graficaBarras ::=  A_PARENTESIS tituloGrafica ejeXGrafica ejeYGrafica tituloXGrafica tituloYGrafica execGraficas C_PARENTESIS END PUNTO_COMA
 ;
 
-graficaPie ::=
+graficaPie ::= A_PARENTESIS labelGrafica valuesGrafica tituloGrafica execGraficas C_PARENTESIS END PUNTO_COMA
 ;
 
-graficaLinea ::=
+graficaLinea ::= A_PARENTESIS tituloGrafica ejeXGrafica ejeYGrafica tituloXGrafica tituloYGrafica execGraficas C_PARENTESIS END PUNTO_COMA
 ;
 
-graficaHistograma ::=
+graficaHistograma ::= A_PARENTESIS tituloGrafica valuesGrafica C_PARENTESIS END PUNTO_COMA
 ;
 
+
+//parámetros de las gráficas
 tituloGrafica ::= TITULO DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL CADENA END PUNTO_COMA
 ;
 
-ejeXGrafica ::= E_X DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL 'insertar arreglo cadenas'   END PUNTO_COMA
+ejeXGrafica ::= E_X DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL A_CORCHETE operacionesGraficas C_CORCHETE END PUNTO_COMA
 ;
 
-ejeYGrafica ::= E_Y DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL 'insertar arreglo double'  END PUNTO_COMA
+ejeYGrafica ::= E_Y DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL A_CORCHETE operacionesGraficas C_CORCHETE END PUNTO_COMA
 ;
 
-tituloXGrafica ::= T_X DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL CADENA END PUNTO_COMA
+tituloXGrafica ::= T_X DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL CADENA 'o una variable' END PUNTO_COMA
 ;
 
-tituloYGrafica ::= T_Y DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL CADENA END PUNTO_COMA
+tituloYGrafica ::= T_Y DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL CADENA 'o una variable' END PUNTO_COMA
 ;
 
+labelGrafica ::= LABEL DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL 'insertar arreglo cadena' END PUNTO_COMA
+;
+
+valuesGrafica ::= VALUES DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL 'insertar arreglo double' END PUNTO_COMA
+;
+
+execGraficas ::= EXEC 'nombre de la gráfica' END PUNTO_COMA
+;
+
+operacionesGraficas ::=  operacionAritmetica COMA operacionesGraficas 
+                        | operacionAritmetica 
+;
