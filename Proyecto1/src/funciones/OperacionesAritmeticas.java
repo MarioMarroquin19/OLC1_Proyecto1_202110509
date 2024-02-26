@@ -15,6 +15,7 @@ public class OperacionesAritmeticas {
     public static LinkedList<Object> operacionesSuma = new LinkedList<>();
     public static LinkedList<Object> listaEstadistica = new LinkedList<>();
     public static LinkedList<Object> ListaArreglos = new LinkedList<>();
+    public static LinkedList<Object> ListaGraficas = new LinkedList<>();
 
     //operaciones aritméticas
     public static String SUM(String a, String b) {

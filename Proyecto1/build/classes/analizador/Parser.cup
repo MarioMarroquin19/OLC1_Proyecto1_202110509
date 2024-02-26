@@ -7,8 +7,11 @@ import java.util.Collections;
 import funciones.ImpresionConsola;
 import funciones.Variables;
 import funciones.OperacionesAritmeticas;
+import funciones.Graficas;
 import java.util.ArrayList;
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 //------> Codigo para el parser
 //------> Declaracion de variables, funciones y funciones de error
@@ -19,11 +22,10 @@ parser code
 
         public String resultado = ""; //Variable para mostrar en consola
 
-        //public static LinkedList<Object> instrucciones; //Lista con instrucciones a ejecutar
         ImpresionConsola impresionC = new ImpresionConsola();
         Variables variables = new Variables();
         OperacionesAritmeticas operacionesArit = new OperacionesAritmeticas();
-
+        Graficas metodoGraficar = new Graficas();
 
     public void syntax_error(Symbol s)
     {
@@ -97,6 +99,8 @@ non terminal labelGrafica;
 non terminal valuesGrafica;
 non terminal execGraficas;
 non terminal operacionesGraficas;
+non terminal variablesGraficas;
+non terminal tiposGraficas;
 
 
 
@@ -319,6 +323,9 @@ Impresion_graficas ::=   GraphBar A_PARENTESIS graficaBarras C_PARENTESIS END PU
 
 
 graficaBarras ::=  A_PARENTESIS tituloGrafica ejeXGrafica ejeYGrafica tituloXGrafica tituloYGrafica execGraficas C_PARENTESIS END PUNTO_COMA
+{:
+
+:}
 ;
 
 graficaPie ::= A_PARENTESIS labelGrafica valuesGrafica tituloGrafica execGraficas C_PARENTESIS END PUNTO_COMA
@@ -332,28 +339,59 @@ graficaHistograma ::= A_PARENTESIS tituloGrafica valuesGrafica C_PARENTESIS END 
 
 
 //parámetros de las gráficas
-tituloGrafica ::= TITULO DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL CADENA END PUNTO_COMA
+tituloGrafica ::= TITULO DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL variablesGraficas:val END PUNTO_COMA
+{:
+        chartData.put("tituloGrafica", ((Symbol)val.value).value);
+:}
 ;
 
 ejeXGrafica ::= E_X DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL A_CORCHETE operacionesGraficas C_CORCHETE END PUNTO_COMA
+{:
+        chartData.put("ejeXGrafica", ((Symbol)"titulo".value).value);
+:}
 ;
 
 ejeYGrafica ::= E_Y DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL A_CORCHETE operacionesGraficas C_CORCHETE END PUNTO_COMA
+{:
+        chartData.put("ejeYGrafica", ((Symbol)"titulo".value).value);
+:}
 ;
 
-tituloXGrafica ::= T_X DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL CADENA 'o una variable' END PUNTO_COMA
+tituloXGrafica ::= T_X DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL variablesGraficas:val END PUNTO_COMA
+{:
+        chartData.put("tituloXGrafica", ((Symbol)val.value).value);
+:}
 ;
 
-tituloYGrafica ::= T_Y DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL CADENA 'o una variable' END PUNTO_COMA
+tituloYGrafica ::= T_Y DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL CADENA variablesGraficas:val END PUNTO_COMA
+{:
+        chartData.put("tituloYGrafica", ((Symbol)val.value).value);
+:}
 ;
 
-labelGrafica ::= LABEL DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL 'insertar arreglo cadena' END PUNTO_COMA
+labelGrafica ::= LABEL DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL operacionesGraficas END PUNTO_COMA
+{:
+        chartData.put("labelGrafica", ((Symbol)"titulo".value).value);
+:}
 ;
 
-valuesGrafica ::= VALUES DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL 'insertar arreglo double' END PUNTO_COMA
+valuesGrafica ::= VALUES DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL operacionesGraficas END PUNTO_COMA
+{:
+        chartData.put("valuesGrafica", ((Symbol)"titulo".value).value);
+:}
 ;
 
-execGraficas ::= EXEC 'nombre de la gráfica' END PUNTO_COMA
+execGraficas ::= EXEC tiposGraficas END PUNTO_COMA
+;
+
+tiposGraficas ::= GraphBar 
+                |GraphPie 
+                |GraphLine 
+                |HISTOGRAM 
+;
+
+variablesGraficas ::= CADENA:val {: RESULT = val.substring(1, val.length() - 1); :}
+                     | ID: val {:RESULT = variables.getVariable(val);:}
 ;
 
 operacionesGraficas ::=  operacionAritmetica COMA operacionesGraficas 
