@@ -4,6 +4,7 @@
  */
 package Graficas;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,9 +40,19 @@ public class GraficaBarrasInfo {
         return ejeY;
     }
 
-    public void setEjeY(List<Double> ejeY) {
-        this.ejeY = ejeY;
+    public void setEjeY(List<String> ejeYStr) {
+        List<Double> ejeYDouble = new ArrayList<>();
+        for (String str : ejeYStr) {
+            try {
+                ejeYDouble.add(Double.parseDouble(str));
+            } catch (NumberFormatException e) {
+                // Manejar la excepción si el String no se puede convertir a Double
+                e.printStackTrace();
+            }
+        }
+        this.ejeY = ejeYDouble;
     }
+
 
     public String getTituloX() {
         return tituloX;

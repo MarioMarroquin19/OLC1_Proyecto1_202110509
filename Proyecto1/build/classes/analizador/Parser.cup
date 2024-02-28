@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 //------> Codigo para el parser
 //------> Declaracion de variables, funciones y funciones de error
@@ -333,8 +334,8 @@ barras ::= graficaBarras
 ;
 
 graficaBarras ::=  tituloGrafica:titulo   {:grafica_info.putGraficaBarras("titulo",titulo.toString());:}
-                |ejeXGrafica  {:grafica_info.putGraficaBarras("ejeX", Arrays.asList("1 Parcial", "2 parcial", "Final"));:}
-                |ejeYGrafica   {:grafica_info.putGraficaBarras("ejeY", Arrays.asList(50.0, 30.0, 70.0)); :}
+                |ejeXGrafica:eX  {:grafica_info.putGraficaBarras("ejeX",eX);:}
+                |ejeYGrafica:eY   {:grafica_info.putGraficaBarras("ejeY", eY);:}
                 |tituloXGrafica:tituloX  {:grafica_info.putGraficaBarras("tituloX", tituloX.toString());:}
                 |tituloYGrafica:tituloY {:grafica_info.putGraficaBarras("tituloY", tituloY.toString());:}
                 |execGraficas 
@@ -343,7 +344,7 @@ graficaBarras ::=  tituloGrafica:titulo   {:grafica_info.putGraficaBarras("titul
 
         grafica_barra.setTitulo((String) grafica_info.getGraficaBarras("titulo"));
         grafica_barra.setEjeX((List<String>) grafica_info.getGraficaBarras("ejeX"));
-        grafica_barra.setEjeY((List<Double>) grafica_info.getGraficaBarras("ejeY"));
+        grafica_barra.setEjeY((List<String>) grafica_info.getGraficaBarras("ejeY"));
         grafica_barra.setTituloX((String) grafica_info.getGraficaBarras("tituloX"));
         grafica_barra.setTituloY((String) grafica_info.getGraficaBarras("tituloY"));
 
@@ -371,14 +372,19 @@ tituloGrafica ::= TITULO DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGU
 :}
 ;
 
-ejeXGrafica ::= E_X DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL A_CORCHETE operacionesGraficas C_CORCHETE END PUNTO_COMA
-{:
-        RESULT = ;
+ejeXGrafica ::= E_X DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL A_CORCHETE {:impresionC.lista_graficas.clear();:} operacionesGraficas C_CORCHETE END PUNTO_COMA
+{:      
+        Collections.reverse(impresionC.lista_graficas);
+        RESULT = new LinkedList<>(impresionC.lista_graficas);
+        impresionC.lista_graficas.clear();
 :}
 ;
 
-ejeYGrafica ::= E_Y DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL A_CORCHETE operacionesGraficas C_CORCHETE END PUNTO_COMA
+ejeYGrafica ::= E_Y DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL A_CORCHETE {:impresionC.lista_graficas.clear();:} operacionesGraficas C_CORCHETE END PUNTO_COMA
 {:
+        Collections.reverse(impresionC.lista_graficas);
+        RESULT = new LinkedList<>(impresionC.lista_graficas);
+        impresionC.lista_graficas.clear();        
 :}
 ;
 

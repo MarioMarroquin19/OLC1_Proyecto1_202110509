@@ -51,7 +51,7 @@ public class Main {
                     tituloX::char[] = "Actividades" end;
                     tituloY::char[] = gbt end;
                     titulo::char[] = "Estudiantes" end;
-                    ejeX::char[] = ["1 Parcial", "2 parcial", "Final"] end;
+                    ejeX::char[] = ["UNO", "DOS", "TRES"] end;
                     ejeY::double = [gb1, 30, 70] end;
                     EXEC graphBar end;
             ) end;
