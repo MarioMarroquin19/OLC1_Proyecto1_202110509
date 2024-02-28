@@ -7,11 +7,16 @@ import java.util.Collections;
 import funciones.ImpresionConsola;
 import funciones.Variables;
 import funciones.OperacionesAritmeticas;
-import funciones.Graficas;
+import Graficas.GraficaInfo;
+import Graficas.GraficaBarrasInfo;
+import Graficas.AlmacenamientoGraficas;
+import Graficas.GeneradorGraficas;
+import Graficas.GraficaInfo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Arrays;
 
 //------> Codigo para el parser
 //------> Declaracion de variables, funciones y funciones de error
@@ -25,7 +30,8 @@ parser code
         ImpresionConsola impresionC = new ImpresionConsola();
         Variables variables = new Variables();
         OperacionesAritmeticas operacionesArit = new OperacionesAritmeticas();
-        Graficas metodoGraficar = new Graficas();
+
+        GraficaInfo grafica_info = new GraficaInfo();
 
     public void syntax_error(Symbol s)
     {
@@ -101,6 +107,7 @@ non terminal execGraficas;
 non terminal operacionesGraficas;
 non terminal variablesGraficas;
 non terminal tiposGraficas;
+non terminal barras;
 
 
 
@@ -237,8 +244,8 @@ operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAri
                         :}
 ;
 
-operacionesEstad ::= operacionAritmetica:b COMA operacionesEstad {:operacionesArit.listaEstadistica.add(b.toString());:}
-                    | operacionAritmetica:c {:operacionesArit.listaEstadistica.add(c.toString());:}
+operacionesEstad ::= operacionAritmetica:b COMA operacionesEstad {:RESULT = operacionesArit.listaEstadistica.add(b.toString());:}
+                    | operacionAritmetica:c {:RESULT = operacionesArit.listaEstadistica.add(c.toString());:}
 ;
 
 
@@ -315,76 +322,92 @@ OperacionImpresionArreglos ::=  operacionAritmetica:c COMA OperacionImpresionArr
 
 //IMPRESIONES DE GRAFICAS
 
-Impresion_graficas ::=   GraphBar A_PARENTESIS graficaBarras C_PARENTESIS END PUNTO_COMA
+Impresion_graficas ::=   GraphBar A_PARENTESIS barras C_PARENTESIS END PUNTO_COMA
                         |GraphPie A_PARENTESIS graficaPie C_PARENTESIS END PUNTO_COMA
                         |GraphLine A_PARENTESIS graficaLinea C_PARENTESIS END PUNTO_COMA
                         |HISTOGRAM A_PARENTESIS graficaHistograma C_PARENTESIS END PUNTO_COMA
 ;
 
+barras ::= graficaBarras  
+        | graficaBarras barras
+;
 
-graficaBarras ::=  A_PARENTESIS tituloGrafica ejeXGrafica ejeYGrafica tituloXGrafica tituloYGrafica execGraficas C_PARENTESIS END PUNTO_COMA
+graficaBarras ::=  tituloGrafica:titulo   {:grafica_info.putGraficaBarras("titulo",titulo.toString());:}
+                |ejeXGrafica  {:grafica_info.putGraficaBarras("ejeX", Arrays.asList("1 Parcial", "2 parcial", "Final"));:}
+                |ejeYGrafica   {:grafica_info.putGraficaBarras("ejeY", Arrays.asList(50.0, 30.0, 70.0)); :}
+                |tituloXGrafica:tituloX  {:grafica_info.putGraficaBarras("tituloX", tituloX.toString());:}
+                |tituloYGrafica:tituloY {:grafica_info.putGraficaBarras("tituloY", tituloY.toString());:}
+                |execGraficas 
 {:
+        GraficaBarrasInfo grafica_barra = new GraficaBarrasInfo();
+
+        grafica_barra.setTitulo((String) grafica_info.getGraficaBarras("titulo"));
+        grafica_barra.setEjeX((List<String>) grafica_info.getGraficaBarras("ejeX"));
+        grafica_barra.setEjeY((List<Double>) grafica_info.getGraficaBarras("ejeY"));
+        grafica_barra.setTituloX((String) grafica_info.getGraficaBarras("tituloX"));
+        grafica_barra.setTituloY((String) grafica_info.getGraficaBarras("tituloY"));
+
+        AlmacenamientoGraficas.listaGraficasBarras.add(grafica_barra);
+        GraficaInfo.componentesGraficaBarras.clear();
+        GeneradorGraficas.generarTodasLasGraficasBarras(AlmacenamientoGraficas.listaGraficasBarras);
 
 :}
 ;
 
-graficaPie ::= A_PARENTESIS labelGrafica valuesGrafica tituloGrafica execGraficas C_PARENTESIS END PUNTO_COMA
+graficaPie ::= labelGrafica valuesGrafica tituloGrafica execGraficas  END PUNTO_COMA
 ;
 
-graficaLinea ::= A_PARENTESIS tituloGrafica ejeXGrafica ejeYGrafica tituloXGrafica tituloYGrafica execGraficas C_PARENTESIS END PUNTO_COMA
+graficaLinea ::=  tituloGrafica ejeXGrafica ejeYGrafica tituloXGrafica tituloYGrafica execGraficas END PUNTO_COMA
 ;
 
-graficaHistograma ::= A_PARENTESIS tituloGrafica valuesGrafica C_PARENTESIS END PUNTO_COMA
+graficaHistograma ::=  tituloGrafica valuesGrafica  END PUNTO_COMA
 ;
 
 
 //parámetros de las gráficas
 tituloGrafica ::= TITULO DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL variablesGraficas:val END PUNTO_COMA
 {:
-        chartData.put("tituloGrafica", ((Symbol)val.value).value);
+        RESULT = val;
 :}
 ;
 
 ejeXGrafica ::= E_X DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL A_CORCHETE operacionesGraficas C_CORCHETE END PUNTO_COMA
 {:
-        chartData.put("ejeXGrafica", ((Symbol)"titulo".value).value);
+        RESULT = ;
 :}
 ;
 
 ejeYGrafica ::= E_Y DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL A_CORCHETE operacionesGraficas C_CORCHETE END PUNTO_COMA
 {:
-        chartData.put("ejeYGrafica", ((Symbol)"titulo".value).value);
 :}
 ;
 
 tituloXGrafica ::= T_X DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL variablesGraficas:val END PUNTO_COMA
 {:
-        chartData.put("tituloXGrafica", ((Symbol)val.value).value);
+        RESULT = val;
 :}
 ;
 
-tituloYGrafica ::= T_Y DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL CADENA variablesGraficas:val END PUNTO_COMA
+tituloYGrafica ::= T_Y DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL variablesGraficas:val END PUNTO_COMA
 {:
-        chartData.put("tituloYGrafica", ((Symbol)val.value).value);
+        RESULT = val;
 :}
 ;
 
-labelGrafica ::= LABEL DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL operacionesGraficas END PUNTO_COMA
+labelGrafica ::= LABEL DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL A_CORCHETE operacionesGraficas C_CORCHETE END PUNTO_COMA
 {:
-        chartData.put("labelGrafica", ((Symbol)"titulo".value).value);
 :}
 ;
 
-valuesGrafica ::= VALUES DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL operacionesGraficas END PUNTO_COMA
+valuesGrafica ::= VALUES DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL A_CORCHETE operacionesGraficas C_CORCHETE END PUNTO_COMA
 {:
-        chartData.put("valuesGrafica", ((Symbol)"titulo".value).value);
 :}
 ;
 
 execGraficas ::= EXEC tiposGraficas END PUNTO_COMA
 ;
 
-tiposGraficas ::= GraphBar 
+tiposGraficas ::= GraphBar {::}
                 |GraphPie 
                 |GraphLine 
                 |HISTOGRAM 
@@ -394,6 +417,6 @@ variablesGraficas ::= CADENA:val {: RESULT = val.substring(1, val.length() - 1);
                      | ID: val {:RESULT = variables.getVariable(val);:}
 ;
 
-operacionesGraficas ::=  operacionAritmetica COMA operacionesGraficas 
-                        | operacionAritmetica 
+operacionesGraficas ::=  operacionAritmetica:c COMA operacionesGraficas {:RESULT=impresionC.lista_graficas.add(c.toString());:}
+                        | operacionAritmetica:c {:RESULT=impresionC.lista_graficas.add(c.toString());:}
 ;

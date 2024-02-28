@@ -33,8 +33,7 @@ public class Main {
             console::column = "test" -> [10, 15.5, 61.1] end;
             console::column = "Notas" -> @notas end;
             console::column = titulo1 -> @labels end;
-()
-                     $;
+
             console::print = "Media", "Mediana", "Moda", "Varianza", "Max", "Min" end;
             console::print = Media(@notas), Mediana(@notas), Moda(@notas), Varianza(@notas), Max(@notas), Min(@notas) end;
             console::print = "Hola Mundo", MOD(10, 9), notaAprobar, labelAprobar end;
@@ -43,15 +42,28 @@ public class Main {
                     Lo de arriba ya es medio proyecto
                     Tu puedes !>
             	
+            var:double:: gb1 <- 61 end;
+            var:char[]:: gbt <- "Datos" end;
+            
+
+            graphBar(
+                    !grafica 1
+                    tituloX::char[] = "Actividades" end;
+                    tituloY::char[] = gbt end;
+                    titulo::char[] = "Estudiantes" end;
+                    ejeX::char[] = ["1 Parcial", "2 parcial", "Final"] end;
+                    ejeY::double = [gb1, 30, 70] end;
+                    EXEC graphBar end;
+            ) end;
  
        END PROGRAM
                   """;
     
     // Generar Analizadores
     
-    analizadores("src/analizador/", "Lexer.jflex", "Parser.cup");
+    //analizadores("src/analizador/", "Lexer.jflex", "Parser.cup");
     
-    //analizar(entrada);
+    analizar(entrada);
  
    }   
     
