@@ -109,6 +109,9 @@ non terminal operacionesGraficas;
 non terminal variablesGraficas;
 non terminal tiposGraficas;
 non terminal barras;
+non terminal pie;
+non terminal linea;
+non terminal histograma;
 
 
 
@@ -324,13 +327,26 @@ OperacionImpresionArreglos ::=  operacionAritmetica:c COMA OperacionImpresionArr
 //IMPRESIONES DE GRAFICAS
 
 Impresion_graficas ::=   GraphBar A_PARENTESIS barras C_PARENTESIS END PUNTO_COMA
-                        |GraphPie A_PARENTESIS graficaPie C_PARENTESIS END PUNTO_COMA
-                        |GraphLine A_PARENTESIS graficaLinea C_PARENTESIS END PUNTO_COMA
-                        |HISTOGRAM A_PARENTESIS graficaHistograma C_PARENTESIS END PUNTO_COMA
+                        |GraphPie A_PARENTESIS pie C_PARENTESIS END PUNTO_COMA
+                        |GraphLine A_PARENTESIS linea C_PARENTESIS END PUNTO_COMA
+                        |HISTOGRAM A_PARENTESIS histograma C_PARENTESIS END PUNTO_COMA
 ;
 
 barras ::= graficaBarras  
         | graficaBarras barras
+;
+
+pie :: = graficaPie
+        | graficaPie pie
+;
+
+linea ::= graficaLinea
+        | graficaLinea linea
+;
+
+histograma ::= graficaHistograma
+        | graficaHistograma histograma
+
 ;
 
 graficaBarras ::=  tituloGrafica:titulo   {:grafica_info.putGraficaBarras("titulo",titulo.toString());:}
@@ -339,29 +355,40 @@ graficaBarras ::=  tituloGrafica:titulo   {:grafica_info.putGraficaBarras("titul
                 |tituloXGrafica:tituloX  {:grafica_info.putGraficaBarras("tituloX", tituloX.toString());:}
                 |tituloYGrafica:tituloY {:grafica_info.putGraficaBarras("tituloY", tituloY.toString());:}
                 |execGraficas 
-{:
-        GraficaBarrasInfo grafica_barra = new GraficaBarrasInfo();
+                {:
+                        GraficaBarrasInfo grafica_barra = new GraficaBarrasInfo();
 
-        grafica_barra.setTitulo((String) grafica_info.getGraficaBarras("titulo"));
-        grafica_barra.setEjeX((List<String>) grafica_info.getGraficaBarras("ejeX"));
-        grafica_barra.setEjeY((List<String>) grafica_info.getGraficaBarras("ejeY"));
-        grafica_barra.setTituloX((String) grafica_info.getGraficaBarras("tituloX"));
-        grafica_barra.setTituloY((String) grafica_info.getGraficaBarras("tituloY"));
+                        grafica_barra.setTitulo((String) grafica_info.getGraficaBarras("titulo"));
+                        grafica_barra.setEjeX((List<String>) grafica_info.getGraficaBarras("ejeX"));
+                        grafica_barra.setEjeY((List<String>) grafica_info.getGraficaBarras("ejeY"));
+                        grafica_barra.setTituloX((String) grafica_info.getGraficaBarras("tituloX"));
+                        grafica_barra.setTituloY((String) grafica_info.getGraficaBarras("tituloY"));
 
-        AlmacenamientoGraficas.listaGraficasBarras.add(grafica_barra);
-        GraficaInfo.componentesGraficaBarras.clear();
-        GeneradorGraficas.generarTodasLasGraficasBarras(AlmacenamientoGraficas.listaGraficasBarras);
+                        AlmacenamientoGraficas.listaGraficasBarras.add(grafica_barra);
+                        GraficaInfo.componentesGraficaBarras.clear();
+                        GeneradorGraficas.generarTodasLasGraficasBarras(AlmacenamientoGraficas.listaGraficasBarras);
 
-:}
+                :}
 ;
 
-graficaPie ::= labelGrafica valuesGrafica tituloGrafica execGraficas  END PUNTO_COMA
+graficaPie ::= labelGrafica:label {:grafica_info.putGraficaPie("label",label);:}
+                | valuesGrafica:values {:grafica_info.putGraficaPie("values",values);:}
+                | tituloGrafica:titulo {:grafica_info.putGraficaPie("titulo",titulo.toString());:}
+                |execGraficas  
+
+
 ;
 
-graficaLinea ::=  tituloGrafica ejeXGrafica ejeYGrafica tituloXGrafica tituloYGrafica execGraficas END PUNTO_COMA
+graficaLinea ::=  tituloGrafica:titulo {:grafica_info.putGraficaLinea("titulo",titulo.toString());:}
+                | ejeXGrafica:eX  {:grafica_info.putGraficaLinea("ejeX",eX);:}
+                | ejeYGrafica:eY  {:grafica_info.putGraficaLinea("ejeY",eY);:}
+                | tituloXGrafica:TX {:grafica_info.putGraficaLinea("tituloX",TX.toString());:}
+                | tituloYGrafica:TY {:grafica_info.putGraficaLinea("tituloY",TY.toString());:}
+                | execGraficas 
 ;
 
-graficaHistograma ::=  tituloGrafica valuesGrafica  END PUNTO_COMA
+graficaHistograma ::=  tituloGrafica:titutlo {:grafica_info.putHistograma("titulo",titulo.toString());:}
+                | valuesGrafica  
 ;
 
 
@@ -400,20 +427,26 @@ tituloYGrafica ::= T_Y DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL
 :}
 ;
 
-labelGrafica ::= LABEL DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL A_CORCHETE operacionesGraficas C_CORCHETE END PUNTO_COMA
+labelGrafica ::= LABEL DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL A_CORCHETE {:impresionC.lista_graficas.clear();:} operacionesGraficas C_CORCHETE END PUNTO_COMA
 {:
+        Collections.reverse(impresionC.lista_graficas);
+        RESULT = new LinkedList<>(impresionC.lista_graficas);
+        impresionC.lista_graficas.clear();  
 :}
 ;
 
-valuesGrafica ::= VALUES DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL A_CORCHETE operacionesGraficas C_CORCHETE END PUNTO_COMA
+valuesGrafica ::= VALUES DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL A_CORCHETE {:impresionC.lista_graficas.clear();:} operacionesGraficas C_CORCHETE END PUNTO_COMA
 {:
+        Collections.reverse(impresionC.lista_graficas);
+        RESULT = new LinkedList<>(impresionC.lista_graficas);
+        impresionC.lista_graficas.clear();  
 :}
 ;
 
 execGraficas ::= EXEC tiposGraficas END PUNTO_COMA
 ;
 
-tiposGraficas ::= GraphBar {::}
+tiposGraficas ::= GraphBar 
                 |GraphPie 
                 |GraphLine 
                 |HISTOGRAM 

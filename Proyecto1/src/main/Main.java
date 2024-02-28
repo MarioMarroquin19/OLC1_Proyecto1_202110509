@@ -53,9 +53,21 @@ public class Main {
                     titulo::char[] = "Estudiantes" end;
                     ejeX::char[] = ["UNO", "DOS", "TRES"] end;
                     ejeY::double = [gb1, 30, 70] end;
+                     titulo::char[] = "Diferente" end;
                     EXEC graphBar end;
             ) end;
  
+            graphBar(
+                    !grafica 2
+                    tituloX::char[] = "COLUMNAS" end;
+                    tituloY::char[] = "NUMEROS" end;
+                    titulo::char[] = "GRAFICA 2" end;
+                    ejeX::char[] = ["CUATRO", "CINCO", "SEIS"] end;
+                    ejeY::double = [40, 20, 10] end;
+                    EXEC graphBar end;
+            ) end;                     
+
+                     
        END PROGRAM
                   """;
     
