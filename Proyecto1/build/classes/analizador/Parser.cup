@@ -115,6 +115,7 @@ non terminal barras;
 non terminal pie;
 non terminal linea;
 non terminal histograma;
+non terminal operacionesGraficas1;
 
 
 
@@ -442,7 +443,7 @@ tituloGrafica ::= TITULO DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGU
 :}
 ;
 
-ejeXGrafica ::= E_X DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL A_CORCHETE {:impresionC.lista_graficas.clear();:} operacionesGraficas C_CORCHETE END PUNTO_COMA
+ejeXGrafica ::= E_X DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL {:impresionC.lista_graficas.clear();:} operacionesGraficas1  END PUNTO_COMA
 {:      
         Collections.reverse(impresionC.lista_graficas);
         RESULT = new LinkedList<>(impresionC.lista_graficas);
@@ -450,7 +451,7 @@ ejeXGrafica ::= E_X DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL A_
 :}
 ;
 
-ejeYGrafica ::= E_Y DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL A_CORCHETE {:impresionC.lista_graficas.clear();:} operacionesGraficas C_CORCHETE END PUNTO_COMA
+ejeYGrafica ::= E_Y DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL {:impresionC.lista_graficas.clear();:} operacionesGraficas1 END PUNTO_COMA
 {:
         Collections.reverse(impresionC.lista_graficas);
         RESULT = new LinkedList<>(impresionC.lista_graficas);
@@ -470,7 +471,7 @@ tituloYGrafica ::= T_Y DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL
 :}
 ;
 
-labelGrafica ::= LABEL DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL A_CORCHETE {:impresionC.lista_graficas.clear();:} operacionesGraficas C_CORCHETE END PUNTO_COMA
+labelGrafica ::= LABEL DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL  {:impresionC.lista_graficas.clear();:} operacionesGraficas1  END PUNTO_COMA
 {:
         Collections.reverse(impresionC.lista_graficas);
         RESULT = new LinkedList<>(impresionC.lista_graficas);
@@ -478,7 +479,7 @@ labelGrafica ::= LABEL DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL
 :}
 ;
 
-valuesGrafica ::= VALUES DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL A_CORCHETE {:impresionC.lista_graficas.clear();:} operacionesGraficas C_CORCHETE END PUNTO_COMA
+valuesGrafica ::= VALUES DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL  {:impresionC.lista_graficas.clear();:} operacionesGraficas1  END PUNTO_COMA
 {:
         Collections.reverse(impresionC.lista_graficas);
         RESULT = new LinkedList<>(impresionC.lista_graficas);
@@ -501,4 +502,12 @@ variablesGraficas ::= CADENA:val {: RESULT = val.substring(1, val.length() - 1);
 
 operacionesGraficas ::=  operacionAritmetica:c COMA operacionesGraficas {:RESULT=impresionC.lista_graficas.add(c.toString());:}
                         | operacionAritmetica:c {:RESULT=impresionC.lista_graficas.add(c.toString());:}
+;
+
+operacionesGraficas1 ::= A_CORCHETE operacionesGraficas C_CORCHETE
+                        | ID_ARREGLO:val {:LinkedList<Object> temp = (LinkedList<Object>) variables.getVariable(val);
+                                for (Object obj : temp) {
+                                impresionC.lista_graficas.add(obj);
+                                }:}
+
 ;
