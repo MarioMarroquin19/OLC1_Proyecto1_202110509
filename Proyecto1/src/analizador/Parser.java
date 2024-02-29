@@ -1469,6 +1469,7 @@ variables.addVariable(id,expe);
                         
                         AlmacenamientoGraficas.listaGraficasPie.add(grafica_pie);
                         GraficaInfo.componentesGraficaPie.clear();
+                        GeneradorGraficas.generarTodasLasGraficasPie(AlmacenamientoGraficas.listaGraficasPie);
                        
                 
                 
@@ -1507,7 +1508,7 @@ variables.addVariable(id,expe);
 		int eYleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int eYright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object eY = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		grafica_info.putGraficaLinea("ejeY",eY);
+		grafica_info.putGraficaLinea("ejeY", eY);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("graficaLinea",22, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1544,15 +1545,15 @@ variables.addVariable(id,expe);
                 
                         GraficaLineaInfo grafica_linea = new GraficaLineaInfo();
 
-                        grafica_linea.setTitulo((String) grafica_info.getGraficaBarras("titulo"));
-                        grafica_linea.setEjeX((List<String>) grafica_info.getGraficaBarras("ejeX"));
-                        grafica_linea.setEjeY((List<String>) grafica_info.getGraficaBarras("ejeY"));
-                        grafica_linea.setTituloX((String) grafica_info.getGraficaBarras("tituloX"));
-                        grafica_linea.setTituloY((String) grafica_info.getGraficaBarras("tituloY"));
+                        grafica_linea.setTitulo((String) grafica_info.getGraficaLinea("titulo"));
+                        grafica_linea.setEjeX((List<String>) grafica_info.getGraficaLinea("ejeX"));
+                        grafica_linea.setEjeY((List<String>) grafica_info.getGraficaLinea("ejeY"));
+                        grafica_linea.setTituloX((String) grafica_info.getGraficaLinea("tituloX"));
+                        grafica_linea.setTituloY((String) grafica_info.getGraficaLinea("tituloY"));
 
                         AlmacenamientoGraficas.listaGraficasLinea.add(grafica_linea);
                         GraficaInfo.componentesGraficaLinea.clear();
-
+                        GeneradorGraficas.generarTodasLasGraficasLinea(AlmacenamientoGraficas.listaGraficasLinea);
 
                 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("graficaLinea",22, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);

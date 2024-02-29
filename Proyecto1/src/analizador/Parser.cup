@@ -387,6 +387,7 @@ graficaPie ::= labelGrafica:label {:grafica_info.putGraficaPie("label",label);:}
                         
                         AlmacenamientoGraficas.listaGraficasPie.add(grafica_pie);
                         GraficaInfo.componentesGraficaPie.clear();
+                        GeneradorGraficas.generarTodasLasGraficasPie(AlmacenamientoGraficas.listaGraficasPie);
                        
                 
                 :}
@@ -396,7 +397,7 @@ graficaPie ::= labelGrafica:label {:grafica_info.putGraficaPie("label",label);:}
 
 graficaLinea ::=  tituloGrafica:titulo {:grafica_info.putGraficaLinea("titulo",titulo.toString());:}
                 | ejeXGrafica:eX  {:grafica_info.putGraficaLinea("ejeX",eX);:}
-                | ejeYGrafica:eY  {:grafica_info.putGraficaLinea("ejeY",eY);:}
+                | ejeYGrafica:eY   {:grafica_info.putGraficaLinea("ejeY", eY);:}
                 | tituloXGrafica:TX {:grafica_info.putGraficaLinea("tituloX",TX.toString());:}
                 | tituloYGrafica:TY {:grafica_info.putGraficaLinea("tituloY",TY.toString());:}
                 | execGraficas 
@@ -404,15 +405,15 @@ graficaLinea ::=  tituloGrafica:titulo {:grafica_info.putGraficaLinea("titulo",t
                 
                         GraficaLineaInfo grafica_linea = new GraficaLineaInfo();
 
-                        grafica_linea.setTitulo((String) grafica_info.getGraficaBarras("titulo"));
-                        grafica_linea.setEjeX((List<String>) grafica_info.getGraficaBarras("ejeX"));
-                        grafica_linea.setEjeY((List<String>) grafica_info.getGraficaBarras("ejeY"));
-                        grafica_linea.setTituloX((String) grafica_info.getGraficaBarras("tituloX"));
-                        grafica_linea.setTituloY((String) grafica_info.getGraficaBarras("tituloY"));
+                        grafica_linea.setTitulo((String) grafica_info.getGraficaLinea("titulo"));
+                        grafica_linea.setEjeX((List<String>) grafica_info.getGraficaLinea("ejeX"));
+                        grafica_linea.setEjeY((List<String>) grafica_info.getGraficaLinea("ejeY"));
+                        grafica_linea.setTituloX((String) grafica_info.getGraficaLinea("tituloX"));
+                        grafica_linea.setTituloY((String) grafica_info.getGraficaLinea("tituloY"));
 
                         AlmacenamientoGraficas.listaGraficasLinea.add(grafica_linea);
                         GraficaInfo.componentesGraficaLinea.clear();
-
+                        GeneradorGraficas.generarTodasLasGraficasLinea(AlmacenamientoGraficas.listaGraficasLinea);
 
                 :}
 ;
