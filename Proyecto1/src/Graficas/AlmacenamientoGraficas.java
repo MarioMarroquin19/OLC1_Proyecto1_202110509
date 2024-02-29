@@ -14,5 +14,9 @@ import java.util.List;
 
 public class AlmacenamientoGraficas {
     public static List<GraficaBarrasInfo> listaGraficasBarras = new ArrayList<>();
+    public static List<GraficaPieInfo> listaGraficasPie = new ArrayList<>();
+    public static List<GraficaLineaInfo> listaGraficasLinea = new ArrayList<>();
+    public static List<GraficaHistoInfo> listaGraficasHisto = new ArrayList<>();
 }
+
 

@@ -9,6 +9,9 @@ import funciones.Variables;
 import funciones.OperacionesAritmeticas;
 import Graficas.GraficaInfo;
 import Graficas.GraficaBarrasInfo;
+import Graficas.GraficaHistoInfo;
+import Graficas.GraficaLineaInfo;
+import Graficas.GraficaPieInfo;
 import Graficas.AlmacenamientoGraficas;
 import Graficas.GeneradorGraficas;
 import Graficas.GraficaInfo;
@@ -336,7 +339,7 @@ barras ::= graficaBarras
         | graficaBarras barras
 ;
 
-pie :: = graficaPie
+pie ::= graficaPie
         | graficaPie pie
 ;
 
@@ -375,6 +378,18 @@ graficaPie ::= labelGrafica:label {:grafica_info.putGraficaPie("label",label);:}
                 | valuesGrafica:values {:grafica_info.putGraficaPie("values",values);:}
                 | tituloGrafica:titulo {:grafica_info.putGraficaPie("titulo",titulo.toString());:}
                 |execGraficas  
+                {:
+                        GraficaPieInfo grafica_pie = new GraficaPieInfo();
+
+                        grafica_pie.setTitulo((String) grafica_info.getGraficaPie("titulo"));
+                        grafica_pie.setValues((List<String>) grafica_info.getGraficaPie("values"));
+                        grafica_pie.setLabels((List<String>)grafica_info.getGraficaPie("label"));
+                        
+                        AlmacenamientoGraficas.listaGraficasPie.add(grafica_pie);
+                        GraficaInfo.componentesGraficaPie.clear();
+                       
+                
+                :}
 
 
 ;
@@ -385,10 +400,37 @@ graficaLinea ::=  tituloGrafica:titulo {:grafica_info.putGraficaLinea("titulo",t
                 | tituloXGrafica:TX {:grafica_info.putGraficaLinea("tituloX",TX.toString());:}
                 | tituloYGrafica:TY {:grafica_info.putGraficaLinea("tituloY",TY.toString());:}
                 | execGraficas 
+                {:
+                
+                        GraficaLineaInfo grafica_linea = new GraficaLineaInfo();
+
+                        grafica_linea.setTitulo((String) grafica_info.getGraficaBarras("titulo"));
+                        grafica_linea.setEjeX((List<String>) grafica_info.getGraficaBarras("ejeX"));
+                        grafica_linea.setEjeY((List<String>) grafica_info.getGraficaBarras("ejeY"));
+                        grafica_linea.setTituloX((String) grafica_info.getGraficaBarras("tituloX"));
+                        grafica_linea.setTituloY((String) grafica_info.getGraficaBarras("tituloY"));
+
+                        AlmacenamientoGraficas.listaGraficasLinea.add(grafica_linea);
+                        GraficaInfo.componentesGraficaLinea.clear();
+
+
+                :}
 ;
 
-graficaHistograma ::=  tituloGrafica:titutlo {:grafica_info.putHistograma("titulo",titulo.toString());:}
-                | valuesGrafica  
+graficaHistograma ::=  tituloGrafica:titulo {:grafica_info.putHistograma("titulo",titulo.toString());:}
+                | valuesGrafica:values {:grafica_info.putHistograma("values",values);:}
+                | execGraficas 
+                {:
+                        GraficaHistoInfo grafica_histo = new GraficaHistoInfo();
+                
+                        grafica_histo.setTitulo((String) grafica_info.getHistograma("titulo"));
+                        grafica_histo.setValues((List<String>) grafica_info.getGraficaPie("values"));
+
+
+                        AlmacenamientoGraficas.listaGraficasHisto.add(grafica_histo);
+                        GraficaInfo.componentesHistograma.clear();
+                
+                :}
 ;
 
 

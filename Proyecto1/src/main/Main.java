@@ -73,9 +73,9 @@ public class Main {
     
     // Generar Analizadores
     
-    //analizadores("src/analizador/", "Lexer.jflex", "Parser.cup");
+    analizadores("src/analizador/", "Lexer.jflex", "Parser.cup");
     
-    analizar(entrada);
+    //analizar(entrada);
  
    }   
     
