@@ -11,16 +11,14 @@ import org.jfree.chart.ChartUtilities;
 import org.jfree.data.category.DefaultCategoryDataset;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.statistics.HistogramDataset;
 import org.jfree.data.statistics.HistogramType;
+import main.Interfaz;
 
 public class GeneradorGraficas {
     public static ChartPanel generarGraficaBarras(GraficaBarrasInfo graficaBarra) {
@@ -179,7 +177,38 @@ public class GeneradorGraficas {
     }
 
 
+    public static void imprimirTablaFrecuencias(GraficaHistoInfo graficaHistoInfo, Interfaz interfaz) {
+            List<Double> values = graficaHistoInfo.getValues();
+            Map<Double, Integer> frecuenciaBruta = new TreeMap<>();
+            
+            // Calcular Fb
+            for (Double value : values) {
+                frecuenciaBruta.merge(value, 1, Integer::sum);
+            }
 
-
+            // Calcular Fa y Fr
+            int fa = 0;
+            int totalValues = values.size();
+            
+            System.out.println(graficaHistoInfo.getTitulo());
+            System.out.println("Valor\tFb\tFa\tFr");
+            
+            for (Map.Entry<Double, Integer> entry : frecuenciaBruta.entrySet()) {
+                int fb = entry.getValue();
+                fa += fb;
+                double fr = (double) fb / totalValues * 100;
+                
+                System.out.printf(Locale.US, "%d\t%d\t%d\t%.0f%%\n", entry.getKey().intValue(), fb, fa, fr);
+            }
+            
+            // Imprimir los totales
+            System.out.printf(Locale.US, "Totales:\t%d\t%d\t100%%\n", totalValues, fa);
+        }
+    
+        public static void generarTodasLasTablasHisto(List<GraficaHistoInfo> listaGraficasHisto, Interfaz interfaz) {
+            for (GraficaHistoInfo graficaHisto : listaGraficasHisto) {
+                imprimirTablaFrecuencias(graficaHisto, interfaz);
+            }
+        }
 
 }

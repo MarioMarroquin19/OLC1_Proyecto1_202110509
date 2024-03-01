@@ -1591,6 +1591,7 @@ variables.addVariable(id,expe);
 
                         AlmacenamientoGraficas.listaGraficasHisto.add(grafica_histo);
                         GraficaInfo.componentesHistograma.clear();
+                        GeneradorGraficas.generarTodasLasTablasHisto(AlmacenamientoGraficas.listaGraficasHisto);
                         GeneradorGraficas.generarTodasLasGraficasHisto(AlmacenamientoGraficas.listaGraficasHisto);               
                         interfaz.appendConsolaText("Grafica Histograma generada", true);
                 

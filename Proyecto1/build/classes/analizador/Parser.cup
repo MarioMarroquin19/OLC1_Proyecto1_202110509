@@ -441,6 +441,7 @@ graficaHistograma ::=  tituloGrafica:titulo {:grafica_info.putHistograma("titulo
 
                         AlmacenamientoGraficas.listaGraficasHisto.add(grafica_histo);
                         GraficaInfo.componentesHistograma.clear();
+                        GeneradorGraficas.generarTodasLasTablasHisto(AlmacenamientoGraficas.listaGraficasHisto);
                         GeneradorGraficas.generarTodasLasGraficasHisto(AlmacenamientoGraficas.listaGraficasHisto);               
                         interfaz.appendConsolaText("Grafica Histograma generada", true);
                 
