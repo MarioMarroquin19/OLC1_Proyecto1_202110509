@@ -1404,7 +1404,7 @@ variables.addVariable(id,expe);
 
                         AlmacenamientoGraficas.listaGraficasBarras.add(grafica_barra);
                         GraficaInfo.componentesGraficaBarras.clear();
-                        GeneradorGraficas.generarTodasLasGraficasBarras(AlmacenamientoGraficas.listaGraficasBarras);
+                        GeneradorGraficas.generarTodasLasGraficasBarras(AlmacenamientoGraficas.listaGraficasBarras, interfaz);
                         AlmacenamientoGraficas.listaGraficasBarras.clear();
                         //interfaz.appendConsolaText("Grafica de Barras generada", true);
 
@@ -1462,7 +1462,7 @@ variables.addVariable(id,expe);
                         
                         AlmacenamientoGraficas.listaGraficasPie.add(grafica_pie);
                         GraficaInfo.componentesGraficaPie.clear();
-                        GeneradorGraficas.generarTodasLasGraficasPie(AlmacenamientoGraficas.listaGraficasPie);
+                        GeneradorGraficas.generarTodasLasGraficasPie(AlmacenamientoGraficas.listaGraficasPie, interfaz);
                         AlmacenamientoGraficas.listaGraficasPie.clear();
                         //interfaz.appendConsolaText("Grafica Pie generada", true);
                        
@@ -1548,7 +1548,7 @@ variables.addVariable(id,expe);
 
                         AlmacenamientoGraficas.listaGraficasLinea.add(grafica_linea);
                         GraficaInfo.componentesGraficaLinea.clear();
-                        GeneradorGraficas.generarTodasLasGraficasLinea(AlmacenamientoGraficas.listaGraficasLinea);
+                        GeneradorGraficas.generarTodasLasGraficasLinea(AlmacenamientoGraficas.listaGraficasLinea, interfaz);
                         AlmacenamientoGraficas.listaGraficasLinea.clear();
                         //interfaz.appendConsolaText("Grafica de Linea generada", true);
 
@@ -1595,7 +1595,7 @@ variables.addVariable(id,expe);
                         AlmacenamientoGraficas.listaGraficasHisto.add(grafica_histo);
                         GraficaInfo.componentesHistograma.clear();
                         GeneradorGraficas.generarTodasLasTablasHisto(AlmacenamientoGraficas.listaGraficasHisto, interfaz);
-                        GeneradorGraficas.generarTodasLasGraficasHisto(AlmacenamientoGraficas.listaGraficasHisto);
+                        GeneradorGraficas.generarTodasLasGraficasHisto(AlmacenamientoGraficas.listaGraficasHisto, interfaz);
                         AlmacenamientoGraficas.listaGraficasHisto.clear();
                         //interfaz.appendConsolaText("Grafica Histograma generada", true);
                 

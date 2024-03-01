@@ -19,12 +19,14 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.statistics.HistogramDataset;
 import org.jfree.data.statistics.HistogramType;
 import main.Interfaz;
+import org.jfree.chart.plot.CategoryPlot;
 
 public class GeneradorGraficas {
-    public static ChartPanel generarGraficaBarras(GraficaBarrasInfo graficaBarra) {
+    
+    public static ChartPanel generarGraficaBarras(GraficaBarrasInfo graficaBarra, Interfaz interfaz) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (int i = 0; i < graficaBarra.getEjeX().size(); i++) {
-            dataset.addValue(graficaBarra.getEjeY().get(i), "Series", graficaBarra.getEjeX().get(i));
+            dataset.addValue(graficaBarra.getEjeY().get(i), "", graficaBarra.getEjeX().get(i));
         }
         JFreeChart chart = ChartFactory.createBarChart(
                 graficaBarra.getTitulo(),
@@ -32,29 +34,29 @@ public class GeneradorGraficas {
                 graficaBarra.getTituloY(),
                 dataset
         );
+        
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+        plot.getRenderer().setSeriesVisibleInLegend(0, false); // Ocultar la leyenda de la serie
 
-        // Guardar la gráfica como imagen PNG
-        //System.out.println("Gráfica de barras guardada como imagen");
-        String nombre = graficaBarra.getTitulo();
-        try {
-            ChartUtilities.saveChartAsPNG(new File(nombre+".png"), chart, 800, 600);
-            //System.out.println("Gráfica de barras guardada como imagen");
-        } catch (IOException e) {
-            System.err.println("Error al guardar la gráfica como imagen: " + e.getMessage());
-        }
+        ChartPanel panelGrafica = new ChartPanel(chart);
+        // Establecer el tamaño preferido del ChartPanel basado en el tamaño del viewport del JScrollPane
+        panelGrafica.setPreferredSize(interfaz.getPanelGraficasViewportSize());
 
-        return new ChartPanel(chart);
+        // Agregar la gráfica al panel en la interfaz
+        interfaz.agregarGráficaAlPanel(panelGrafica, graficaBarra.getTitulo());
+
+        return panelGrafica;
     }
 
-    public static void generarTodasLasGraficasBarras(List<GraficaBarrasInfo> listaGraficas) {
+    public static void generarTodasLasGraficasBarras(List<GraficaBarrasInfo> listaGraficas, Interfaz interfaz) {
         for (GraficaBarrasInfo graficaBarra : listaGraficas) {
-            generarGraficaBarras(graficaBarra);
+            generarGraficaBarras(graficaBarra, interfaz);
         }
     }
 
 
 
-    public static ChartPanel generarGraficaPie(GraficaPieInfo graficaPie) {
+    public static ChartPanel generarGraficaPie(GraficaPieInfo graficaPie,  Interfaz interfaz) {
         DefaultPieDataset dataset = new DefaultPieDataset();
         for (int i = 0; i < graficaPie.getLabels().size(); i++) {
             dataset.setValue(graficaPie.getLabels().get(i), graficaPie.getValues().get(i));
@@ -72,26 +74,25 @@ public class GeneradorGraficas {
         plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}: {2}"));
         // {0} = Nombre de la sección, {1} = Valor numérico, {2} = Porcentaje
     
-        // Guardar la gráfica como imagen PNG
-        try {
-            ChartUtilities.saveChartAsPNG(new File(graficaPie.getTitulo() + ".png"), chart, 800, 600);
-            //System.out.println("Gráfica de tipo pie guardada como imagen");
-        } catch (IOException e) {
-            System.err.println("Error al guardar la gráfica como imagen: " + e.getMessage());
-        }
+        ChartPanel panelGrafica = new ChartPanel(chart);
+        // Establecer el tamaño preferido del ChartPanel basado en el tamaño del viewport del JScrollPane
+        panelGrafica.setPreferredSize(interfaz.getPanelGraficasViewportSize());
+
+        // Agregar la gráfica al panel en la interfaz
+        interfaz.agregarGráficaAlPanel(panelGrafica, graficaPie.getTitulo());
     
-        return new ChartPanel(chart);
+        return panelGrafica;
     }
     
-    public static void generarTodasLasGraficasPie(List<GraficaPieInfo> listaGraficasPie) {
+    public static void generarTodasLasGraficasPie(List<GraficaPieInfo> listaGraficasPie, Interfaz interfaz) {
         for (GraficaPieInfo graficaPie : listaGraficasPie) {
-            generarGraficaPie(graficaPie);
+            generarGraficaPie(graficaPie, interfaz);
         }
     }
 
 
 
-    public static ChartPanel generarGraficaLinea(GraficaLineaInfo graficaLinea) {
+    public static ChartPanel generarGraficaLinea(GraficaLineaInfo graficaLinea,  Interfaz interfaz) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
     
         // Asumimos que graficaLinea ya tiene las listas de ejeX y ejeY configuradas correctamente.
@@ -110,26 +111,25 @@ public class GeneradorGraficas {
                 false                            // URLs
         );
     
-        // Guardar la gráfica como imagen PNG
-        try {
-            ChartUtilities.saveChartAsPNG(new File(graficaLinea.getTitulo() + ".png"), chart, 800, 600);
-            //System.out.println("Gráfica de línea guardada como imagen");
-        } catch (IOException e) {
-            System.err.println("Error al guardar la gráfica como imagen: " + e.getMessage());
-        }
+        ChartPanel panelGrafica = new ChartPanel(chart);
+        // Establecer el tamaño preferido del ChartPanel basado en el tamaño del viewport del JScrollPane
+        panelGrafica.setPreferredSize(interfaz.getPanelGraficasViewportSize());
+
+        // Agregar la gráfica al panel en la interfaz
+        interfaz.agregarGráficaAlPanel(panelGrafica, graficaLinea.getTitulo());
     
-        return new ChartPanel(chart);
+        return panelGrafica;
     }
 
 
-    public static void generarTodasLasGraficasLinea(List<GraficaLineaInfo> listaGraficasLinea) {
+    public static void generarTodasLasGraficasLinea(List<GraficaLineaInfo> listaGraficasLinea,  Interfaz interfaz) {
         for (GraficaLineaInfo graficaLinea : listaGraficasLinea) {
-            generarGraficaLinea(graficaLinea);
+            generarGraficaLinea(graficaLinea, interfaz);
         }
     }
 
 
-    public static ChartPanel generarHistograma(GraficaHistoInfo graficaHistoInfo) {
+    public static ChartPanel generarHistograma(GraficaHistoInfo graficaHistoInfo,  Interfaz interfaz) {
      // Utilizar TreeMap para ordenar y contar la frecuencia de los valores
         TreeMap<Double, Integer> map = new TreeMap<>();
         for (Double value : graficaHistoInfo.getValues()) {
@@ -159,20 +159,19 @@ public class GeneradorGraficas {
         //chart.getCategoryPlot().getDomainAxis().setVisible(false); // Ocultar etiquetas del eje X
         //chart.getCategoryPlot().getRangeAxis().setVisible(false); // Ocultar etiquetas del eje Y
     
-        // Guardar el histograma como imagen PNG
-        try {
-            ChartUtilities.saveChartAsPNG(new File(graficaHistoInfo.getTitulo() + ".png"), chart, 800, 600);
-            //System.out.println("Histograma guardado como imagen PNG.");
-        } catch (IOException e) {
-            System.err.println("Error al guardar el histograma como imagen PNG: " + e.getMessage());
-        }
+        ChartPanel panelGrafica = new ChartPanel(chart);
+        // Establecer el tamaño preferido del ChartPanel basado en el tamaño del viewport del JScrollPane
+        panelGrafica.setPreferredSize(interfaz.getPanelGraficasViewportSize());
+
+        // Agregar la gráfica al panel en la interfaz
+        interfaz.agregarGráficaAlPanel(panelGrafica, graficaHistoInfo.getTitulo());
     
-        return new ChartPanel(chart);
+        return panelGrafica;
     }
 
-    public static void generarTodasLasGraficasHisto(List<GraficaHistoInfo> listaGraficasHisto) {
+    public static void generarTodasLasGraficasHisto(List<GraficaHistoInfo> listaGraficasHisto,  Interfaz interfaz) {
         for (GraficaHistoInfo graficaHisto : listaGraficasHisto) {
-            generarHistograma(graficaHisto);
+            generarHistograma(graficaHisto, interfaz);
         }
     }
 
