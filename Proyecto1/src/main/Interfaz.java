@@ -72,6 +72,7 @@ public class Interfaz extends javax.swing.JFrame {
         nuevoArchivo = new javax.swing.JMenuItem();
         abrirArchivo = new javax.swing.JMenuItem();
         guardarArchivo = new javax.swing.JMenuItem();
+        GuardarComoBoton = new javax.swing.JMenuItem();
         Pestania = new javax.swing.JMenu();
         nuevaPestania = new javax.swing.JMenuItem();
         eliminarPestania = new javax.swing.JMenuItem();
@@ -143,6 +144,14 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
         Archivo.add(guardarArchivo);
+
+        GuardarComoBoton.setText("Guardar Como");
+        GuardarComoBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarComoBotonActionPerformed(evt);
+            }
+        });
+        Archivo.add(GuardarComoBoton);
 
         menuBar.add(Archivo);
 
@@ -370,6 +379,26 @@ public class Interfaz extends javax.swing.JFrame {
         cardLayout.next(panelDeGraficas);
     }//GEN-LAST:event_siguienteBotonActionPerformed
 
+    private void GuardarComoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarComoBotonActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar como");
+        int userSelection = fileChooser.showSaveDialog(this);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            Path ruta = Paths.get(fileToSave.getAbsolutePath());
+
+            try {
+                String contenido = entradaText.getText();
+                Files.write(ruta, contenido.getBytes());
+                archivoActual = fileToSave; // Actualiza el archivo actual
+                JOptionPane.showMessageDialog(null, "Archivo guardado como: " + fileToSave.getName());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_GuardarComoBotonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -422,6 +451,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel ConsolaLabelText;
     private javax.swing.JMenu EjecutarPesta;
     private javax.swing.JLabel EntradaText;
+    private javax.swing.JMenuItem GuardarComoBoton;
     private javax.swing.JScrollPane PanelGraficas;
     private javax.swing.JMenu Pestania;
     private javax.swing.JMenu Reportes;
