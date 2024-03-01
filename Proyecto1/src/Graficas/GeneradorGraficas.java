@@ -11,7 +11,10 @@ import org.jfree.chart.ChartUtilities;
 import org.jfree.data.category.DefaultCategoryDataset;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 import org.jfree.chart.plot.PiePlot;
@@ -128,39 +131,46 @@ public class GeneradorGraficas {
     }
 
 
-    public static ChartPanel generarHistograma(GraficaHistoInfo graficaHisto) {
-        HistogramDataset dataset = new HistogramDataset();
-        dataset.setType(HistogramType.RELATIVE_FREQUENCY);
-    
-        // Convertir la lista de valores Double a un array primitivo
-        double[] values = new double[graficaHisto.getValues().size()];
-        for (int i = 0; i < values.length; i++) {
-            values[i] = graficaHisto.getValues().get(i);
-        }
-    
-        dataset.addSeries("Frecuencia", values, values.length);
-    
-        JFreeChart histogram = ChartFactory.createHistogram(
-                graficaHisto.getTitulo(),
-                "Valor",
-                "Frecuencia",
-                dataset,
-                PlotOrientation.VERTICAL,
-                true,   // Muestra la leyenda
-                true,   // Tooltips
-                false   // URLs
-        );
-    
-        // Guardar el histograma como imagen PNG
-        try {
-            ChartUtilities.saveChartAsPNG(new File(graficaHisto.getTitulo() + ".png"), histogram, 800, 600);
-           // System.out.println("Histograma guardado como imagen PNG.");
-        } catch (IOException e) {
-            System.err.println("Error al guardar el histograma como imagen PNG: " + e.getMessage());
-        }
-    
-        return new ChartPanel(histogram);
-    }
+    public static ChartPanel generarHistograma(GraficaHistoInfo graficaHistoInfo) {
+     // Utilizar TreeMap para ordenar y contar la frecuencia de los valores
+     TreeMap<Double, Integer> map = new TreeMap<>();
+     for (Double value : graficaHistoInfo.getValues()) {
+         map.put(value, map.getOrDefault(value, 0) + 1);
+     }
+ 
+     DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+     
+     // Añadir los valores al dataset
+     for (Map.Entry<Double, Integer> entry : map.entrySet()) {
+         dataset.addValue(entry.getValue(), "Frecuencia", entry.getKey());
+     }
+ 
+     // Crear el gráfico de barras
+     JFreeChart chart = ChartFactory.createBarChart(
+             graficaHistoInfo.getTitulo(),
+             null, // Eje X sin título
+             null, // Eje Y sin título
+             dataset,
+             PlotOrientation.VERTICAL,
+             false, // No mostrar leyenda
+             true, // Tooltips
+             false // URLs
+     );
+ 
+     // Opciones adicionales del gráfico
+     //chart.getCategoryPlot().getDomainAxis().setVisible(false); // Ocultar etiquetas del eje X
+     //chart.getCategoryPlot().getRangeAxis().setVisible(false); // Ocultar etiquetas del eje Y
+ 
+     // Guardar el histograma como imagen PNG
+     try {
+         ChartUtilities.saveChartAsPNG(new File(graficaHistoInfo.getTitulo() + ".png"), chart, 800, 600);
+         //System.out.println("Histograma guardado como imagen PNG.");
+     } catch (IOException e) {
+         System.err.println("Error al guardar el histograma como imagen PNG: " + e.getMessage());
+     }
+ 
+     return new ChartPanel(chart);
+ }
 
     public static void generarTodasLasGraficasHisto(List<GraficaHistoInfo> listaGraficasHisto) {
         for (GraficaHistoInfo graficaHisto : listaGraficasHisto) {
