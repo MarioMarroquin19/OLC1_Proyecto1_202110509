@@ -1405,7 +1405,7 @@ variables.addVariable(id,expe);
                         AlmacenamientoGraficas.listaGraficasBarras.add(grafica_barra);
                         GraficaInfo.componentesGraficaBarras.clear();
                         GeneradorGraficas.generarTodasLasGraficasBarras(AlmacenamientoGraficas.listaGraficasBarras);
-                        interfaz.appendConsolaText("Grafica de Barras generada", true);
+                        //interfaz.appendConsolaText("Grafica de Barras generada", true);
 
                 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("graficaBarras",20, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -1462,7 +1462,7 @@ variables.addVariable(id,expe);
                         AlmacenamientoGraficas.listaGraficasPie.add(grafica_pie);
                         GraficaInfo.componentesGraficaPie.clear();
                         GeneradorGraficas.generarTodasLasGraficasPie(AlmacenamientoGraficas.listaGraficasPie);
-                        interfaz.appendConsolaText("Grafica Pie generada", true);
+                        //interfaz.appendConsolaText("Grafica Pie generada", true);
                        
                 
                 
@@ -1547,7 +1547,7 @@ variables.addVariable(id,expe);
                         AlmacenamientoGraficas.listaGraficasLinea.add(grafica_linea);
                         GraficaInfo.componentesGraficaLinea.clear();
                         GeneradorGraficas.generarTodasLasGraficasLinea(AlmacenamientoGraficas.listaGraficasLinea);
-                        interfaz.appendConsolaText("Grafica de Linea generada", true);
+                        //interfaz.appendConsolaText("Grafica de Linea generada", true);
 
                 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("graficaLinea",22, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -1591,9 +1591,9 @@ variables.addVariable(id,expe);
 
                         AlmacenamientoGraficas.listaGraficasHisto.add(grafica_histo);
                         GraficaInfo.componentesHistograma.clear();
-                        GeneradorGraficas.generarTodasLasTablasHisto(AlmacenamientoGraficas.listaGraficasHisto);
+                        GeneradorGraficas.generarTodasLasTablasHisto(AlmacenamientoGraficas.listaGraficasHisto, interfaz);
                         GeneradorGraficas.generarTodasLasGraficasHisto(AlmacenamientoGraficas.listaGraficasHisto);               
-                        interfaz.appendConsolaText("Grafica Histograma generada", true);
+                        //interfaz.appendConsolaText("Grafica Histograma generada", true);
                 
                 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("graficaHistograma",23, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);

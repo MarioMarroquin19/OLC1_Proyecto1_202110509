@@ -190,19 +190,31 @@ public class GeneradorGraficas {
             int fa = 0;
             int totalValues = values.size();
             
-            System.out.println(graficaHistoInfo.getTitulo());
-            System.out.println("Valor\tFb\tFa\tFr");
+            interfaz.appendConsolaText(" ", true);
+            interfaz.appendConsolaText("                "+graficaHistoInfo.getTitulo(), true);
+            interfaz.appendConsolaText("----------------------------------------------------------------------------------------", true);
+            interfaz.appendConsolaText("Valor\tFb\tFa\tFr \n", false);
+            interfaz.appendConsolaText("----------------------------------------------------------------------------------------", true);
+            //System.out.println(graficaHistoInfo.getTitulo());
+            //System.out.println("Valor\tFb\tFa\tFr");
             
             for (Map.Entry<Double, Integer> entry : frecuenciaBruta.entrySet()) {
                 int fb = entry.getValue();
                 fa += fb;
                 double fr = (double) fb / totalValues * 100;
                 
-                System.out.printf(Locale.US, "%d\t%d\t%d\t%.0f%%\n", entry.getKey().intValue(), fb, fa, fr);
+                String formato = String.format(Locale.US, "%d\t%d\t%d\t%.0f%%\n", entry.getKey().intValue(), fb, fa, fr);
+                interfaz.appendConsolaText(formato, false);
+                interfaz.appendConsolaText("----------------------------------------------------------------------------------------", true);
+                //System.out.printf(Locale.US, "%d\t%d\t%d\t%.0f%%\n", entry.getKey().intValue(), fb, fa, fr);
             }
             
             // Imprimir los totales
-            System.out.printf(Locale.US, "Totales:\t%d\t%d\t100%%\n", totalValues, fa);
+            String formato1 = String.format(Locale.US,"Totales:\t%d\t%d\t100%%\n", totalValues, fa);
+            interfaz.appendConsolaText(formato1, false);
+            interfaz.appendConsolaText("----------------------------------------------------------------------------------------", true);
+            interfaz.appendConsolaText(" ", true);
+            //System.out.printf(Locale.US, "Totales:\t%d\t%d\t100%%\n", totalValues, fa);
         }
     
         public static void generarTodasLasTablasHisto(List<GraficaHistoInfo> listaGraficasHisto, Interfaz interfaz) {

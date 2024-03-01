@@ -378,7 +378,7 @@ graficaBarras ::=  tituloGrafica:titulo         {:grafica_info.putGraficaBarras(
                         AlmacenamientoGraficas.listaGraficasBarras.add(grafica_barra);
                         GraficaInfo.componentesGraficaBarras.clear();
                         GeneradorGraficas.generarTodasLasGraficasBarras(AlmacenamientoGraficas.listaGraficasBarras);
-                        interfaz.appendConsolaText("Grafica de Barras generada", true);
+                        //interfaz.appendConsolaText("Grafica de Barras generada", true);
 
                 :}
 ;
@@ -397,7 +397,7 @@ graficaPie ::= labelGrafica:label {:grafica_info.putGraficaPie("label",label);:}
                         AlmacenamientoGraficas.listaGraficasPie.add(grafica_pie);
                         GraficaInfo.componentesGraficaPie.clear();
                         GeneradorGraficas.generarTodasLasGraficasPie(AlmacenamientoGraficas.listaGraficasPie);
-                        interfaz.appendConsolaText("Grafica Pie generada", true);
+                        //interfaz.appendConsolaText("Grafica Pie generada", true);
                        
                 
                 :}
@@ -424,7 +424,7 @@ graficaLinea ::=  tituloGrafica:titulo {:grafica_info.putGraficaLinea("titulo",t
                         AlmacenamientoGraficas.listaGraficasLinea.add(grafica_linea);
                         GraficaInfo.componentesGraficaLinea.clear();
                         GeneradorGraficas.generarTodasLasGraficasLinea(AlmacenamientoGraficas.listaGraficasLinea);
-                        interfaz.appendConsolaText("Grafica de Linea generada", true);
+                        //interfaz.appendConsolaText("Grafica de Linea generada", true);
 
                 :}
 ;
@@ -441,9 +441,9 @@ graficaHistograma ::=  tituloGrafica:titulo {:grafica_info.putHistograma("titulo
 
                         AlmacenamientoGraficas.listaGraficasHisto.add(grafica_histo);
                         GraficaInfo.componentesHistograma.clear();
-                        GeneradorGraficas.generarTodasLasTablasHisto(AlmacenamientoGraficas.listaGraficasHisto);
+                        GeneradorGraficas.generarTodasLasTablasHisto(AlmacenamientoGraficas.listaGraficasHisto, interfaz);
                         GeneradorGraficas.generarTodasLasGraficasHisto(AlmacenamientoGraficas.listaGraficasHisto);               
-                        interfaz.appendConsolaText("Grafica Histograma generada", true);
+                        //interfaz.appendConsolaText("Grafica Histograma generada", true);
                 
                 :}
 ;
