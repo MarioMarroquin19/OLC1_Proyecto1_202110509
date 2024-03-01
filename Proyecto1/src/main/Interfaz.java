@@ -38,6 +38,7 @@ public class Interfaz extends javax.swing.JFrame {
     public Interfaz() {
         initComponents();
         PanelGraficas.setViewportView(panelDeGraficas);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
     }
 
@@ -54,16 +55,16 @@ public class Interfaz extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane4 = new javax.swing.JScrollPane();
-        consolaText = new javax.swing.JTextArea();
-        ConsolaLabelText = new javax.swing.JLabel();
         EntradaText = new javax.swing.JLabel();
-        VerGraficasText = new javax.swing.JLabel();
-        anteriorBoton = new javax.swing.JButton();
-        siguienteBoton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         entradaText = new javax.swing.JTextArea();
+        VerGraficasText = new javax.swing.JLabel();
         PanelGraficas = new javax.swing.JScrollPane();
+        anteriorBoton = new javax.swing.JButton();
+        siguienteBoton = new javax.swing.JButton();
+        ConsolaLabelText = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        consolaText = new javax.swing.JTextArea();
         menuBar = new javax.swing.JMenuBar();
         Archivo = new javax.swing.JMenu();
         nuevoArchivo = new javax.swing.JMenuItem();
@@ -81,14 +82,11 @@ public class Interfaz extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        consolaText.setEditable(false);
-        consolaText.setColumns(20);
-        consolaText.setRows(5);
-        jScrollPane4.setViewportView(consolaText);
-
-        ConsolaLabelText.setText("Consola");
-
         EntradaText.setText("Entrada");
+
+        entradaText.setColumns(20);
+        entradaText.setRows(5);
+        jScrollPane1.setViewportView(entradaText);
 
         VerGraficasText.setText("Ver graficas");
 
@@ -106,9 +104,12 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
-        entradaText.setColumns(20);
-        entradaText.setRows(5);
-        jScrollPane1.setViewportView(entradaText);
+        ConsolaLabelText.setText("Consola");
+
+        consolaText.setEditable(false);
+        consolaText.setColumns(20);
+        consolaText.setRows(5);
+        jScrollPane4.setViewportView(consolaText);
 
         Archivo.setLabel("Archivo");
         Archivo.addActionListener(new java.awt.event.ActionListener() {
@@ -146,6 +147,11 @@ public class Interfaz extends javax.swing.JFrame {
         Pestania.setLabel("Pestañas");
 
         nuevaPestania.setText("Nueva pestaña");
+        nuevaPestania.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevaPestaniaActionPerformed(evt);
+            }
+        });
         Pestania.add(nuevaPestania);
 
         eliminarPestania.setText("Eliminar pestaña");
@@ -209,54 +215,50 @@ public class Interfaz extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(ConsolaLabelText)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(441, 441, 441)
                         .addComponent(anteriorBoton)
-                        .addGap(87, 87, 87)
-                        .addComponent(siguienteBoton)
-                        .addGap(179, 179, 179))
+                        .addGap(18, 18, 18)
+                        .addComponent(siguienteBoton))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(EntradaText)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane4)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ConsolaLabelText)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(EntradaText))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(VerGraficasText)
-                                        .addGap(0, 487, Short.MAX_VALUE))
-                                    .addComponent(PanelGraficas))))
-                        .addGap(20, 20, 20))))
+                                        .addGap(38, 38, 38)
+                                        .addComponent(VerGraficasText))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(PanelGraficas)))))))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(EntradaText)
                     .addComponent(VerGraficasText))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
-                    .addComponent(PanelGraficas))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(anteriorBoton)
-                            .addComponent(siguienteBoton)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(ConsolaLabelText)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                    .addComponent(PanelGraficas))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ConsolaLabelText, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(anteriorBoton)
+                        .addComponent(siguienteBoton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -325,16 +327,6 @@ public class Interfaz extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_guardarArchivoActionPerformed
 
-    //botones para controlar el scroll de las gráficas
-
-    private void siguienteBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteBotonActionPerformed
-        cardLayout.next(panelDeGraficas);
-    }//GEN-LAST:event_siguienteBotonActionPerformed
-
-    private void anteriorBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorBotonActionPerformed
-        cardLayout.previous(panelDeGraficas);
-    }//GEN-LAST:event_anteriorBotonActionPerformed
-
     private void ArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ArchivoActionPerformed
 
     }//GEN-LAST:event_ArchivoActionPerformed
@@ -360,6 +352,21 @@ public class Interfaz extends javax.swing.JFrame {
     private void TablaErroresBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TablaErroresBotonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TablaErroresBotonActionPerformed
+
+    private void nuevaPestaniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevaPestaniaActionPerformed
+        Interfaz nuevaVentana = new Interfaz();
+        nuevaVentana.setVisible(true);
+    }//GEN-LAST:event_nuevaPestaniaActionPerformed
+
+    private void anteriorBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorBotonActionPerformed
+        cardLayout.previous(panelDeGraficas);
+    }//GEN-LAST:event_anteriorBotonActionPerformed
+
+    //botones para controlar el scroll de las gráficas
+
+    private void siguienteBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteBotonActionPerformed
+        cardLayout.next(panelDeGraficas);
+    }//GEN-LAST:event_siguienteBotonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -406,7 +413,7 @@ public class Interfaz extends javax.swing.JFrame {
         }
     }
     
-    
+  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Archivo;
