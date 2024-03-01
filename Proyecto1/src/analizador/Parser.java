@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Arrays;
 import java.util.LinkedList;
+import main.Interfaz;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -504,13 +505,19 @@ public class Parser extends java_cup.runtime.lr_parser {
 
 
 
-        public String resultado = ""; //Variable para mostrar en consola
+    public String resultado = ""; //Variable para mostrar en consola
 
-        ImpresionConsola impresionC = new ImpresionConsola();
-        Variables variables = new Variables();
-        OperacionesAritmeticas operacionesArit = new OperacionesAritmeticas();
+    ImpresionConsola impresionC = new ImpresionConsola();
+    Variables variables = new Variables();
+    OperacionesAritmeticas operacionesArit = new OperacionesAritmeticas();
 
-        GraficaInfo grafica_info = new GraficaInfo();
+    GraficaInfo grafica_info = new GraficaInfo();
+
+    private Interfaz interfaz;
+    
+    public void setInterfaz(Interfaz interfaz) {
+            this.interfaz = interfaz;
+        }
 
     public void syntax_error(Symbol s)
     {
@@ -1071,12 +1078,12 @@ variables.addVariable(id,expe);
 		 
                         Collections.reverse(impresionC.lista_salida);
                         for (int i = 0; i < impresionC.lista_salida.size(); i++) { 
-                                System.out.print(impresionC.lista_salida.get(i)); 
+                                interfaz.appendConsolaText(impresionC.lista_salida.get(i).toString(), false); 
                                 if (i < impresionC.lista_salida.size() - 1) { 
-                                        System.out.print(", "); 
+                                        interfaz.appendConsolaText(", ", false); 
                                         } 
-                                }        
-                                System.out.println(); 
+                                }
+                                interfaz.appendConsolaText("", true);       
                                 impresionC.lista_salida.clear(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("tiposImpresion",14, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1090,17 +1097,17 @@ variables.addVariable(id,expe);
 		int tituloright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		Object titulo = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		
-                        System.out.println("------------------------");
-                        System.out.println(titulo);
-                        System.out.println("------------------------");
+                        interfaz.appendConsolaText("------------------------",true);
+                        interfaz.appendConsolaText(titulo.toString(), true);
+                        interfaz.appendConsolaText("------------------------", true);
                         Collections.reverse(impresionC.lista_columnas);
                         for (int i = 0; i < impresionC.lista_columnas.size(); i++){
-                                System.out.println(impresionC.lista_columnas.get(i));
+                                interfaz.appendConsolaText(impresionC.lista_columnas.get(i).toString(), true);
                                 if(i<impresionC.lista_columnas.size()-1){
                                     //System.out.println();    
                                 }
                         }
-                        System.out.println(); 
+                        interfaz.appendConsolaText(" ", true); 
                         impresionC.lista_columnas.clear();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("tiposImpresion",14, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1398,6 +1405,7 @@ variables.addVariable(id,expe);
                         AlmacenamientoGraficas.listaGraficasBarras.add(grafica_barra);
                         GraficaInfo.componentesGraficaBarras.clear();
                         GeneradorGraficas.generarTodasLasGraficasBarras(AlmacenamientoGraficas.listaGraficasBarras);
+                        interfaz.appendConsolaText("Grafica de Barras generada", true);
 
                 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("graficaBarras",20, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -1454,6 +1462,7 @@ variables.addVariable(id,expe);
                         AlmacenamientoGraficas.listaGraficasPie.add(grafica_pie);
                         GraficaInfo.componentesGraficaPie.clear();
                         GeneradorGraficas.generarTodasLasGraficasPie(AlmacenamientoGraficas.listaGraficasPie);
+                        interfaz.appendConsolaText("Grafica Pie generada", true);
                        
                 
                 
@@ -1538,6 +1547,7 @@ variables.addVariable(id,expe);
                         AlmacenamientoGraficas.listaGraficasLinea.add(grafica_linea);
                         GraficaInfo.componentesGraficaLinea.clear();
                         GeneradorGraficas.generarTodasLasGraficasLinea(AlmacenamientoGraficas.listaGraficasLinea);
+                        interfaz.appendConsolaText("Grafica de Linea generada", true);
 
                 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("graficaLinea",22, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -1581,6 +1591,8 @@ variables.addVariable(id,expe);
 
                         AlmacenamientoGraficas.listaGraficasHisto.add(grafica_histo);
                         GraficaInfo.componentesHistograma.clear();
+
+                        interfaz.appendConsolaText("Grafica Histograma generada", true);
                 
                 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("graficaHistograma",23, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);

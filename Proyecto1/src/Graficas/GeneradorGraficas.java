@@ -35,7 +35,7 @@ public class GeneradorGraficas {
         String nombre = graficaBarra.getTitulo();
         try {
             ChartUtilities.saveChartAsPNG(new File(nombre+".png"), chart, 800, 600);
-            System.out.println("Gráfica de barras guardada como imagen");
+            //System.out.println("Gráfica de barras guardada como imagen");
         } catch (IOException e) {
             System.err.println("Error al guardar la gráfica como imagen: " + e.getMessage());
         }
@@ -72,7 +72,7 @@ public class GeneradorGraficas {
         // Guardar la gráfica como imagen PNG
         try {
             ChartUtilities.saveChartAsPNG(new File(graficaPie.getTitulo() + ".png"), chart, 800, 600);
-            System.out.println("Gráfica de tipo pie guardada como imagen");
+            //System.out.println("Gráfica de tipo pie guardada como imagen");
         } catch (IOException e) {
             System.err.println("Error al guardar la gráfica como imagen: " + e.getMessage());
         }
@@ -110,7 +110,7 @@ public class GeneradorGraficas {
         // Guardar la gráfica como imagen PNG
         try {
             ChartUtilities.saveChartAsPNG(new File(graficaLinea.getTitulo() + ".png"), chart, 800, 600);
-            System.out.println("Gráfica de línea guardada como imagen");
+            //System.out.println("Gráfica de línea guardada como imagen");
         } catch (IOException e) {
             System.err.println("Error al guardar la gráfica como imagen: " + e.getMessage());
         }

@@ -10,10 +10,10 @@ import java.io.StringReader;
  *
  * @author mario
  */
-public class Main {
+public class Analizar {
     
     
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         
     String entrada = """
         PROGRAM
@@ -78,11 +78,11 @@ public class Main {
     
     // Generar Analizadores
     
-    //analizadores("src/analizador/", "Lexer.jflex", "Parser.cup");
+    analizadores("src/analizador/", "Lexer.jflex", "Parser.cup");
     
-    analizar(entrada);
+    //analizar(entrada);
  
-   }   
+   }  */ 
     
     
     
@@ -104,14 +104,16 @@ public class Main {
     
  
      // Realizar Analisis
-    public static void analizar (String entrada){
+    public static void analizar (String entrada, Interfaz interfaz){
         try {
             analizador.Lexer lexer = new analizador.Lexer(new StringReader(entrada)); 
             analizador.Parser parser = new analizador.Parser(lexer);
+            parser.setInterfaz(interfaz); // Establecer la referencia a la interfaz gráfica en el parser
             parser.parse();
         } catch (Exception e) {
-            System.out.println("Error fatal en compilación de entrada.");
-            System.out.println(e);
+            //System.out.println("Error fatal en compilación de entrada.");
+            //System.out.println(e);
+            interfaz.appendConsolaText("Error fatal en la compilacion de entrada. \n"+e.getMessage(), true);
         } 
     } 
         

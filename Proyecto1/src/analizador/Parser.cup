@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Arrays;
 import java.util.LinkedList;
+import main.Interfaz;
 
 //------> Codigo para el parser
 //------> Declaracion de variables, funciones y funciones de error
@@ -29,13 +30,19 @@ import java.util.LinkedList;
 parser code 
 {:
 
-        public String resultado = ""; //Variable para mostrar en consola
+    public String resultado = ""; //Variable para mostrar en consola
 
-        ImpresionConsola impresionC = new ImpresionConsola();
-        Variables variables = new Variables();
-        OperacionesAritmeticas operacionesArit = new OperacionesAritmeticas();
+    ImpresionConsola impresionC = new ImpresionConsola();
+    Variables variables = new Variables();
+    OperacionesAritmeticas operacionesArit = new OperacionesAritmeticas();
 
-        GraficaInfo grafica_info = new GraficaInfo();
+    GraficaInfo grafica_info = new GraficaInfo();
+
+    private Interfaz interfaz;
+    
+    public void setInterfaz(Interfaz interfaz) {
+            this.interfaz = interfaz;
+        }
 
     public void syntax_error(Symbol s)
     {
@@ -280,26 +287,26 @@ imprimirTipos ::= CONSOLE DOS_PUNTOS DOS_PUNTOS tiposImpresion END PUNTO_COMA
 tiposImpresion ::=  PRINT S_IGUAL elementoImpresion {: 
                         Collections.reverse(impresionC.lista_salida);
                         for (int i = 0; i < impresionC.lista_salida.size(); i++) { 
-                                System.out.print(impresionC.lista_salida.get(i)); 
+                                interfaz.appendConsolaText(impresionC.lista_salida.get(i).toString(), false); 
                                 if (i < impresionC.lista_salida.size() - 1) { 
-                                        System.out.print(", "); 
+                                        interfaz.appendConsolaText(", ", false); 
                                         } 
-                                }        
-                                System.out.println(); 
+                                }
+                                interfaz.appendConsolaText("", true);       
                                 impresionC.lista_salida.clear(); :}
 
                 |COLUMNA S_IGUAL titulo_arreglo:titulo GUION MAYOR_Q arreglo_contenido{:
-                        System.out.println("------------------------");
-                        System.out.println(titulo);
-                        System.out.println("------------------------");
+                        interfaz.appendConsolaText("------------------------",true);
+                        interfaz.appendConsolaText(titulo.toString(), true);
+                        interfaz.appendConsolaText("------------------------", true);
                         Collections.reverse(impresionC.lista_columnas);
                         for (int i = 0; i < impresionC.lista_columnas.size(); i++){
-                                System.out.println(impresionC.lista_columnas.get(i));
+                                interfaz.appendConsolaText(impresionC.lista_columnas.get(i).toString(), true);
                                 if(i<impresionC.lista_columnas.size()-1){
                                     //System.out.println();    
                                 }
                         }
-                        System.out.println(); 
+                        interfaz.appendConsolaText(" ", true); 
                         impresionC.lista_columnas.clear();:}
 ;
 
@@ -353,11 +360,11 @@ histograma ::= graficaHistograma
 
 ;
 
-graficaBarras ::=  tituloGrafica:titulo   {:grafica_info.putGraficaBarras("titulo",titulo.toString());:}
-                |ejeXGrafica:eX  {:grafica_info.putGraficaBarras("ejeX",eX);:}
-                |ejeYGrafica:eY   {:grafica_info.putGraficaBarras("ejeY", eY);:}
-                |tituloXGrafica:tituloX  {:grafica_info.putGraficaBarras("tituloX", tituloX.toString());:}
-                |tituloYGrafica:tituloY {:grafica_info.putGraficaBarras("tituloY", tituloY.toString());:}
+graficaBarras ::=  tituloGrafica:titulo         {:grafica_info.putGraficaBarras("titulo",titulo.toString());:}
+                |ejeXGrafica:eX                 {:grafica_info.putGraficaBarras("ejeX",eX);:}
+                |ejeYGrafica:eY                 {:grafica_info.putGraficaBarras("ejeY", eY);:}
+                |tituloXGrafica:tituloX         {:grafica_info.putGraficaBarras("tituloX", tituloX.toString());:}
+                |tituloYGrafica:tituloY         {:grafica_info.putGraficaBarras("tituloY", tituloY.toString());:}
                 |execGraficas 
                 {:
                         GraficaBarrasInfo grafica_barra = new GraficaBarrasInfo();
@@ -371,6 +378,7 @@ graficaBarras ::=  tituloGrafica:titulo   {:grafica_info.putGraficaBarras("titul
                         AlmacenamientoGraficas.listaGraficasBarras.add(grafica_barra);
                         GraficaInfo.componentesGraficaBarras.clear();
                         GeneradorGraficas.generarTodasLasGraficasBarras(AlmacenamientoGraficas.listaGraficasBarras);
+                        interfaz.appendConsolaText("Grafica de Barras generada", true);
 
                 :}
 ;
@@ -389,6 +397,7 @@ graficaPie ::= labelGrafica:label {:grafica_info.putGraficaPie("label",label);:}
                         AlmacenamientoGraficas.listaGraficasPie.add(grafica_pie);
                         GraficaInfo.componentesGraficaPie.clear();
                         GeneradorGraficas.generarTodasLasGraficasPie(AlmacenamientoGraficas.listaGraficasPie);
+                        interfaz.appendConsolaText("Grafica Pie generada", true);
                        
                 
                 :}
@@ -415,6 +424,7 @@ graficaLinea ::=  tituloGrafica:titulo {:grafica_info.putGraficaLinea("titulo",t
                         AlmacenamientoGraficas.listaGraficasLinea.add(grafica_linea);
                         GraficaInfo.componentesGraficaLinea.clear();
                         GeneradorGraficas.generarTodasLasGraficasLinea(AlmacenamientoGraficas.listaGraficasLinea);
+                        interfaz.appendConsolaText("Grafica de Linea generada", true);
 
                 :}
 ;
@@ -431,6 +441,8 @@ graficaHistograma ::=  tituloGrafica:titulo {:grafica_info.putHistograma("titulo
 
                         AlmacenamientoGraficas.listaGraficasHisto.add(grafica_histo);
                         GraficaInfo.componentesHistograma.clear();
+
+                        interfaz.appendConsolaText("Grafica Histograma generada", true);
                 
                 :}
 ;
