@@ -17,6 +17,13 @@ public class AlmacenamientoGraficas {
     public static List<GraficaPieInfo> listaGraficasPie = new ArrayList<>();
     public static List<GraficaLineaInfo> listaGraficasLinea = new ArrayList<>();
     public static List<GraficaHistoInfo> listaGraficasHisto = new ArrayList<>();
+
+    public static void limpiarGraficas() {
+        listaGraficasBarras.clear();
+        listaGraficasPie.clear();
+        listaGraficasLinea.clear();
+        listaGraficasHisto.clear();
+    }
 }
 
 

@@ -133,7 +133,7 @@ start with inicio; //Simbolo inicial
 
 inicio ::= PROGRAM 
            instruccion
-           END PROGRAM
+           END PROGRAM {:AlmacenamientoGraficas.limpiarGraficas();:}
 ;
 
 instruccion ::= expresiones
@@ -378,6 +378,7 @@ graficaBarras ::=  tituloGrafica:titulo         {:grafica_info.putGraficaBarras(
                         AlmacenamientoGraficas.listaGraficasBarras.add(grafica_barra);
                         GraficaInfo.componentesGraficaBarras.clear();
                         GeneradorGraficas.generarTodasLasGraficasBarras(AlmacenamientoGraficas.listaGraficasBarras);
+                        AlmacenamientoGraficas.listaGraficasBarras.clear();
                         //interfaz.appendConsolaText("Grafica de Barras generada", true);
 
                 :}
@@ -397,6 +398,7 @@ graficaPie ::= labelGrafica:label {:grafica_info.putGraficaPie("label",label);:}
                         AlmacenamientoGraficas.listaGraficasPie.add(grafica_pie);
                         GraficaInfo.componentesGraficaPie.clear();
                         GeneradorGraficas.generarTodasLasGraficasPie(AlmacenamientoGraficas.listaGraficasPie);
+                        AlmacenamientoGraficas.listaGraficasPie.clear();
                         //interfaz.appendConsolaText("Grafica Pie generada", true);
                        
                 
@@ -424,6 +426,7 @@ graficaLinea ::=  tituloGrafica:titulo {:grafica_info.putGraficaLinea("titulo",t
                         AlmacenamientoGraficas.listaGraficasLinea.add(grafica_linea);
                         GraficaInfo.componentesGraficaLinea.clear();
                         GeneradorGraficas.generarTodasLasGraficasLinea(AlmacenamientoGraficas.listaGraficasLinea);
+                        AlmacenamientoGraficas.listaGraficasLinea.clear();
                         //interfaz.appendConsolaText("Grafica de Linea generada", true);
 
                 :}
@@ -442,7 +445,8 @@ graficaHistograma ::=  tituloGrafica:titulo {:grafica_info.putHistograma("titulo
                         AlmacenamientoGraficas.listaGraficasHisto.add(grafica_histo);
                         GraficaInfo.componentesHistograma.clear();
                         GeneradorGraficas.generarTodasLasTablasHisto(AlmacenamientoGraficas.listaGraficasHisto, interfaz);
-                        GeneradorGraficas.generarTodasLasGraficasHisto(AlmacenamientoGraficas.listaGraficasHisto);               
+                        GeneradorGraficas.generarTodasLasGraficasHisto(AlmacenamientoGraficas.listaGraficasHisto);
+                        AlmacenamientoGraficas.listaGraficasHisto.clear();
                         //interfaz.appendConsolaText("Grafica Histograma generada", true);
                 
                 :}
@@ -503,7 +507,7 @@ valuesGrafica ::= VALUES DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL  {:impresionC.lis
 execGraficas ::= EXEC tiposGraficas END PUNTO_COMA
 ;
 
-tiposGraficas ::= GraphBar 
+tiposGraficas ::= GraphBar
                 |GraphPie 
                 |GraphLine 
                 |HISTOGRAM 

@@ -575,7 +575,7 @@ class CUP$Parser$actions {
           case 1: // inicio ::= PROGRAM instruccion END PROGRAM 
             {
               Object RESULT =null;
-
+		AlmacenamientoGraficas.limpiarGraficas();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1405,6 +1405,7 @@ variables.addVariable(id,expe);
                         AlmacenamientoGraficas.listaGraficasBarras.add(grafica_barra);
                         GraficaInfo.componentesGraficaBarras.clear();
                         GeneradorGraficas.generarTodasLasGraficasBarras(AlmacenamientoGraficas.listaGraficasBarras);
+                        AlmacenamientoGraficas.listaGraficasBarras.clear();
                         //interfaz.appendConsolaText("Grafica de Barras generada", true);
 
                 
@@ -1462,6 +1463,7 @@ variables.addVariable(id,expe);
                         AlmacenamientoGraficas.listaGraficasPie.add(grafica_pie);
                         GraficaInfo.componentesGraficaPie.clear();
                         GeneradorGraficas.generarTodasLasGraficasPie(AlmacenamientoGraficas.listaGraficasPie);
+                        AlmacenamientoGraficas.listaGraficasPie.clear();
                         //interfaz.appendConsolaText("Grafica Pie generada", true);
                        
                 
@@ -1547,6 +1549,7 @@ variables.addVariable(id,expe);
                         AlmacenamientoGraficas.listaGraficasLinea.add(grafica_linea);
                         GraficaInfo.componentesGraficaLinea.clear();
                         GeneradorGraficas.generarTodasLasGraficasLinea(AlmacenamientoGraficas.listaGraficasLinea);
+                        AlmacenamientoGraficas.listaGraficasLinea.clear();
                         //interfaz.appendConsolaText("Grafica de Linea generada", true);
 
                 
@@ -1592,7 +1595,8 @@ variables.addVariable(id,expe);
                         AlmacenamientoGraficas.listaGraficasHisto.add(grafica_histo);
                         GraficaInfo.componentesHistograma.clear();
                         GeneradorGraficas.generarTodasLasTablasHisto(AlmacenamientoGraficas.listaGraficasHisto, interfaz);
-                        GeneradorGraficas.generarTodasLasGraficasHisto(AlmacenamientoGraficas.listaGraficasHisto);               
+                        GeneradorGraficas.generarTodasLasGraficasHisto(AlmacenamientoGraficas.listaGraficasHisto);
+                        AlmacenamientoGraficas.listaGraficasHisto.clear();
                         //interfaz.appendConsolaText("Grafica Histograma generada", true);
                 
                 
