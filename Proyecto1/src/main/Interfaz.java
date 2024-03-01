@@ -41,13 +41,14 @@ public class Interfaz extends javax.swing.JFrame {
 
         jScrollPane4 = new javax.swing.JScrollPane();
         consolaText = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        ConsolaLabelText = new javax.swing.JLabel();
+        EntradaText = new javax.swing.JLabel();
+        VerGraficasText = new javax.swing.JLabel();
         anteriorBoton = new javax.swing.JButton();
         siguienteBoton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         entradaText = new javax.swing.JTextArea();
+        PanelGraficas = new javax.swing.JScrollPane();
         menuBar = new javax.swing.JMenuBar();
         Archivo = new javax.swing.JMenu();
         nuevoArchivo = new javax.swing.JMenuItem();
@@ -56,12 +57,12 @@ public class Interfaz extends javax.swing.JFrame {
         Pestania = new javax.swing.JMenu();
         nuevaPestania = new javax.swing.JMenuItem();
         eliminarPestania = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
+        EjecutarPesta = new javax.swing.JMenu();
         ejecutarBoton = new javax.swing.JMenuItem();
-        jMenu8 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        Reportes = new javax.swing.JMenu();
+        TablaTokensBoton = new javax.swing.JMenuItem();
+        TablaErroresBoton = new javax.swing.JMenuItem();
+        TablaSimbolosBoton = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,11 +71,11 @@ public class Interfaz extends javax.swing.JFrame {
         consolaText.setRows(5);
         jScrollPane4.setViewportView(consolaText);
 
-        jLabel1.setText("Consola");
+        ConsolaLabelText.setText("Consola");
 
-        jLabel2.setText("Entrada");
+        EntradaText.setText("Entrada");
 
-        jLabel3.setText("Ver graficas");
+        VerGraficasText.setText("Ver graficas");
 
         anteriorBoton.setText("Anterior");
         anteriorBoton.addActionListener(new java.awt.event.ActionListener() {
@@ -142,14 +143,14 @@ public class Interfaz extends javax.swing.JFrame {
 
         menuBar.add(Pestania);
 
-        jMenu7.setText("Ejecutar");
-        jMenu7.addMenuListener(new javax.swing.event.MenuListener() {
+        EjecutarPesta.setText("Ejecutar");
+        EjecutarPesta.addMenuListener(new javax.swing.event.MenuListener() {
             public void menuCanceled(javax.swing.event.MenuEvent evt) {
             }
             public void menuDeselected(javax.swing.event.MenuEvent evt) {
             }
             public void menuSelected(javax.swing.event.MenuEvent evt) {
-                jMenu7MenuSelected(evt);
+                EjecutarPestaMenuSelected(evt);
             }
         });
 
@@ -159,32 +160,32 @@ public class Interfaz extends javax.swing.JFrame {
                 ejecutarBotonActionPerformed(evt);
             }
         });
-        jMenu7.add(ejecutarBoton);
+        EjecutarPesta.add(ejecutarBoton);
 
-        menuBar.add(jMenu7);
+        menuBar.add(EjecutarPesta);
 
-        jMenu8.setText("Reportes");
+        Reportes.setText("Reportes");
 
-        jMenuItem2.setText("Tabla de Tokens");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        TablaTokensBoton.setText("Tabla de Tokens");
+        TablaTokensBoton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                TablaTokensBotonActionPerformed(evt);
             }
         });
-        jMenu8.add(jMenuItem2);
+        Reportes.add(TablaTokensBoton);
 
-        jMenuItem3.setText("Tabla de errores");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        TablaErroresBoton.setText("Tabla de errores");
+        TablaErroresBoton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                TablaErroresBotonActionPerformed(evt);
             }
         });
-        jMenu8.add(jMenuItem3);
+        Reportes.add(TablaErroresBoton);
 
-        jMenuItem4.setText("Tabla de Simbolos");
-        jMenu8.add(jMenuItem4);
+        TablaSimbolosBoton.setText("Tabla de Simbolos");
+        Reportes.add(TablaSimbolosBoton);
 
-        menuBar.add(jMenu8);
+        menuBar.add(Reportes);
 
         setJMenuBar(menuBar);
 
@@ -196,39 +197,45 @@ public class Interfaz extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addGap(336, 336, 336))
+                        .addComponent(EntradaText)
+                        .addGap(336, 736, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(anteriorBoton)
-                        .addGap(18, 18, 18)
-                        .addComponent(siguienteBoton)
-                        .addGap(96, 96, 96))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(40, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ConsolaLabelText)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(PanelGraficas, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(anteriorBoton)
+                                        .addGap(35, 35, 35)
+                                        .addComponent(siguienteBoton)
+                                        .addGap(63, 63, 63))
+                                    .addComponent(VerGraficasText))))
+                        .addGap(29, 29, 29))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                    .addComponent(EntradaText)
+                    .addComponent(VerGraficasText))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(PanelGraficas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(anteriorBoton)
-                        .addComponent(siguienteBoton)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(anteriorBoton)
+                            .addComponent(siguienteBoton)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ConsolaLabelText)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
@@ -295,9 +302,9 @@ public class Interfaz extends javax.swing.JFrame {
 
     }//GEN-LAST:event_ArchivoActionPerformed
 
-    private void jMenu7MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu7MenuSelected
+    private void EjecutarPestaMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_EjecutarPestaMenuSelected
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu7MenuSelected
+    }//GEN-LAST:event_EjecutarPestaMenuSelected
 
     private void ejecutarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ejecutarBotonActionPerformed
         // TODO add your handling code here:
@@ -306,13 +313,13 @@ public class Interfaz extends javax.swing.JFrame {
         Analizar.analizar(contenido, this);        
     }//GEN-LAST:event_ejecutarBotonActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void TablaTokensBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TablaTokensBotonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_TablaTokensBotonActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void TablaErroresBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TablaErroresBotonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_TablaErroresBotonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -363,7 +370,16 @@ public class Interfaz extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Archivo;
+    private javax.swing.JLabel ConsolaLabelText;
+    private javax.swing.JMenu EjecutarPesta;
+    private javax.swing.JLabel EntradaText;
+    private javax.swing.JScrollPane PanelGraficas;
     private javax.swing.JMenu Pestania;
+    private javax.swing.JMenu Reportes;
+    private javax.swing.JMenuItem TablaErroresBoton;
+    private javax.swing.JMenuItem TablaSimbolosBoton;
+    private javax.swing.JMenuItem TablaTokensBoton;
+    private javax.swing.JLabel VerGraficasText;
     private javax.swing.JMenuItem abrirArchivo;
     private javax.swing.JButton anteriorBoton;
     private javax.swing.JTextArea consolaText;
@@ -371,14 +387,6 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuItem eliminarPestania;
     private javax.swing.JTextArea entradaText;
     private javax.swing.JMenuItem guardarArchivo;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JMenuBar menuBar;
