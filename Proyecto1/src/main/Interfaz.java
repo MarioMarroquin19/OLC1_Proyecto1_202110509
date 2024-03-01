@@ -31,12 +31,14 @@ public class Interfaz extends javax.swing.JFrame {
     
     private CardLayout cardLayout = new CardLayout();
     private JPanel panelDeGraficas = new JPanel(cardLayout);
+    private static int contadorVentanas = 0;
 
     /**
      * Creates new form NewJFrame
      */
     public Interfaz() {
         initComponents();
+        setTitle("Ventana #"+""+(contadorVentanas++));
         PanelGraficas.setViewportView(panelDeGraficas);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
@@ -144,9 +146,9 @@ public class Interfaz extends javax.swing.JFrame {
 
         menuBar.add(Archivo);
 
-        Pestania.setLabel("Pestañas");
+        Pestania.setText("Ventanas");
 
-        nuevaPestania.setText("Nueva pestaña");
+        nuevaPestania.setText("Nueva ventana");
         nuevaPestania.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nuevaPestaniaActionPerformed(evt);
@@ -154,7 +156,7 @@ public class Interfaz extends javax.swing.JFrame {
         });
         Pestania.add(nuevaPestania);
 
-        eliminarPestania.setText("Eliminar pestaña");
+        eliminarPestania.setText("Eliminar ventana");
         eliminarPestania.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eliminarPestaniaActionPerformed(evt);
@@ -307,7 +309,7 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_abrirArchivoActionPerformed
 
     private void eliminarPestaniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarPestaniaActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_eliminarPestaniaActionPerformed
 
     private void guardarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarArchivoActionPerformed
