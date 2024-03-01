@@ -111,6 +111,9 @@ public class GeneradorGraficas {
                 false                            // URLs
         );
     
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+        plot.getRenderer().setSeriesVisibleInLegend(0, false); // Ocultar la leyenda de la serie
+        
         ChartPanel panelGrafica = new ChartPanel(chart);
         // Establecer el tamaño preferido del ChartPanel basado en el tamaño del viewport del JScrollPane
         panelGrafica.setPreferredSize(interfaz.getPanelGraficasViewportSize());

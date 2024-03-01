@@ -280,7 +280,11 @@ public class Interfaz extends javax.swing.JFrame {
     
     private void nuevoArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoArchivoActionPerformed
         entradaText.setText("");
+        consolaText.setText("");
         archivoActual = null;
+        panelDeGraficas.removeAll();
+        panelDeGraficas.revalidate();
+        panelDeGraficas.repaint();
     }//GEN-LAST:event_nuevoArchivoActionPerformed
 
     private void abrirArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirArchivoActionPerformed
@@ -342,6 +346,9 @@ public class Interfaz extends javax.swing.JFrame {
     private void ejecutarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ejecutarBotonActionPerformed
         // TODO add your handling code here:
         consolaText.setText("");
+        panelDeGraficas.removeAll();
+        panelDeGraficas.revalidate();
+        panelDeGraficas.repaint();
         String contenido = entradaText.getText();
         Analizar.analizar(contenido, this);        
     }//GEN-LAST:event_ejecutarBotonActionPerformed
