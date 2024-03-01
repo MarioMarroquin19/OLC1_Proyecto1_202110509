@@ -301,6 +301,7 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void ejecutarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ejecutarBotonActionPerformed
         // TODO add your handling code here:
+        consolaText.setText("");
         String contenido = entradaText.getText();
         Analizar.analizar(contenido, this);        
     }//GEN-LAST:event_ejecutarBotonActionPerformed

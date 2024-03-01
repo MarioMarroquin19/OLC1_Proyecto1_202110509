@@ -1586,12 +1586,12 @@ variables.addVariable(id,expe);
                         GraficaHistoInfo grafica_histo = new GraficaHistoInfo();
                 
                         grafica_histo.setTitulo((String) grafica_info.getHistograma("titulo"));
-                        grafica_histo.setValues((List<String>) grafica_info.getGraficaPie("values"));
+                        grafica_histo.setValues((List<String>) grafica_info.getHistograma("values"));
 
 
                         AlmacenamientoGraficas.listaGraficasHisto.add(grafica_histo);
                         GraficaInfo.componentesHistograma.clear();
-
+                        GeneradorGraficas.generarTodasLasGraficasHisto(AlmacenamientoGraficas.listaGraficasHisto);               
                         interfaz.appendConsolaText("Grafica Histograma generada", true);
                 
                 

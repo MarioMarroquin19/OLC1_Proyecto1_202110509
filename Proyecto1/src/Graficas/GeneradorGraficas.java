@@ -16,6 +16,8 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.statistics.HistogramDataset;
+import org.jfree.data.statistics.HistogramType;
 
 public class GeneradorGraficas {
     public static ChartPanel generarGraficaBarras(GraficaBarrasInfo graficaBarra) {
@@ -126,6 +128,45 @@ public class GeneradorGraficas {
     }
 
 
+    public static ChartPanel generarHistograma(GraficaHistoInfo graficaHisto) {
+        HistogramDataset dataset = new HistogramDataset();
+        dataset.setType(HistogramType.RELATIVE_FREQUENCY);
+    
+        // Convertir la lista de valores Double a un array primitivo
+        double[] values = new double[graficaHisto.getValues().size()];
+        for (int i = 0; i < values.length; i++) {
+            values[i] = graficaHisto.getValues().get(i);
+        }
+    
+        dataset.addSeries("Frecuencia", values, values.length);
+    
+        JFreeChart histogram = ChartFactory.createHistogram(
+                graficaHisto.getTitulo(),
+                "Valor",
+                "Frecuencia",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true,   // Muestra la leyenda
+                true,   // Tooltips
+                false   // URLs
+        );
+    
+        // Guardar el histograma como imagen PNG
+        try {
+            ChartUtilities.saveChartAsPNG(new File(graficaHisto.getTitulo() + ".png"), histogram, 800, 600);
+           // System.out.println("Histograma guardado como imagen PNG.");
+        } catch (IOException e) {
+            System.err.println("Error al guardar el histograma como imagen PNG: " + e.getMessage());
+        }
+    
+        return new ChartPanel(histogram);
+    }
+
+    public static void generarTodasLasGraficasHisto(List<GraficaHistoInfo> listaGraficasHisto) {
+        for (GraficaHistoInfo graficaHisto : listaGraficasHisto) {
+            generarHistograma(graficaHisto);
+        }
+    }
 
 
 }
