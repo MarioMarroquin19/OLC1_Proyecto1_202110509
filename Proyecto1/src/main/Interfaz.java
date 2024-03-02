@@ -17,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import main.Analizar; 
+import Error.ErrorManager;
 import org.jfree.chart.ChartPanel;
 
 
@@ -32,6 +33,7 @@ public class Interfaz extends javax.swing.JFrame {
     private CardLayout cardLayout = new CardLayout();
     private JPanel panelDeGraficas = new JPanel(cardLayout);
     private static int contadorVentanas = 0;
+       
 
     /**
      * Creates new form NewJFrame
@@ -361,7 +363,7 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_TablaTokensBotonActionPerformed
 
     private void TablaErroresBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TablaErroresBotonActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_TablaErroresBotonActionPerformed
 
     private void nuevaPestaniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevaPestaniaActionPerformed

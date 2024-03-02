@@ -2,6 +2,9 @@
 package analizador; 
 
 import java_cup.runtime.*;
+import Error.ErrorManager;
+
+ErrorManager errorManager = new ErrorManager();
 
 %%	
 //-------> Directivas (No tocar)
@@ -107,4 +110,5 @@ Id_arreglo = "@"{Id}
 [ \t\r\n\f]     {/* Espacios en blanco se ignoran */}
 
 //------> Errores Léxicos 
-.           	{ System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn); }
+.           	{ //System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn);
+                   errorManager.addError("Léxico", "El carácter '" + yytext() + "' no pertenece al lenguaje", yyline, yycolumn); }

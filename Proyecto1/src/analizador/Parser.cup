@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Arrays;
 import java.util.LinkedList;
 import main.Interfaz;
+import Error.ErrorManager;
 
 //------> Codigo para el parser
 //------> Declaracion de variables, funciones y funciones de error
@@ -30,29 +31,33 @@ import main.Interfaz;
 parser code 
 {:
 
-    public String resultado = ""; //Variable para mostrar en consola
+        public String resultado = ""; //Variable para mostrar en consola
 
-    ImpresionConsola impresionC = new ImpresionConsola();
-    Variables variables = new Variables();
-    OperacionesAritmeticas operacionesArit = new OperacionesAritmeticas();
+        ImpresionConsola impresionC = new ImpresionConsola();
+        Variables variables = new Variables();
+        OperacionesAritmeticas operacionesArit = new OperacionesAritmeticas();
 
-    GraficaInfo grafica_info = new GraficaInfo();
+        GraficaInfo grafica_info = new GraficaInfo();
 
-    private Interfaz interfaz;
-    
-    public void setInterfaz(Interfaz interfaz) {
-            this.interfaz = interfaz;
+        private Interfaz interfaz;
+
+        public void setInterfaz(Interfaz interfaz) {
+                this.interfaz = interfaz;
         }
 
-    public void syntax_error(Symbol s)
-    {
-            System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado" );
-    }
+        ErrorManager errorManager = new ErrorManager();
 
-    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
-    {
-            System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Sin recuperacion." );
-    }
+        public void syntax_error(Symbol s)
+        {
+                //System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado" );
+                errorManager.addError("Sintáctico", s.value, s.right, s.left)
+        }
+
+        public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+        {
+                //ystem.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Sin recuperacion." );
+                errorManager.addError("Sintáctico", s.value, s.right, s.left)
+        }
 
 :}
 
