@@ -18,6 +18,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import main.Analizar; 
 import Errores.ErroresTipo;
+import Errores.Tokens;
 import analizador.Parser;
 import analizador.Lexer;
 import java.awt.Desktop;
@@ -364,6 +365,7 @@ public class Interfaz extends javax.swing.JFrame {
         //String contenido = entradaText.getText();
         //Analizar.analizar(contenido, this);
         ArrayList<ErroresTipo> fails = new ArrayList();
+        ArrayList<Tokens> tokens = new ArrayList();
         
         
         
@@ -375,7 +377,9 @@ public class Interfaz extends javax.swing.JFrame {
            
            fails.addAll(lexer.fails);
            fails.addAll(parser.getFails());
+           tokens.addAll(lexer.obtenerTokens());
            FailsGenerateHTML(fails);
+           TokensGenerateHTML(tokens);
         }catch(Exception e){
             consolaText.setText("Error fatal en la compilacion de entrada. \n"+e.getMessage());
         }
@@ -392,7 +396,7 @@ public class Interfaz extends javax.swing.JFrame {
         PrintWriter pw = null;
 
         try {
-            String path = "src/Reportes/Fails.html";
+            String path = "Reportes/Fails.html";
             fichero = new FileWriter(path);
             pw = new PrintWriter(fichero);
 
@@ -456,29 +460,114 @@ public class Interfaz extends javax.swing.JFrame {
             }
         }
     }
-    
+
+    public void TokensGenerateHTML(ArrayList<Tokens> tokens) {
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+
+        try {
+            String path = "Reportes/Tokens.html";
+            fichero = new FileWriter(path);
+            pw = new PrintWriter(fichero);
+
+            pw.println("<!DOCTYPE html>");
+            pw.println("<html lang=\"es\">");
+            pw.println("<head>");
+            pw.println("<meta charset=\"UTF-8\">");
+            pw.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+            pw.println("<title>Tokens</title>");
+            pw.println("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\">");
+            pw.println("<style>");
+            pw.println("body { background-color: #343a40; color: white; }");
+            pw.println("h1 { text-align: center; color: white; }");
+            pw.println("table { background-color: #343a40; }");
+            pw.println("th, td { border: 1px solid #dee2e6; }");
+            pw.println("th { background-color: #6c757d; }");
+            pw.println("tr:nth-child(even) { background-color: #495057; }");
+            pw.println("</style>");
+            pw.println("</head>");
+            pw.println("<body>");
+            pw.println("<div class=\"container mt-5\">");
+            pw.println("<h1>Reporte Tokens</h1>");
+            pw.println("<table class=\"table table-dark table-striped mt-3\">");
+            pw.println("<thead>");
+            pw.println("<tr>");
+            pw.println("<th>#</th>");
+            pw.println("<th>Lexema</th>");
+            pw.println("<th>Token</th>");
+            pw.println("<th>Fila</th>");
+            pw.println("<th>Columna</th>");
+            pw.println("</tr>");
+            pw.println("</thead>");
+            pw.println("<tbody>");
+
+            int tokenCount = 1;
+            for (Tokens token : tokens) {
+                pw.println("<tr>");
+                pw.println("<td>" + tokenCount++ + "</td>");
+                pw.println("<td>" + token.getLexema() + "</td>");
+                pw.println("<td>" + token.getToken() + "</td>");
+                pw.println("<td>" + token.getFila() + "</td>");
+                pw.println("<td>" + token.getColumna() + "</td>");
+                pw.println("</tr>");
+            }
+
+            pw.println("</tbody>");
+            pw.println("</table>");
+
+            pw.println("</div>");
+            pw.println("</body>");
+            pw.println("</html>");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pw != null) {
+                    pw.close();
+                }
+                if (fichero != null) {
+                    fichero.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+  
 
     private void TablaTokensBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TablaTokensBotonActionPerformed
         // TODO add your handling code here:
+        try {
+            String path = "Reportes/Tokens.html";
+            File file = new File(path);
+            if (file.exists()) {
+                Desktop desktop = Desktop.getDesktop();
+                desktop.open(file);
+            }else {
+                JOptionPane.showMessageDialog(this, "El archivo de la tabla de errores no existe.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+        }catch(IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al abrir el archivo de la tabla de errores.", "Error", JOptionPane.ERROR_MESSAGE);
+                                }
     }//GEN-LAST:event_TablaTokensBotonActionPerformed
 
     private void TablaErroresBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TablaErroresBotonActionPerformed
 
         try {
-               String path =  "src/Reportes/Fails.html";
-
-               
+               String path =  "Reportes/Fails.html";               
                File file = new File(path);
                if (file.exists()) {
                    Desktop desktop = Desktop.getDesktop();
                    desktop.open(file);
-               } else {
+                }else {
                    JOptionPane.showMessageDialog(this, "El archivo no existe.", "ERROR", JOptionPane.ERROR_MESSAGE);
-               }
-           } catch (IOException ex) {
+                    }
+        }catch(IOException ex) {
                ex.printStackTrace();
                JOptionPane.showMessageDialog(this, "Error al abrir el archivo .", "ERROR", JOptionPane.ERROR_MESSAGE);
-           }
+                                }
         
     }//GEN-LAST:event_TablaErroresBotonActionPerformed
 
