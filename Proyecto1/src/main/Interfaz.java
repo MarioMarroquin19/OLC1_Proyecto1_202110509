@@ -18,11 +18,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import main.Analizar; 
 import Errores.ErroresTipo;
+import Errores.SimboloInfo;
 import Errores.Tokens;
+import Errores.Simbolos;
+import funciones.Variables;
 import analizador.Parser;
 import analizador.Lexer;
 import java.awt.Desktop;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.jfree.chart.ChartPanel;
 
 
@@ -223,6 +228,11 @@ public class Interfaz extends javax.swing.JFrame {
         Reportes.add(TablaErroresBoton);
 
         TablaSimbolosBoton.setText("Tabla de Simbolos");
+        TablaSimbolosBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TablaSimbolosBotonActionPerformed(evt);
+            }
+        });
         Reportes.add(TablaSimbolosBoton);
 
         menuBar.add(Reportes);
@@ -366,6 +376,8 @@ public class Interfaz extends javax.swing.JFrame {
         //Analizar.analizar(contenido, this);
         ArrayList<ErroresTipo> fails = new ArrayList();
         ArrayList<Tokens> tokens = new ArrayList();
+        ArrayList<Simbolos> simbolos = new ArrayList();
+        
         
         
         
@@ -378,8 +390,12 @@ public class Interfaz extends javax.swing.JFrame {
            fails.addAll(lexer.fails);
            fails.addAll(parser.getFails());
            tokens.addAll(lexer.obtenerTokens());
+           simbolos.addAll(parser.getSimbol());
+
            FailsGenerateHTML(fails);
            TokensGenerateHTML(tokens);
+           simbolosGenerateHTML(simbolos, tokens);
+
         }catch(Exception e){
             consolaText.setText("Error fatal en la compilacion de entrada. \n"+e.getMessage());
         }
@@ -536,21 +552,118 @@ public class Interfaz extends javax.swing.JFrame {
     }
   
 
+    private void simbolosGenerateHTML(ArrayList<Simbolos> simbol, ArrayList<Tokens> tokens) {
+
+        HashMap<String, int[]> posicion = new HashMap<>();
+
+        for (Tokens token : tokens) {
+            if((token.getToken().equals("ID") || token.getToken().equals("ID_ARREGLO")) && !posicion.containsKey(token.getLexema())){
+                posicion.put(token.getLexema(), new int[]{token.getFila(), token.getColumna()});
+            }
+        }
+
+        for (Simbolos simbolo : simbol) {
+            if(posicion.containsKey(simbolo.getNombre())){
+                int[] pos = posicion.get(simbolo.getNombre());
+                simbolo.setFila(pos[0]);
+                simbolo.setColumna(pos[1]);
+
+            }
+            //System.out.println("Nombre: " + simbolo.getNombre() + " Tipo: " + simbolo.getTipo() + " Valor: " + simbolo.getValor()+ " Fila: " + simbolo.getFila() + " Columna: " + simbolo.getColumna());
+        }
+
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+
+        try {
+            String path = "Reportes/Simbolos.html";
+            fichero = new FileWriter(path);
+            pw = new PrintWriter(fichero);
+
+            pw.println("<!DOCTYPE html>");
+            pw.println("<html lang=\"es\">");
+            pw.println("<head>");
+            pw.println("<meta charset=\"UTF-8\">");
+            pw.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+            pw.println("<title>Simbolos</title>");
+            pw.println("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\">");
+            pw.println("<style>");
+            pw.println("body { background-color: #343a40; color: white; }");
+            pw.println("h1 { text-align: center; color: white; }");
+            pw.println("table { background-color: #343a40; }");
+            pw.println("th, td { border: 1px solid #dee2e6; }");
+            pw.println("th { background-color: #6c757d; }");
+            pw.println("tr:nth-child(even) { background-color: #495057; }");
+            pw.println("</style>");
+            pw.println("</head>");
+            pw.println("<body>");
+            pw.println("<div class=\"container mt-5\">");
+            pw.println("<h1>Reporte Simbolos</h1>");
+            pw.println("<table class=\"table table-dark table-striped mt-3\">");
+            pw.println("<thead>");
+            pw.println("<tr>");
+            pw.println("<th>#</th>");
+            pw.println("<th>Nombre</th>");
+            pw.println("<th>Tipo</th>");
+            pw.println("<th>Valor</th>");
+            pw.println("<th>Fila</th>");
+            pw.println("<th>Columna</th>");
+            pw.println("</tr>");
+            pw.println("</thead>");
+            pw.println("<tbody>");
+
+            int tokenCount = 1;
+            for (Simbolos simbolo : simbol) {
+                pw.println("<tr>");
+                pw.println("<td>" + tokenCount++ + "</td>");
+                pw.println("<td>" + simbolo.getNombre() + "</td>");
+                pw.println("<td>" + simbolo.getTipo()+ "</td>");
+                pw.println("<td>" + simbolo.getValor() + "</td>");
+                pw.println("<td>" + simbolo.getFila() + "</td>");
+                pw.println("<td>" + simbolo.getColumna() + "</td>");
+                pw.println("</tr>");
+            }
+
+            pw.println("</tbody>");
+            pw.println("</table>");
+
+            pw.println("</div>");
+            pw.println("</body>");
+            pw.println("</html>");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pw != null) {
+                    pw.close();
+                }
+                if (fichero != null) {
+                    fichero.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        
+    }
+
+
     private void TablaTokensBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TablaTokensBotonActionPerformed
         // TODO add your handling code here:
         try {
-            String path = "Reportes/Tokens.html";
+            String path =  "Reportes/Tokens.html";               
             File file = new File(path);
             if (file.exists()) {
                 Desktop desktop = Desktop.getDesktop();
                 desktop.open(file);
-            }else {
-                JOptionPane.showMessageDialog(this, "El archivo de la tabla de errores no existe.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-        }catch(IOException ex) {
+             }else {
+                JOptionPane.showMessageDialog(this, "El archivo no existe.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                 }
+     }catch(IOException ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al abrir el archivo de la tabla de errores.", "Error", JOptionPane.ERROR_MESSAGE);
-                                }
+            JOptionPane.showMessageDialog(this, "Error al abrir el archivo .", "ERROR", JOptionPane.ERROR_MESSAGE);
+                             }
     }//GEN-LAST:event_TablaTokensBotonActionPerformed
 
     private void TablaErroresBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TablaErroresBotonActionPerformed
@@ -605,6 +718,23 @@ public class Interfaz extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_GuardarComoBotonActionPerformed
+
+    private void TablaSimbolosBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TablaSimbolosBotonActionPerformed
+        // TODO add your handling code here:
+        try {
+               String path = "Reportes/Simbolos.html";               
+               File file = new File(path);
+               if (file.exists()) {
+                   Desktop desktop = Desktop.getDesktop();
+                   desktop.open(file);
+                }else {
+                   JOptionPane.showMessageDialog(this, "El archivo no existe.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
+        }catch(IOException ex) {
+               ex.printStackTrace();
+               JOptionPane.showMessageDialog(this, "Error al abrir el archivo .", "ERROR", JOptionPane.ERROR_MESSAGE);
+                                }
+    }//GEN-LAST:event_TablaSimbolosBotonActionPerformed
 
     /**
      * @param args the command line arguments

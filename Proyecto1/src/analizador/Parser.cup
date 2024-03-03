@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import main.Interfaz;
 import Errores.ErroresTipo;
+import Errores.Simbolos;
 import java.util.ArrayList; 
 
 //------> Codigo para el parser
@@ -48,6 +49,8 @@ parser code
 
         public ArrayList<ErroresTipo> fails = new ArrayList();
 
+        public ArrayList<Simbolos> simbol = new ArrayList();
+
         public void syntax_error(Symbol s)
         {
                 System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado" );
@@ -63,6 +66,11 @@ parser code
         public ArrayList<ErroresTipo> getFails(){
                 return fails;
         }
+
+        public ArrayList<Simbolos> getSimbol(){
+                return simbol;
+        }
+
 
 :}
 
@@ -160,12 +168,12 @@ expresiones ::= DeclararVariables
 
 //DECLARACION DE VARIABLES
 
-DeclararVariables ::= VAR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID:id MENOR_Q GUION expresionTipoVariables:expe END PUNTO_COMA {:
-variables.addVariable(id,expe);:} 
+DeclararVariables ::= VAR DOS_PUNTOS tipo:tip DOS_PUNTOS DOS_PUNTOS ID:id MENOR_Q GUION expresionTipoVariables:expe END PUNTO_COMA {:
+variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, expe, 0, 0));:} 
 ;
 
-tipo::=  CHAR1 A_CORCHETE C_CORCHETE
-       | DOUBLE1
+tipo::=  CHAR1:a A_CORCHETE C_CORCHETE {:RESULT = a;:}
+       | DOUBLE1:b {:RESULT = b;:}
 ;
 
 
@@ -184,7 +192,7 @@ operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAri
                       | CADENA:val {: RESULT = val.substring(1, val.length() - 1); :}
                       
 
-                       | MEDIA A_PARENTESIS A_CORCHETE operacionesEstad C_CORCHETE C_PARENTESIS {:
+                        |MEDIA A_PARENTESIS A_CORCHETE operacionesEstad C_CORCHETE C_PARENTESIS {:
                         RESULT = operacionesArit.Media(operacionesArit.listaEstadistica);operacionesArit.listaEstadistica.clear();:}
 
                         |MEDIANA A_PARENTESIS A_CORCHETE operacionesEstad C_CORCHETE C_PARENTESIS {:
@@ -278,8 +286,11 @@ operacionesEstad ::= operacionAritmetica:b COMA operacionesEstad {:RESULT = oper
 
 //DECLARACION DE ARREGLOS
 
-DeclararArreglos ::= ARR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID_ARREGLO:id MENOR_Q GUION A_CORCHETE OperacionesArreglos:exp C_CORCHETE END PUNTO_COMA {:
-                        variables.addVariable(id,new LinkedList<Object>(operacionesArit.ListaArreglos)); operacionesArit.ListaArreglos.clear(); :} 
+DeclararArreglos ::= ARR DOS_PUNTOS tipo:tip DOS_PUNTOS DOS_PUNTOS ID_ARREGLO:id MENOR_Q GUION A_CORCHETE OperacionesArreglos:exp C_CORCHETE END PUNTO_COMA {:
+                        variables.addVariable(id,new LinkedList<Object>(operacionesArit.ListaArreglos)); 
+                        Collections.reverse(operacionesArit.ListaArreglos);
+                        simbol.add(new Simbolos(id, "arreglo "+tip, new LinkedList<Object>(operacionesArit.ListaArreglos), 0, 0));
+                        operacionesArit.ListaArreglos.clear();:} 
 ;
 
 OperacionesArreglos ::= operacionAritmetica:c COMA OperacionesArreglos {:RESULT=operacionesArit.ListaArreglos.add(c.toString());:}

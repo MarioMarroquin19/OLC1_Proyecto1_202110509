@@ -458,7 +458,7 @@ public class Lexer implements java_cup.runtime.Scanner {
     private ArrayList<Tokens> tokens = new ArrayList<>();
 
     public ArrayList<Tokens> obtenerTokens(){
-        return tokens
+        return tokens;
     }
 
 

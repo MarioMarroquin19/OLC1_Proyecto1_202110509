@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import main.Interfaz;
 import Errores.ErroresTipo;
+import Errores.Simbolos;
 import java.util.ArrayList;
 import java_cup.runtime.XMLElement;
 
@@ -523,6 +524,8 @@ public class Parser extends java_cup.runtime.lr_parser {
 
         public ArrayList<ErroresTipo> fails = new ArrayList();
 
+        public ArrayList<Simbolos> simbol = new ArrayList();
+
         public void syntax_error(Symbol s)
         {
                 System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado" );
@@ -538,6 +541,11 @@ public class Parser extends java_cup.runtime.lr_parser {
         public ArrayList<ErroresTipo> getFails(){
                 return fails;
         }
+
+        public ArrayList<Simbolos> getSimbol(){
+                return simbol;
+        }
+
 
 
 
@@ -657,6 +665,9 @@ class CUP$Parser$actions {
           case 9: // DeclararVariables ::= VAR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID MENOR_Q GUION expresionTipoVariables END PUNTO_COMA 
             {
               Object RESULT =null;
+		int tipleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)).left;
+		int tipright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)).right;
+		Object tip = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-8)).value;
 		int idleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).right;
 		String id = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
@@ -664,7 +675,7 @@ class CUP$Parser$actions {
 		int experight = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		Object expe = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		
-variables.addVariable(id,expe);
+variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, expe, 0, 0));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("DeclararVariables",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-10)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -673,7 +684,10 @@ variables.addVariable(id,expe);
           case 10: // tipo ::= CHAR1 A_CORCHETE C_CORCHETE 
             {
               Object RESULT =null;
-
+		int aleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		String a = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		RESULT = a;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("tipo",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -682,7 +696,10 @@ variables.addVariable(id,expe);
           case 11: // tipo ::= DOUBLE1 
             {
               Object RESULT =null;
-
+		int bleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int bright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		String b = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		RESULT = b;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("tipo",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1036,6 +1053,9 @@ variables.addVariable(id,expe);
           case 36: // DeclararArreglos ::= ARR DOS_PUNTOS tipo DOS_PUNTOS DOS_PUNTOS ID_ARREGLO MENOR_Q GUION A_CORCHETE OperacionesArreglos C_CORCHETE END PUNTO_COMA 
             {
               Object RESULT =null;
+		int tipleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-10)).left;
+		int tipright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-10)).right;
+		Object tip = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-10)).value;
 		int idleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).right;
 		String id = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-7)).value;
@@ -1043,7 +1063,10 @@ variables.addVariable(id,expe);
 		int expright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		Object exp = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		
-                        variables.addVariable(id,new LinkedList<Object>(operacionesArit.ListaArreglos)); operacionesArit.ListaArreglos.clear(); 
+                        variables.addVariable(id,new LinkedList<Object>(operacionesArit.ListaArreglos)); 
+                        Collections.reverse(operacionesArit.ListaArreglos);
+                        simbol.add(new Simbolos(id, "arreglo "+tip, new LinkedList<Object>(operacionesArit.ListaArreglos), 0, 0));
+                        operacionesArit.ListaArreglos.clear();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("DeclararArreglos",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-12)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
