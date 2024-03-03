@@ -2,11 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Error;
+package Errores;
 
 import java.util.ArrayList;
 import java.util.List;
-import Error.Errores;
 /**
  *
  * @author mario
@@ -14,15 +13,15 @@ import Error.Errores;
 public class ErrorManager {
 
 
-    private List<Errores> errores;
+    private List<ErroresTipo> errores;
 
     public ErrorManager() {
         this.errores = new ArrayList<>();
     }
 
-    public void addError(String tipo, String descripcion, String linea, String columna) {
-        Errores error = new Errores(tipo, descripcion, linea, columna);
-        errores.add(error);
+    public void addError(String tipo, Object descripcion, int linea, int columna) {
+        //ErroresTipo error = new ErroresTipo(tipo, descripcion, linea, columna);
+        //errores.add(error);
     }
 
     public String generateHTMLReport() {
@@ -51,7 +50,7 @@ public class ErrorManager {
     
         // Recorre la lista de errores y crea una fila para cada uno
         int errorCount = 1;
-        for (Errores error : errores) {
+        for (ErroresTipo error : errores) {
             html.append("<tr>\n")
                 .append("<td>").append(errorCount++).append("</td>\n")
                 .append("<td>").append(error.tipo).append("</td>\n")

@@ -6,6 +6,9 @@
 package analizador; 
 
 import java_cup.runtime.*;
+import Errores.ErroresTipo;
+import java.util.ArrayList; 
+
 
 
 @SuppressWarnings("fallthrough")
@@ -447,6 +450,11 @@ public class Lexer implements java_cup.runtime.Scanner {
   /** Whether the user-EOF-code has already been executed. */
   private boolean zzEOFDone;
 
+  /* user code: */
+
+    public ArrayList<ErroresTipo> fails = new ArrayList();
+
+
 
   /**
    * Creates a new scanner
@@ -877,6 +885,7 @@ public class Lexer implements java_cup.runtime.Scanner {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
             { System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn);
+                  fails.add(new ErroresTipo("Léxico", "El carácter '" + yytext() + "' no pertenece al lenguaje", yyline+"", yycolumn+""));
             }
           // fall through
           case 58: break;

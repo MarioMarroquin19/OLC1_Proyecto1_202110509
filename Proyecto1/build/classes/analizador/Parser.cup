@@ -22,7 +22,8 @@ import java.util.Map;
 import java.util.Arrays;
 import java.util.LinkedList;
 import main.Interfaz;
-import Error.ErrorManager;
+import Errores.ErroresTipo;
+import java.util.ArrayList; 
 
 //------> Codigo para el parser
 //------> Declaracion de variables, funciones y funciones de error
@@ -45,18 +46,22 @@ parser code
                 this.interfaz = interfaz;
         }
 
-        ErrorManager errorManager = new ErrorManager();
+        public ArrayList<ErroresTipo> fails = new ArrayList();
 
         public void syntax_error(Symbol s)
         {
-                //System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado" );
-                errorManager.addError("Sintáctico", s.value, s.right, s.left)
+                System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado" );
+                fails.add(new ErroresTipo("Sintactico", "Error sintáctico: "+ s.value, s.right + "", s.left + "" ));
         }
 
         public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
         {
-                //ystem.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Sin recuperacion." );
-                errorManager.addError("Sintáctico", s.value, s.right, s.left)
+                System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Sin recuperacion." );
+                //errorManager.addError("Sintáctico", s.value, s.right, s.left);
+        }
+
+        public ArrayList<ErroresTipo> getFails(){
+                return fails;
         }
 
 :}

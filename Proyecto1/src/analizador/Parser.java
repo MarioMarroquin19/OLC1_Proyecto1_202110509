@@ -26,6 +26,8 @@ import java.util.Map;
 import java.util.Arrays;
 import java.util.LinkedList;
 import main.Interfaz;
+import Errores.ErroresTipo;
+import java.util.ArrayList;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -505,29 +507,37 @@ public class Parser extends java_cup.runtime.lr_parser {
 
 
 
-    public String resultado = ""; //Variable para mostrar en consola
+        public String resultado = ""; //Variable para mostrar en consola
 
-    ImpresionConsola impresionC = new ImpresionConsola();
-    Variables variables = new Variables();
-    OperacionesAritmeticas operacionesArit = new OperacionesAritmeticas();
+        ImpresionConsola impresionC = new ImpresionConsola();
+        Variables variables = new Variables();
+        OperacionesAritmeticas operacionesArit = new OperacionesAritmeticas();
 
-    GraficaInfo grafica_info = new GraficaInfo();
+        GraficaInfo grafica_info = new GraficaInfo();
 
-    private Interfaz interfaz;
-    
-    public void setInterfaz(Interfaz interfaz) {
-            this.interfaz = interfaz;
+        private Interfaz interfaz;
+
+        public void setInterfaz(Interfaz interfaz) {
+                this.interfaz = interfaz;
         }
 
-    public void syntax_error(Symbol s)
-    {
-            System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado" );
-    }
+        public ArrayList<ErroresTipo> fails = new ArrayList();
 
-    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
-    {
-            System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Sin recuperacion." );
-    }
+        public void syntax_error(Symbol s)
+        {
+                System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado" );
+                fails.add(new ErroresTipo("Sintactico", "Error sintáctico: "+ s.value, s.right + "", s.left + "" ));
+        }
+
+        public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+        {
+                System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Sin recuperacion." );
+                //errorManager.addError("Sintáctico", s.value, s.right, s.left);
+        }
+
+        public ArrayList<ErroresTipo> getFails(){
+                return fails;
+        }
 
 
 

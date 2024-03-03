@@ -17,7 +17,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import main.Analizar; 
-import Error.ErrorManager;
+import Errores.ErroresTipo;
+import analizador.Parser;
+import analizador.Lexer;
+import java.awt.Desktop;
+import java.util.ArrayList;
 import org.jfree.chart.ChartPanel;
 
 
@@ -32,6 +36,7 @@ public class Interfaz extends javax.swing.JFrame {
     
     private CardLayout cardLayout = new CardLayout();
     private JPanel panelDeGraficas = new JPanel(cardLayout);
+    //ErrorManager errores = new ErrorManager();
     private static int contadorVentanas = 0;
        
 
@@ -354,9 +359,104 @@ public class Interfaz extends javax.swing.JFrame {
         panelDeGraficas.removeAll();
         panelDeGraficas.revalidate();
         panelDeGraficas.repaint();
-        String contenido = entradaText.getText();
-        Analizar.analizar(contenido, this);        
+        analizador.Parser parser;
+        analizador.Lexer lexer;
+        //String contenido = entradaText.getText();
+        //Analizar.analizar(contenido, this);
+        ArrayList<ErroresTipo> fails = new ArrayList();
+        
+        
+        
+        try{
+           lexer = new Lexer(new BufferedReader(new StringReader(entradaText.getText())));
+           parser = new Parser(lexer);
+           parser.setInterfaz(Interfaz.this);
+           parser.parse();
+           
+           fails.addAll(lexer.fails);
+           fails.addAll(parser.getFails());
+           FailsGenerateHTML(fails);
+        }catch(Exception e){
+            consolaText.setText("Error fatal en la compilacion de entrada. \n"+e.getMessage());
+        }
+        
+        
+        
+        
+        
+        
     }//GEN-LAST:event_ejecutarBotonActionPerformed
+
+    public static void FailsGenerateHTML(ArrayList<ErroresTipo> errores) {
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+
+        try {
+            String path = "Fails.html";
+            fichero = new FileWriter(path);
+            pw = new PrintWriter(fichero);
+
+            pw.println("<!DOCTYPE html>");
+            pw.println("<html lang=\"es\">");
+            pw.println("<head>");
+            pw.println("<meta charset=\"UTF-8\">");
+            pw.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+            pw.println("<title>Errores</title>");
+            pw.println("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\">");
+            pw.println("<style>");
+            pw.println("body { background-color: #343a40; color: white; }");
+            pw.println("h1 { text-align: center; color: white; }");
+            pw.println("table { background-color: #343a40; }");
+            pw.println("th, td { border: 1px solid #dee2e6; }");
+            pw.println("th { background-color: #6c757d; }");
+            pw.println("tr:nth-child(even) { background-color: #495057; }");
+            pw.println("</style>");
+            pw.println("</head>");
+            pw.println("<body>");
+            pw.println("<div class=\"container mt-5\">");
+            pw.println("<h1>Reporte de Errores</h1>");
+            pw.println("<table class=\"table table-dark table-striped mt-3\">");
+            pw.println("<thead>");
+            pw.println("<tr>");
+            pw.println("<th>#</th>");
+            pw.println("<th>Tipo</th>");
+            pw.println("<th>Descripción</th>");
+            pw.println("<th>Fila</th>");
+            pw.println("<th>Columna</th>");
+            pw.println("</tr>");
+            pw.println("</thead>");
+            pw.println("<tbody>");
+
+            int numError = 1;
+            for (ErroresTipo err : errores) {
+                pw.println("<tr>");
+                pw.println("<td>" + numError++ + "</td>");
+                pw.println("<td>" + err.tipo + "</td>");
+                pw.println("<td>" + err.des + "</td>");
+                pw.println("<td>" + err.fila + "</td>");
+                pw.println("<td>" + err.columna + "</td>");
+                pw.println("</tr>");
+            }
+
+            pw.println("</tbody>");
+            pw.println("</table>");
+            pw.println("</div>");
+            pw.println("</body>");
+            pw.println("</html>");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fichero != null) {
+                    fichero.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    
 
     private void TablaTokensBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TablaTokensBotonActionPerformed
         // TODO add your handling code here:
@@ -364,6 +464,23 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void TablaErroresBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TablaErroresBotonActionPerformed
 
+        try {
+               // Especifica la ruta completa al archivo HTML de la tabla de errores
+               String path = "Fails.html";
+
+               // Verifica si el archivo existe antes de intentar abrirlo
+               File file = new File(path);
+               if (file.exists()) {
+                   Desktop desktop = Desktop.getDesktop();
+                   desktop.open(file);
+               } else {
+                   JOptionPane.showMessageDialog(this, "El archivo no existe.", "ERROR", JOptionPane.ERROR_MESSAGE);
+               }
+           } catch (IOException ex) {
+               ex.printStackTrace();
+               JOptionPane.showMessageDialog(this, "Error al abrir el archivo .", "ERROR", JOptionPane.ERROR_MESSAGE);
+           }
+        
     }//GEN-LAST:event_TablaErroresBotonActionPerformed
 
     private void nuevaPestaniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevaPestaniaActionPerformed

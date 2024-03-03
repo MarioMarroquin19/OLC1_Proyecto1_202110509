@@ -2,9 +2,9 @@
 package analizador; 
 
 import java_cup.runtime.*;
-import Error.ErrorManager;
+import Errores.ErroresTipo;
+import java.util.ArrayList; 
 
-ErrorManager errorManager = new ErrorManager();
 
 %%	
 //-------> Directivas (No tocar)
@@ -18,6 +18,11 @@ ErrorManager errorManager = new ErrorManager();
 %unicode
 %ignorecase
 
+%{
+
+    public ArrayList<ErroresTipo> fails = new ArrayList();
+
+%}
 
 %init{ 
     yyline = 1;
@@ -110,5 +115,5 @@ Id_arreglo = "@"{Id}
 [ \t\r\n\f]     {/* Espacios en blanco se ignoran */}
 
 //------> Errores Léxicos 
-.           	{ //System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn);
-                   errorManager.addError("Léxico", "El carácter '" + yytext() + "' no pertenece al lenguaje", yyline, yycolumn); }
+.           	{ System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn);
+                  fails.add(new ErroresTipo("Léxico", "El carácter '" + yytext() + "' no pertenece al lenguaje", yyline+"", yycolumn+"")); }

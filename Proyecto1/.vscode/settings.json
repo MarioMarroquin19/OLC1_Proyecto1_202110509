@@ -1,0 +1,10 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\marit\\Downloads\\jfreechart-1.0.19 (1)\\jfreechart-1.0.19\\lib\\jfreechart-1.0.19.jar",
+        "c:\\Users\\marit\\Downloads\\jfreechart-1.0.19 (1)\\jfreechart-1.0.19\\lib\\jcommon-1.0.23.jar",
+        "c:\\Users\\marit\\Downloads\\java-cup-11b.jar",
+        "c:\\Users\\marit\\Downloads\\java-cup-11b-runtime.jar",
+        "c:\\Users\\marit\\Downloads\\jflex-1.9.1.jar"
+    ]
+}
