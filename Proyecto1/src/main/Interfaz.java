@@ -392,7 +392,7 @@ public class Interfaz extends javax.swing.JFrame {
         PrintWriter pw = null;
 
         try {
-            String path = "Fails.html";
+            String path = "src/Reportes/Fails.html";
             fichero = new FileWriter(path);
             pw = new PrintWriter(fichero);
 
@@ -465,10 +465,9 @@ public class Interfaz extends javax.swing.JFrame {
     private void TablaErroresBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TablaErroresBotonActionPerformed
 
         try {
-               // Especifica la ruta completa al archivo HTML de la tabla de errores
-               String path = "Fails.html";
+               String path =  "src/Reportes/Fails.html";
 
-               // Verifica si el archivo existe antes de intentar abrirlo
+               
                File file = new File(path);
                if (file.exists()) {
                    Desktop desktop = Desktop.getDesktop();
