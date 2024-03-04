@@ -61,9 +61,9 @@
     5.3 Tabla de Símbolos 
 
     <p align = "center">
-        <img src="Proyecto1/Imgs/report1.png" width="500px">
-        <img src="Proyecto1/Imgs/report2.png" width="500px">
-        <img src="Proyecto1/Imgs/report3.png" width="500px">
+        <img src="Proyecto1/Imgs/report1.jpg" width="500px">
+        <img src="Proyecto1/Imgs/report2.jpg" width="500px">
+        <img src="Proyecto1/Imgs/report3.jpg" width="500px">
     </p>
 
 <br>
