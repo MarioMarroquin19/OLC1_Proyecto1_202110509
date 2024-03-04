@@ -3,12 +3,12 @@
 
 ## **Manual de Usuario**
 
-**Interfaz Gráfica**
+- **Interfaz Gráfica**
     Al iniciar la aplicación el usuario contará con una interfaz gráfica. Se pueden observar
     distintos apartados y botones.
 
     <p align = "center">
-        <img src="Imgs/interfaz.png" width="575px">
+        <img src="Proyecto1/Imgs/interfaz.png" width="500px">
     </p>
 
 <br>
@@ -19,8 +19,8 @@
     "entrada"
 
     <p align = "center">
-        <img src="Imgs/abrir.png" width="300px">
-        <img src="Imgs/entrada.png" width="500px">
+        <img src="Proyecto1/Imgs/abrir.png" width="300px">
+        <img src="Proyecto1/Imgs/entrada.png" width="500px">
     </p>
 
 <br>
@@ -28,7 +28,7 @@
 2. **Guardar | Guardar Como**
     El usuario tiene la posibilidad de modificar su archivo dentro de la aplicación y guardar los cambios.
     <p align = "center">
-        <img src="Imgs/guardar.png" width="500px">
+        <img src="Proyecto1/Imgs/guardar.png" width="500px">
     </p>
 
 <br>
@@ -37,8 +37,8 @@
     El usuario dispone de un apartado donde puede crear varias ventanas para analizar varios archivos en simultáneo.
 
     <p align = "center">
-        <img src="Imgs/ventana.png" width="500px">
-        <img src="Imgs/ventana2.png" width="500px">
+        <img src="Proyecto1/Imgs/ventana.png" width="500px">
+        <img src="Proyecto1/Imgs/ventana2.png" width="500px">
     </p>
 
 <br>
@@ -49,7 +49,7 @@
     consola se podrá visualizar el análisis así como las gráficas generadas.
 
     <p align = "center">
-        <img src="Imgs/ejecutar.png" width="500px">
+        <img src="Proyecto1/Imgs/ejecutar.png" width="500px">
     </p>
 
 <br>
@@ -61,9 +61,9 @@
     5.3 Tabla de Símbolos 
 
     <p align = "center">
-        <img src="Imgs/report1.png" width="500px">
-        <img src="Imgs/report2.png" width="500px">
-        <img src="Imgs/report3.png" width="500px">
+        <img src="Proyecto1/Imgs/report1.png" width="500px">
+        <img src="Proyecto1/Imgs/report2.png" width="500px">
+        <img src="Proyecto1/Imgs/report3.png" width="500px">
     </p>
 
 <br>
@@ -74,8 +74,8 @@
     y navegar entre las gráficas generadas.
 
     <p align = "center">
-        <img src="Imgs/grafica1.png" width="500px">
-        <img src="Imgs/grafica2.png" width="500px">
+        <img src="Proyecto1/Imgs/grafica1.png" width="500px">
+        <img src="Proyecto1/Imgs/grafica2.png" width="500px">
     </p>
 
 <br>
