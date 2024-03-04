@@ -1,0 +1,134 @@
+<inicio> ::= PROGRAM <instruccion> END PROGRAM
+
+<instruccion> ::= <expresiones> | <instruccion> <expresiones>
+
+<expresiones> ::= <DeclararVariables>
+                | <DeclararArreglos>
+                | <imprimirTipos>
+                | <Impresion_graficas>
+                | error PUNTO_COMA
+
+<DeclararVariables> ::= VAR DOS_PUNTOS <tipo> DOS_PUNTOS DOS_PUNTOS ID MENOR_Q GUION <expresionTipoVariables> END PUNTO_COMA
+
+<tipo> ::= CHAR1 A_CORCHETE C_CORCHETE
+         | DOUBLE1
+
+<expresionTipoVariables> ::= <operacionAritmetica>
+
+<operacionAritmetica> ::= SUM A_PARENTESIS <operacionAritmetica> COMA <operacionAritmetica> C_PARENTESIS 
+                        | RES A_PARENTESIS <operacionAritmetica> COMA <operacionAritmetica> C_PARENTESIS 
+                        | MUL A_PARENTESIS <operacionAritmetica> COMA <operacionAritmetica> C_PARENTESIS 
+                        | DIV A_PARENTESIS <operacionAritmetica> COMA <operacionAritmetica> C_PARENTESIS 
+                        | MOD A_PARENTESIS <operacionAritmetica> COMA <operacionAritmetica> C_PARENTESIS
+                        | ENTERO
+                        | DECIMAL
+                        | ID
+                        | CADENA
+                        | MEDIA A_PARENTESIS A_CORCHETE <operacionesEstad> C_CORCHETE C_PARENTESIS
+                        | MEDIANA A_PARENTESIS A_CORCHETE <operacionesEstad> C_CORCHETE C_PARENTESIS
+                        | MODA A_PARENTESIS A_CORCHETE <operacionesEstad> C_CORCHETE C_PARENTESIS
+                        | VARIANZA A_PARENTESIS A_CORCHETE <operacionesEstad> C_CORCHETE C_PARENTESIS
+                        | MAX A_PARENTESIS A_CORCHETE <operacionesEstad> C_CORCHETE C_PARENTESIS 
+                        | MIN A_PARENTESIS A_CORCHETE <operacionesEstad> C_CORCHETE C_PARENTESIS
+                        | MEDIA A_PARENTESIS ID_ARREGLO C_PARENTESIS 
+                        | MEDIANA A_PARENTESIS ID_ARREGLO C_PARENTESIS 
+                        | MODA A_PARENTESIS ID_ARREGLO C_PARENTESIS 
+                        | VARIANZA A_PARENTESIS ID_ARREGLO C_PARENTESIS 
+                        | MAX A_PARENTESIS ID_ARREGLO C_PARENTESIS 
+                        | MIN A_PARENTESIS ID_ARREGLO C_PARENTESIS 
+
+<operacionesEstad> ::= <operacionAritmetica> COMA <operacionesEstad> 
+                     | <operacionAritmetica>
+
+<DeclararArreglos> ::= ARR DOS_PUNTOS <tipo> DOS_PUNTOS DOS_PUNTOS ID_ARREGLO MENOR_Q GUION A_CORCHETE <OperacionesArreglos> C_CORCHETE END PUNTO_COMA
+
+<OperacionesArreglos> ::= <operacionAritmetica> COMA <OperacionesArreglos> 
+                        | <operacionAritmetica>
+
+<imprimirTipos> ::= CONSOLE DOS_PUNTOS DOS_PUNTOS <tiposImpresion> END PUNTO_COMA
+
+<tiposImpresion> ::= PRINT S_IGUAL <elementoImpresion>
+                   | COLUMNA S_IGUAL <titulo_arreglo> GUION MAYOR_Q <arreglo_contenido>
+
+<elementoImpresion> ::= ID_ARREGLO:val
+                      | <operacionAritmetica>
+                      | <operacionAritmetica> COMA <elementoImpresion>
+
+<titulo_arreglo> ::= CADENA:val 
+                   | ID: val 
+
+<arreglo_contenido> ::= A_CORCHETE <OperacionImpresionArreglos> C_CORCHETE 
+                      | ID_ARREGLO:val
+
+<OperacionImpresionArreglos> ::= <operacionAritmetica> COMA <OperacionImpresionArreglos>
+                               | <operacionAritmetica>
+
+<Impresion_graficas> ::= GraphBar A_PARENTESIS <barras> C_PARENTESIS END PUNTO_COMA
+                       | GraphPie A_PARENTESIS <pie> C_PARENTESIS END PUNTO_COMA
+                       | GraphLine A_PARENTESIS <linea> C_PARENTESIS END PUNTO_COMA
+                       | HISTOGRAM A_PARENTESIS <histograma> C_PARENTESIS END PUNTO_COMA
+
+<barras> ::= <graficaBarras>  
+           | <graficaBarras> <barras>
+
+<pie> ::= <graficaPie>
+        | <graficaPie> <pie>
+
+<linea> ::= <graficaLinea>
+          | <graficaLinea> <linea>
+
+<histograma> ::= <graficaHistograma>
+               | <graficaHistograma> <histograma>
+
+<graficaBarras> ::= tituloGrafica:titulo        
+                  | ejeXGrafica:eX                 
+                  | ejeYGrafica:eY                 
+                  | tituloXGrafica:tituloX         
+                  | tituloYGrafica:tituloY         
+                  | execGraficas
+
+<graficaPie> ::= labelGrafica:label 
+               | valuesGrafica:values 
+               | tituloGrafica:titulo
+               | execGraficas
+
+<graficaLinea> ::= tituloGrafica:titulo
+                 | ejeXGrafica:eX  
+                 | ejeYGrafica:eY 
+                 | tituloXGrafica:TX 
+                 | tituloYGrafica:TY 
+                 | execGraficas
+
+<graficaHistograma> ::= tituloGrafica:titulo
+                      | valuesGrafica:values 
+                      | execGraficas
+
+<tituloGrafica> ::= TITULO DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL <variablesGraficas> END PUNTO_COMA
+
+<ejeXGrafica> ::= E_X DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL <operacionesGraficas1>  END PUNTO_COMA
+
+<ejeYGrafica> ::= E_Y DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL <operacionesGraficas1> END PUNTO_COMA
+
+<tituloXGrafica> ::= T_X DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL <variablesGraficas> END PUNTO_COMA
+
+<tituloYGrafica> ::= T_Y DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL <variablesGraficas> END PUNTO_COMA
+
+<labelGrafica> ::= LABEL DOS_PUNTOS DOS_PUNTOS CHAR1 A_CORCHETE C_CORCHETE S_IGUAL <operacionesGraficas1>  END PUNTO_COMA
+
+<valuesGrafica> ::= VALUES DOS_PUNTOS DOS_PUNTOS DOUBLE1 S_IGUAL <operacionesGraficas1>  END PUNTO_COMA
+
+<execGraficas> ::= EXEC <tiposGraficas> END PUNTO_COMA
+
+<tiposGraficas> ::= GraphBar
+                  | GraphPie 
+                  | GraphLine 
+                  | HISTOGRAM
+
+<variablesGraficas> ::= CADENA
+                      | ID
+
+<operacionesGraficas> ::= <operacionAritmetica> COMA <operacionesGraficas> 
+                        | <operacionAritmetica>
+
+<operacionesGraficas1> ::= A_CORCHETE <operacionesGraficas> C_CORCHETE
+                         | ID_ARREGLO
