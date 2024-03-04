@@ -27,6 +27,7 @@
 <br>
 
 2. **Guardar | Guardar Como**
+
     El usuario tiene la posibilidad de modificar su archivo dentro de la aplicación y guardar los cambios.
     <p align = "center">
         <img src="Proyecto1/Imgs/guardar.png" width="500px">
@@ -35,6 +36,7 @@
 <br>
 
 3. **Ventanas**
+
     El usuario dispone de un apartado donde puede crear varias ventanas para analizar varios archivos en simultáneo.
 
     <p align = "center">
