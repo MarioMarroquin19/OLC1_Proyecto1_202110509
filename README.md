@@ -1,9 +1,9 @@
-#  **OLC1_Proyecto1_202110509**
-## **DataForge**
-
+#  <p align="center">**OLC1_Proyecto1_202110509**</p>
+## <p align="center">**DataForge**</p>
 ## **Manual de Usuario**
 
 - **Interfaz Gráfica**
+
     Al iniciar la aplicación el usuario contará con una interfaz gráfica. Se pueden observar
     distintos apartados y botones.
 
@@ -14,6 +14,7 @@
 <br>
 
 1. **Abrir Archivo**
+
     Se debe dar clic sobre la el botón ubicado en la barra de herramientas y se deberá elegir el 
     archivo correspondiente, una vez abierto se mostrará el contenido del archivo dentro del apartado
     "entrada"
@@ -45,6 +46,7 @@
 
 
 4. **Ejecutar**
+
     Una vez se tiene un archivo cargado, se debe dar clic en el apartado de Ejecutar para empezar el análisis. En la 
     consola se podrá visualizar el análisis así como las gráficas generadas.
 
@@ -55,6 +57,7 @@
 <br>
 
 5. **Reportes**
+
     Una vez realizado el análisis dentro de la aplicación, el usuario dispone de diferentes reportes.
     5.1 Tabla de Tokens.
     5.2 Tabla de errores.
@@ -69,6 +72,7 @@
 <br>
 
 6. **Graficas**
+
     La aplicación cuenta con un apartado para visualizar gráficas que son generadas durante el análisis, 
     así mismo se cuenta con dos botones ("Anterior" y "Siguiente") los cuales el usuario puede dar clic 
     y navegar entre las gráficas generadas.
