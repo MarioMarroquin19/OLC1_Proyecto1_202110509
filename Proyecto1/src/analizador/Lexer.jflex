@@ -28,7 +28,7 @@ import Errores.Tokens;
     public ArrayList<Tokens> obtenerTokens(){
         return tokens;
     }
-
+    
 %}
 
 %init{ 

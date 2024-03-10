@@ -169,7 +169,7 @@ expresiones ::= DeclararVariables
 //DECLARACION DE VARIABLES
 
 DeclararVariables ::= VAR DOS_PUNTOS tipo:tip DOS_PUNTOS DOS_PUNTOS ID:id MENOR_Q GUION expresionTipoVariables:expe END PUNTO_COMA {:
-variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, expe, 0, 0));:} 
+variables.addVariable(id.toLowerCase(),expe); simbol.add(new Simbolos(id, "variable "+tip, expe, 0, 0));:} 
 ;
 
 tipo::=  CHAR1:a A_CORCHETE C_CORCHETE {:RESULT = a;:}
@@ -188,7 +188,7 @@ operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAri
                       | MOD A_PARENTESIS operacionAritmetica:a COMA operacionAritmetica:b C_PARENTESIS {: RESULT = operacionesArit.MOD(a.toString(),b.toString());:}
                       | ENTERO:val {: RESULT = val;:}
                       | DECIMAL:val {: RESULT = val;:}
-                      | ID: val {:RESULT = variables.getVariable(val);:}
+                      | ID: val {:RESULT = variables.getVariable(val.toLowerCase());:}
                       | CADENA:val {: RESULT = val.substring(1, val.length() - 1); :}
                       
 
@@ -212,7 +212,7 @@ operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAri
 
                         |MEDIA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS {:
 
-                                Object obj = variables.getVariable(val);
+                                Object obj = variables.getVariable(val.toLowerCase());
                                 if (obj instanceof LinkedList) {
                                 LinkedList<Object> lista = (LinkedList<Object>) obj;
                                 RESULT = operacionesArit.Media(lista);
@@ -223,7 +223,7 @@ operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAri
 
                         |MEDIANA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS {:
 
-                                Object obj = variables.getVariable(val);
+                                Object obj = variables.getVariable(val.toLowerCase());
                                 if (obj instanceof LinkedList) {
                                 LinkedList<Object> lista = (LinkedList<Object>) obj;
                                 RESULT = operacionesArit.Mediana(lista);
@@ -234,7 +234,7 @@ operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAri
 
                         |MODA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS {:
 
-                                Object obj = variables.getVariable(val);
+                                Object obj = variables.getVariable(val.toLowerCase());
                                 if (obj instanceof LinkedList) {
                                 LinkedList<Object> lista = (LinkedList<Object>) obj;
                                 RESULT = operacionesArit.Moda(lista);
@@ -245,7 +245,7 @@ operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAri
 
                         |VARIANZA A_PARENTESIS ID_ARREGLO:val C_PARENTESIS {:
 
-                                Object obj = variables.getVariable(val);
+                                Object obj = variables.getVariable(val.toLowerCase());
                                 if (obj instanceof LinkedList) {
                                 LinkedList<Object> lista = (LinkedList<Object>) obj;
                                 RESULT = operacionesArit.Varianza(lista);
@@ -256,7 +256,7 @@ operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAri
 
                         |MAX A_PARENTESIS ID_ARREGLO:val C_PARENTESIS {:
 
-                                Object obj = variables.getVariable(val);
+                                Object obj = variables.getVariable(val.toLowerCase());
                                 if (obj instanceof LinkedList) {
                                 LinkedList<Object> lista = (LinkedList<Object>) obj;
                                 RESULT = operacionesArit.Maximo(lista);
@@ -267,7 +267,7 @@ operacionAritmetica ::= SUM A_PARENTESIS operacionAritmetica:a COMA operacionAri
 
                         |MIN A_PARENTESIS ID_ARREGLO:val C_PARENTESIS {:
 
-                                Object obj = variables.getVariable(val);
+                                Object obj = variables.getVariable(val.toLowerCase());
                                 if (obj instanceof LinkedList) {
                                 LinkedList<Object> lista = (LinkedList<Object>) obj;
                                 RESULT = operacionesArit.Minimo(lista);
@@ -287,7 +287,7 @@ operacionesEstad ::= operacionAritmetica:b COMA operacionesEstad {:RESULT = oper
 //DECLARACION DE ARREGLOS
 
 DeclararArreglos ::= ARR DOS_PUNTOS tipo:tip DOS_PUNTOS DOS_PUNTOS ID_ARREGLO:id MENOR_Q GUION A_CORCHETE OperacionesArreglos:exp C_CORCHETE END PUNTO_COMA {:
-                        variables.addVariable(id,new LinkedList<Object>(operacionesArit.ListaArreglos)); 
+                        variables.addVariable(id.toLowerCase(),new LinkedList<Object>(operacionesArit.ListaArreglos)); 
                         Collections.reverse(operacionesArit.ListaArreglos);
                         simbol.add(new Simbolos(id, "arreglo "+tip, new LinkedList<Object>(operacionesArit.ListaArreglos), 0, 0));
                         operacionesArit.ListaArreglos.clear();:} 
@@ -306,6 +306,7 @@ imprimirTipos ::= CONSOLE DOS_PUNTOS DOS_PUNTOS tiposImpresion END PUNTO_COMA
 ;
 
 tiposImpresion ::=  PRINT S_IGUAL elementoImpresion {: 
+                    try{
                         Collections.reverse(impresionC.lista_salida);
                         for (int i = 0; i < impresionC.lista_salida.size(); i++) { 
                                 interfaz.appendConsolaText(impresionC.lista_salida.get(i).toString(), false); 
@@ -314,41 +315,75 @@ tiposImpresion ::=  PRINT S_IGUAL elementoImpresion {:
                                         } 
                                 }
                                 interfaz.appendConsolaText("", true);       
-                                impresionC.lista_salida.clear(); :}
+                                impresionC.lista_salida.clear();
+                    }catch(Exception e){
+                            System.out.println("Error con la variable: "+e.getMessage());
+                        }
+                :}
 
                 |COLUMNA S_IGUAL titulo_arreglo:titulo GUION MAYOR_Q arreglo_contenido{:
-                        interfaz.appendConsolaText("------------------------",true);
-                        interfaz.appendConsolaText(titulo.toString(), true);
-                        interfaz.appendConsolaText("------------------------", true);
-                        Collections.reverse(impresionC.lista_columnas);
-                        for (int i = 0; i < impresionC.lista_columnas.size(); i++){
+                    try{
+                        if(titulo != null){
+                            interfaz.appendConsolaText("------------------------",true);
+                            interfaz.appendConsolaText(titulo.toString(), true);
+                            interfaz.appendConsolaText("------------------------", true);
+                            Collections.reverse(impresionC.lista_columnas);
+                            for (int i = 0; i < impresionC.lista_columnas.size(); i++){
                                 interfaz.appendConsolaText(impresionC.lista_columnas.get(i).toString(), true);
                                 if(i<impresionC.lista_columnas.size()-1){
                                     //System.out.println();    
+                                    }
                                 }
                         }
                         interfaz.appendConsolaText(" ", true); 
-                        impresionC.lista_columnas.clear();:}
+                        impresionC.lista_columnas.clear();
+                        }catch(Exception e){
+                            System.out.println("Error con el arreglo: "+e.getMessage());
+                        }
+                        :}
 ;
 
 
 
-elementoImpresion ::= ID_ARREGLO:val {:impresionC.lista_salida.add(variables.getVariable(val));:}
-                    |operacionAritmetica:a {:impresionC.lista_salida.add(a.toString());:}
-                    |operacionAritmetica:a COMA elementoImpresion {:impresionC.lista_salida.add(a.toString());:}
+elementoImpresion ::= ID_ARREGLO:val {:
+                    try{
+                        Object variable = variables.getVariable(val.toLowerCase());
+                        if(variable != null){
+                            impresionC.lista_salida.add(variable);
+                        }else{
+                            System.err.println("Error: La variable '" + val + "' no está definida o es nula.");
+                        }
+                    }catch(Exception e){
+                        System.err.println("Error al procesar la variable: " + e.getMessage());
+                    }
+                    :}
+                    |operacionAritmetica:a {:if(a!=null){impresionC.lista_salida.add(a.toString());}else{System.err.println("Error: La operación aritmética es nula.");}:}
+                    |operacionAritmetica:a COMA elementoImpresion {:
+                    if(a != null){impresionC.lista_salida.add(a.toString());}else{System.err.println("Error: La operación aritmética es nula.");}:}
 ;
 
 
 titulo_arreglo::= CADENA:val {: RESULT = val.substring(1, val.length() - 1); :}
-                | ID: val {:RESULT = variables.getVariable(val);:}
+                | ID: val {:RESULT = variables.getVariable(val.toLowerCase());:}
 
 ;
 
 arreglo_contenido::= A_CORCHETE OperacionImpresionArreglos C_CORCHETE 
-                | ID_ARREGLO:val {:LinkedList<Object> temp = (LinkedList<Object>) variables.getVariable(val);
-                                for (Object obj : temp) {
+                | ID_ARREGLO:val {:
+                    try{
+                    LinkedList<Object> temp = (LinkedList<Object>) variables.getVariable(val.toLowerCase());
+                    if(temp != null){
+                        for (Object obj : temp) {
                                 impresionC.lista_columnas.add(obj);
-                                }:}
+                                }
+                       }else{
+                              System.err.println("Error: La variable '" + val + "' no está definida o no es un arreglo.");  
+                            }
+                    }catch(Exception e){
+                        System.out.println("Error con el arreglo: "+e.getMessage());
+                    }
+                    
+                :}
 ;
 
 OperacionImpresionArreglos ::=  operacionAritmetica:c COMA OperacionImpresionArreglos {:RESULT=impresionC.lista_columnas.add(c.toString());:}
@@ -535,7 +570,7 @@ tiposGraficas ::= GraphBar
 ;
 
 variablesGraficas ::= CADENA:val {: RESULT = val.substring(1, val.length() - 1); :}
-                     | ID: val {:RESULT = variables.getVariable(val);:}
+                     | ID: val {:RESULT = variables.getVariable(val.toLowerCase());:}
 ;
 
 operacionesGraficas ::=  operacionAritmetica:c COMA operacionesGraficas {:RESULT=impresionC.lista_graficas.add(c.toString());:}
@@ -543,9 +578,19 @@ operacionesGraficas ::=  operacionAritmetica:c COMA operacionesGraficas {:RESULT
 ;
 
 operacionesGraficas1 ::= A_CORCHETE operacionesGraficas C_CORCHETE
-                        | ID_ARREGLO:val {:LinkedList<Object> temp = (LinkedList<Object>) variables.getVariable(val);
-                                for (Object obj : temp) {
-                                impresionC.lista_graficas.add(obj);
-                                }:}
-
+            | ID_ARREGLO:val 
+            {: 
+                try {
+                    LinkedList<Object> temp = (LinkedList<Object>) variables.getVariable(val.toLowerCase());
+                    if (temp != null) {
+                        for (Object obj : temp) {
+                            impresionC.lista_graficas.add(obj);
+                        }
+                    } else {
+                        System.err.println("Error: La variable '" + val + "' no está definida o no es un arreglo.");
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error al procesar el arreglo para gráficas: " + e.getMessage());
+                }
+            :}
 ;

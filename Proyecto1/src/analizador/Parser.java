@@ -675,7 +675,7 @@ class CUP$Parser$actions {
 		int experight = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		Object expe = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		
-variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, expe, 0, 0));
+variables.addVariable(id.toLowerCase(),expe); simbol.add(new Simbolos(id, "variable "+tip, expe, 0, 0));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("DeclararVariables",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-10)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -822,7 +822,7 @@ variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, exp
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		RESULT = variables.getVariable(val);
+		RESULT = variables.getVariable(val.toLowerCase());
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("operacionAritmetica",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -908,7 +908,7 @@ variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, exp
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		
 
-                                Object obj = variables.getVariable(val);
+                                Object obj = variables.getVariable(val.toLowerCase());
                                 if (obj instanceof LinkedList) {
                                 LinkedList<Object> lista = (LinkedList<Object>) obj;
                                 RESULT = operacionesArit.Media(lista);
@@ -929,7 +929,7 @@ variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, exp
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		
 
-                                Object obj = variables.getVariable(val);
+                                Object obj = variables.getVariable(val.toLowerCase());
                                 if (obj instanceof LinkedList) {
                                 LinkedList<Object> lista = (LinkedList<Object>) obj;
                                 RESULT = operacionesArit.Mediana(lista);
@@ -950,7 +950,7 @@ variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, exp
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		
 
-                                Object obj = variables.getVariable(val);
+                                Object obj = variables.getVariable(val.toLowerCase());
                                 if (obj instanceof LinkedList) {
                                 LinkedList<Object> lista = (LinkedList<Object>) obj;
                                 RESULT = operacionesArit.Moda(lista);
@@ -971,7 +971,7 @@ variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, exp
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		
 
-                                Object obj = variables.getVariable(val);
+                                Object obj = variables.getVariable(val.toLowerCase());
                                 if (obj instanceof LinkedList) {
                                 LinkedList<Object> lista = (LinkedList<Object>) obj;
                                 RESULT = operacionesArit.Varianza(lista);
@@ -992,7 +992,7 @@ variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, exp
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		
 
-                                Object obj = variables.getVariable(val);
+                                Object obj = variables.getVariable(val.toLowerCase());
                                 if (obj instanceof LinkedList) {
                                 LinkedList<Object> lista = (LinkedList<Object>) obj;
                                 RESULT = operacionesArit.Maximo(lista);
@@ -1013,7 +1013,7 @@ variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, exp
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		
 
-                                Object obj = variables.getVariable(val);
+                                Object obj = variables.getVariable(val.toLowerCase());
                                 if (obj instanceof LinkedList) {
                                 LinkedList<Object> lista = (LinkedList<Object>) obj;
                                 RESULT = operacionesArit.Minimo(lista);
@@ -1063,7 +1063,7 @@ variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, exp
 		int expright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		Object exp = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		
-                        variables.addVariable(id,new LinkedList<Object>(operacionesArit.ListaArreglos)); 
+                        variables.addVariable(id.toLowerCase(),new LinkedList<Object>(operacionesArit.ListaArreglos)); 
                         Collections.reverse(operacionesArit.ListaArreglos);
                         simbol.add(new Simbolos(id, "arreglo "+tip, new LinkedList<Object>(operacionesArit.ListaArreglos), 0, 0));
                         operacionesArit.ListaArreglos.clear();
@@ -1109,6 +1109,7 @@ variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, exp
             {
               Object RESULT =null;
 		 
+                    try{
                         Collections.reverse(impresionC.lista_salida);
                         for (int i = 0; i < impresionC.lista_salida.size(); i++) { 
                                 interfaz.appendConsolaText(impresionC.lista_salida.get(i).toString(), false); 
@@ -1117,7 +1118,11 @@ variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, exp
                                         } 
                                 }
                                 interfaz.appendConsolaText("", true);       
-                                impresionC.lista_salida.clear(); 
+                                impresionC.lista_salida.clear();
+                    }catch(Exception e){
+                            System.out.println("Error con la variable: "+e.getMessage());
+                        }
+                
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("tiposImpresion",14, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1130,18 +1135,25 @@ variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, exp
 		int tituloright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		Object titulo = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		
-                        interfaz.appendConsolaText("------------------------",true);
-                        interfaz.appendConsolaText(titulo.toString(), true);
-                        interfaz.appendConsolaText("------------------------", true);
-                        Collections.reverse(impresionC.lista_columnas);
-                        for (int i = 0; i < impresionC.lista_columnas.size(); i++){
+                    try{
+                        if(titulo != null){
+                            interfaz.appendConsolaText("------------------------",true);
+                            interfaz.appendConsolaText(titulo.toString(), true);
+                            interfaz.appendConsolaText("------------------------", true);
+                            Collections.reverse(impresionC.lista_columnas);
+                            for (int i = 0; i < impresionC.lista_columnas.size(); i++){
                                 interfaz.appendConsolaText(impresionC.lista_columnas.get(i).toString(), true);
                                 if(i<impresionC.lista_columnas.size()-1){
                                     //System.out.println();    
+                                    }
                                 }
                         }
                         interfaz.appendConsolaText(" ", true); 
                         impresionC.lista_columnas.clear();
+                        }catch(Exception e){
+                            System.out.println("Error con el arreglo: "+e.getMessage());
+                        }
+                        
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("tiposImpresion",14, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1153,7 +1165,18 @@ variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, exp
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		impresionC.lista_salida.add(variables.getVariable(val));
+		
+                    try{
+                        Object variable = variables.getVariable(val.toLowerCase());
+                        if(variable != null){
+                            impresionC.lista_salida.add(variable);
+                        }else{
+                            System.err.println("Error: La variable '" + val + "' no está definida o es nula.");
+                        }
+                    }catch(Exception e){
+                        System.err.println("Error al procesar la variable: " + e.getMessage());
+                    }
+                    
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("elementoImpresion",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1165,7 +1188,7 @@ variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, exp
 		int aleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		impresionC.lista_salida.add(a.toString());
+		if(a!=null){impresionC.lista_salida.add(a.toString());}else{System.err.println("Error: La operación aritmética es nula.");}
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("elementoImpresion",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1177,7 +1200,8 @@ variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, exp
 		int aleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		Object a = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-		impresionC.lista_salida.add(a.toString());
+		
+                    if(a != null){impresionC.lista_salida.add(a.toString());}else{System.err.println("Error: La operación aritmética es nula.");}
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("elementoImpresion",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1201,7 +1225,7 @@ variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, exp
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		RESULT = variables.getVariable(val);
+		RESULT = variables.getVariable(val.toLowerCase());
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("titulo_arreglo",16, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1222,10 +1246,21 @@ variables.addVariable(id,expe); simbol.add(new Simbolos(id, "variable "+tip, exp
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		LinkedList<Object> temp = (LinkedList<Object>) variables.getVariable(val);
-                                for (Object obj : temp) {
+		
+                    try{
+                    LinkedList<Object> temp = (LinkedList<Object>) variables.getVariable(val.toLowerCase());
+                    if(temp != null){
+                        for (Object obj : temp) {
                                 impresionC.lista_columnas.add(obj);
                                 }
+                       }else{
+                              System.err.println("Error: La variable '" + val + "' no está definida o no es un arreglo.");  
+                            }
+                    }catch(Exception e){
+                        System.out.println("Error con el arreglo: "+e.getMessage());
+                    }
+                    
+                
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("arreglo_contenido",17, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1839,7 +1874,7 @@ impresionC.lista_graficas.clear();
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		RESULT = variables.getVariable(val);
+		RESULT = variables.getVariable(val.toLowerCase());
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("variablesGraficas",33, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1884,10 +1919,20 @@ impresionC.lista_graficas.clear();
 		int valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		LinkedList<Object> temp = (LinkedList<Object>) variables.getVariable(val);
-                                for (Object obj : temp) {
-                                impresionC.lista_graficas.add(obj);
-                                }
+		 
+                try {
+                    LinkedList<Object> temp = (LinkedList<Object>) variables.getVariable(val.toLowerCase());
+                    if (temp != null) {
+                        for (Object obj : temp) {
+                            impresionC.lista_graficas.add(obj);
+                        }
+                    } else {
+                        System.err.println("Error: La variable '" + val + "' no está definida o no es un arreglo.");
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error al procesar el arreglo para gráficas: " + e.getMessage());
+                }
+            
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("operacionesGraficas1",39, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

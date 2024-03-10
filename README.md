@@ -1,6 +1,6 @@
 #  <p align="center">**OLC1_Proyecto1_202110509**</p>
 ## <p align="center">**DataForge**</p>
-## **Manual de Usuario**
+## 📌 **Manual de Usuario**
 
 - **Interfaz Gráfica**
 
@@ -61,8 +61,11 @@
 5. **Reportes**
 
     Una vez realizado el análisis dentro de la aplicación, el usuario dispone de diferentes reportes.
+
     5.1 Tabla de Tokens.
+
     5.2 Tabla de errores.
+
     5.3 Tabla de Símbolos 
 
     <p align = "center">
@@ -87,7 +90,7 @@
 <br>
 
 
-## **Manual Técnico**
+## 📌 **Manual Técnico**
 
 - **Herramientas y Entorno de Desarrollo**
 
